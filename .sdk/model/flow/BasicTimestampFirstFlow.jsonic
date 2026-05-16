@@ -1,0 +1,44 @@
+# BasicTimestampFirstFlow
+
+main: kit: flow: BasicTimestampFirstFlow:
+{
+  entity: "timestamp_first",
+  kind: "basic",
+  name: "BasicTimestampFirstFlow",
+  step: [
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "timestamp_first_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "timestamp_first_ref01",
+        srcdatavar: "timestamp_first_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        id: "timestamp_first01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-timestamp_first_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicTimestampFirstFlow"
+}

@@ -1,0 +1,23 @@
+{
+  "existing": {
+    "version_3": {
+      "VERSION_300": {
+        "name": "NAME01",
+        "namespace_id": "NAMESPACE01"
+      },
+      "VERSION_301": {
+        "name": "NAME01",
+        "namespace_id": "NAMESPACE01"
+      },
+      "VERSION_302": {
+        "name": "NAME01",
+        "namespace_id": "NAMESPACE01"
+      }
+    }
+  },
+  "new": {
+    "version_3": {
+      "version_3_ref01": {}
+    }
+  }
+}

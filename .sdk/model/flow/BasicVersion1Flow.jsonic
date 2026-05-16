@@ -1,0 +1,44 @@
+# BasicVersion1Flow
+
+main: kit: flow: BasicVersion1Flow:
+{
+  entity: "version_1",
+  kind: "basic",
+  name: "BasicVersion1Flow",
+  step: [
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "version_1_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "version_1_ref01",
+        srcdatavar: "version_1_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        id: "version_101"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-version_1_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicVersion1Flow"
+}

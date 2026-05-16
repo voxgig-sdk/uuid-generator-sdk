@@ -1,0 +1,26 @@
+{
+  "existing": {
+    "decode": {
+      "DECODE00": {
+        "decode": {},
+        "encode": {}
+      },
+      "DECODE01": {
+        "decode": {},
+        "encode": {}
+      },
+      "DECODE02": {
+        "decode": {},
+        "encode": {}
+      }
+    }
+  },
+  "new": {
+    "decode": {
+      "decode_ref01": {
+        "decode": {},
+        "encode": {}
+      }
+    }
+  }
+}

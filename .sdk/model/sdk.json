@@ -1,0 +1,955 @@
+{
+  "name": "uuid-generator",
+  "origin": "voxgig-sdk",
+  "def": "uuid-generator_0.1.0.json",
+  "main": {
+    "kit": {
+      "info": {
+        "contact": {
+          "url": "https://www.uuidtools.com/docs"
+        },
+        "description": "The UUID Generator API allows you to generate unique UUIDs and GUIDs easily via HTTP requests. It supports multiple versions, including version 1, 3, 4, and 5, and can produce them in bulk formats for efficient testing and development purposes. No authentication is required. All endpoints are limited to 60 requests per minute per IP address.",
+        "servers": [
+          {
+            "description": "Production API server",
+            "url": "https://www.uuidtools.com/api"
+          }
+        ],
+        "termsOfService": "https://www.uuidtools.com/terms-of-service",
+        "title": "UUID Generator API",
+        "version": "1.0.0"
+      },
+      "config": {
+        "auth": {
+          "prefix": "Bearer"
+        },
+        "headers": {
+          "content-type": "application/json"
+        }
+      },
+      "entity": {
+        "decode": {
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "name": "decode",
+              "req": false,
+              "type": "`$OBJECT`",
+              "active": true
+            },
+            {
+              "name": "encode",
+              "req": false,
+              "type": "`$OBJECT`",
+              "active": true
+            }
+          ],
+          "name": "decode",
+          "op": {
+            "load": {
+              "name": "load",
+              "points": [
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "example": "b01eb720-171a-11ea-b949-73c91bba743d",
+                        "kind": "param",
+                        "name": "id",
+                        "orig": "uuid",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/decode/{uuid}",
+                  "parts": [
+                    "decode",
+                    "{id}"
+                  ],
+                  "rename": {
+                    "param": {
+                      "uuid": "id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                }
+              ],
+              "input": "data"
+            }
+          },
+          "active": true,
+          "relations": {
+            "ancestors": []
+          }
+        },
+        "timestamp_first": {
+          "alias": {
+            "field": {}
+          },
+          "name": "timestamp_first",
+          "op": {
+            "list": {
+              "name": "list",
+              "points": [
+                {
+                  "method": "GET",
+                  "orig": "/generate/timestamp-first",
+                  "parts": [
+                    "generate",
+                    "timestamp-first"
+                  ],
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true,
+                  "args": {},
+                  "select": {}
+                }
+              ],
+              "input": "data"
+            },
+            "load": {
+              "name": "load",
+              "points": [
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "example": 10,
+                        "kind": "param",
+                        "name": "count",
+                        "orig": "count",
+                        "reqd": true,
+                        "type": "`$INTEGER`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/generate/timestamp-first/count/{count}",
+                  "parts": [
+                    "generate",
+                    "timestamp-first",
+                    "count",
+                    "{count}"
+                  ],
+                  "select": {
+                    "exist": [
+                      "count"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                }
+              ],
+              "input": "data"
+            }
+          },
+          "relations": {
+            "ancestors": [
+              [
+                "count"
+              ]
+            ]
+          },
+          "active": true,
+          "fields": []
+        },
+        "version_1": {
+          "alias": {
+            "field": {}
+          },
+          "name": "version_1",
+          "op": {
+            "list": {
+              "name": "list",
+              "points": [
+                {
+                  "method": "GET",
+                  "orig": "/generate/v1",
+                  "parts": [
+                    "generate",
+                    "v1"
+                  ],
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true,
+                  "args": {},
+                  "select": {}
+                }
+              ],
+              "input": "data"
+            },
+            "load": {
+              "name": "load",
+              "points": [
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "example": 10,
+                        "kind": "param",
+                        "name": "count",
+                        "orig": "count",
+                        "reqd": true,
+                        "type": "`$INTEGER`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/generate/v1/count/{count}",
+                  "parts": [
+                    "generate",
+                    "v1",
+                    "count",
+                    "{count}"
+                  ],
+                  "select": {
+                    "exist": [
+                      "count"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                }
+              ],
+              "input": "data"
+            }
+          },
+          "relations": {
+            "ancestors": [
+              [
+                "count"
+              ]
+            ]
+          },
+          "active": true,
+          "fields": []
+        },
+        "version_3": {
+          "alias": {
+            "field": {}
+          },
+          "name": "version_3",
+          "op": {
+            "load": {
+              "name": "load",
+              "points": [
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "example": "https://www.google.com/",
+                        "kind": "param",
+                        "name": "name",
+                        "orig": "name",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      },
+                      {
+                        "example": "ns:url",
+                        "kind": "param",
+                        "name": "namespace_id",
+                        "orig": "namespace",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/generate/v3/namespace/{namespace}/name/{name}",
+                  "parts": [
+                    "generate",
+                    "v3",
+                    "namespace",
+                    "{namespace_id}",
+                    "name",
+                    "{name}"
+                  ],
+                  "rename": {
+                    "param": {
+                      "namespace": "namespace_id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "name",
+                      "namespace_id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                }
+              ],
+              "input": "data"
+            }
+          },
+          "relations": {
+            "ancestors": [
+              [
+                "namespace",
+                "name"
+              ]
+            ]
+          },
+          "active": true,
+          "fields": []
+        },
+        "version_4": {
+          "alias": {
+            "field": {}
+          },
+          "name": "version_4",
+          "op": {
+            "list": {
+              "name": "list",
+              "points": [
+                {
+                  "method": "GET",
+                  "orig": "/generate/v4",
+                  "parts": [
+                    "generate",
+                    "v4"
+                  ],
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true,
+                  "args": {},
+                  "select": {}
+                }
+              ],
+              "input": "data"
+            },
+            "load": {
+              "name": "load",
+              "points": [
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "example": 10,
+                        "kind": "param",
+                        "name": "count",
+                        "orig": "count",
+                        "reqd": true,
+                        "type": "`$INTEGER`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/generate/v4/count/{count}",
+                  "parts": [
+                    "generate",
+                    "v4",
+                    "count",
+                    "{count}"
+                  ],
+                  "select": {
+                    "exist": [
+                      "count"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                }
+              ],
+              "input": "data"
+            }
+          },
+          "relations": {
+            "ancestors": [
+              [
+                "count"
+              ]
+            ]
+          },
+          "active": true,
+          "fields": []
+        },
+        "version_5": {
+          "alias": {
+            "field": {}
+          },
+          "name": "version_5",
+          "op": {
+            "load": {
+              "name": "load",
+              "points": [
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "example": "https://www.uuidtools.com/generate",
+                        "kind": "param",
+                        "name": "name",
+                        "orig": "name",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      },
+                      {
+                        "example": "ns:url",
+                        "kind": "param",
+                        "name": "namespace_id",
+                        "orig": "namespace",
+                        "reqd": true,
+                        "type": "`$STRING`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/generate/v5/namespace/{namespace}/name/{name}",
+                  "parts": [
+                    "generate",
+                    "v5",
+                    "namespace",
+                    "{namespace_id}",
+                    "name",
+                    "{name}"
+                  ],
+                  "rename": {
+                    "param": {
+                      "namespace": "namespace_id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "name",
+                      "namespace_id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                }
+              ],
+              "input": "data"
+            }
+          },
+          "relations": {
+            "ancestors": [
+              [
+                "namespace",
+                "name"
+              ]
+            ]
+          },
+          "active": true,
+          "fields": []
+        }
+      },
+      "feature": {
+        "test": {
+          "name": "test",
+          "title": "In-memory mock transport for testing without a live server",
+          "version": "0.0.1",
+          "active": true,
+          "config": {
+            "options": {
+              "active": false
+            }
+          },
+          "hook": {
+            "PostConstruct": {
+              "active": true,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": true,
+              "await": false
+            },
+            "SetData": {
+              "active": true,
+              "await": false
+            },
+            "GetData": {
+              "active": true,
+              "await": false
+            },
+            "SetMatch": {
+              "active": true
+            },
+            "GetMatch": {
+              "active": true,
+              "await": false
+            },
+            "PrePoint": {
+              "active": true
+            },
+            "PreSpec": {
+              "active": true,
+              "await": false
+            },
+            "PreRequest": {
+              "active": true,
+              "await": false
+            },
+            "PreResponse": {
+              "active": true,
+              "await": false
+            },
+            "PreResult": {
+              "active": true,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            }
+          },
+          "target": {
+            "ts": {
+              "deps": {}
+            },
+            "go": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "rb": {
+              "deps": {}
+            }
+          }
+        }
+      },
+      "flow": {
+        "BasicDecodeFlow": {
+          "entity": "decode",
+          "kind": "basic",
+          "name": "BasicDecodeFlow",
+          "step": [
+            {
+              "input": {
+                "ref": "decode_ref01",
+                "srcdatavar": "decode_ref01_data",
+                "suffix": "_dt0"
+              },
+              "match": {
+                "id": "decode01"
+              },
+              "op": "load",
+              "valid": [
+                {
+                  "apply": "TextFieldMark",
+                  "def": {
+                    "mark": "Mark01-decode_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "data": {},
+              "spec": []
+            }
+          ],
+          "key$": "BasicDecodeFlow",
+          "active": true,
+          "param": {}
+        },
+        "BasicTimestampFirstFlow": {
+          "entity": "timestamp_first",
+          "kind": "basic",
+          "name": "BasicTimestampFirstFlow",
+          "step": [
+            {
+              "op": "list",
+              "valid": [
+                {
+                  "apply": "ItemExists",
+                  "def": {
+                    "ref": "timestamp_first_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "match": {},
+              "data": {},
+              "input": {},
+              "spec": []
+            },
+            {
+              "input": {
+                "ref": "timestamp_first_ref01",
+                "srcdatavar": "timestamp_first_ref01_data",
+                "suffix": "_dt0"
+              },
+              "match": {
+                "id": "timestamp_first01"
+              },
+              "op": "load",
+              "valid": [
+                {
+                  "apply": "TextFieldMark",
+                  "def": {
+                    "mark": "Mark01-timestamp_first_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "data": {},
+              "spec": []
+            }
+          ],
+          "key$": "BasicTimestampFirstFlow",
+          "active": true,
+          "param": {}
+        },
+        "BasicVersion1Flow": {
+          "entity": "version_1",
+          "kind": "basic",
+          "name": "BasicVersion1Flow",
+          "step": [
+            {
+              "op": "list",
+              "valid": [
+                {
+                  "apply": "ItemExists",
+                  "def": {
+                    "ref": "version_1_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "match": {},
+              "data": {},
+              "input": {},
+              "spec": []
+            },
+            {
+              "input": {
+                "ref": "version_1_ref01",
+                "srcdatavar": "version_1_ref01_data",
+                "suffix": "_dt0"
+              },
+              "match": {
+                "id": "version_101"
+              },
+              "op": "load",
+              "valid": [
+                {
+                  "apply": "TextFieldMark",
+                  "def": {
+                    "mark": "Mark01-version_1_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "data": {},
+              "spec": []
+            }
+          ],
+          "key$": "BasicVersion1Flow",
+          "active": true,
+          "param": {}
+        },
+        "BasicVersion3Flow": {
+          "entity": "version_3",
+          "kind": "basic",
+          "name": "BasicVersion3Flow",
+          "step": [
+            {
+              "input": {
+                "ref": "version_3_ref01",
+                "srcdatavar": "version_3_ref01_data",
+                "suffix": "_dt0"
+              },
+              "match": {
+                "id": "version_301",
+                "namespace_id": "namespace01"
+              },
+              "op": "load",
+              "valid": [
+                {
+                  "apply": "TextFieldMark",
+                  "def": {
+                    "mark": "Mark01-version_3_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "data": {},
+              "spec": []
+            }
+          ],
+          "key$": "BasicVersion3Flow",
+          "active": true,
+          "param": {}
+        },
+        "BasicVersion4Flow": {
+          "entity": "version_4",
+          "kind": "basic",
+          "name": "BasicVersion4Flow",
+          "step": [
+            {
+              "op": "list",
+              "valid": [
+                {
+                  "apply": "ItemExists",
+                  "def": {
+                    "ref": "version_4_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "match": {},
+              "data": {},
+              "input": {},
+              "spec": []
+            },
+            {
+              "input": {
+                "ref": "version_4_ref01",
+                "srcdatavar": "version_4_ref01_data",
+                "suffix": "_dt0"
+              },
+              "match": {
+                "id": "version_401"
+              },
+              "op": "load",
+              "valid": [
+                {
+                  "apply": "TextFieldMark",
+                  "def": {
+                    "mark": "Mark01-version_4_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "data": {},
+              "spec": []
+            }
+          ],
+          "key$": "BasicVersion4Flow",
+          "active": true,
+          "param": {}
+        },
+        "BasicVersion5Flow": {
+          "entity": "version_5",
+          "kind": "basic",
+          "name": "BasicVersion5Flow",
+          "step": [
+            {
+              "input": {
+                "ref": "version_5_ref01",
+                "srcdatavar": "version_5_ref01_data",
+                "suffix": "_dt0"
+              },
+              "match": {
+                "id": "version_501",
+                "namespace_id": "namespace01"
+              },
+              "op": "load",
+              "valid": [
+                {
+                  "apply": "TextFieldMark",
+                  "def": {
+                    "mark": "Mark01-version_5_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "data": {},
+              "spec": []
+            }
+          ],
+          "key$": "BasicVersion5Flow",
+          "active": true,
+          "param": {}
+        }
+      },
+      "target": {
+        "ts": {
+          "title": "TypeScript",
+          "ext": "ts",
+          "comment": {
+            "line": "//"
+          },
+          "module": {
+            "name": "uuid-generator"
+          },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "deps": {
+            "dotenv": {
+              "active": true,
+              "version": "^17.4.2",
+              "kind": "dev"
+            },
+            "typescript": {
+              "active": true,
+              "version": "^5.9.3",
+              "kind": "dev"
+            },
+            "@types/node": {
+              "active": true,
+              "version": "^25.6.0",
+              "kind": "dev"
+            }
+          },
+          "name": "ts",
+          "active": true
+        },
+        "go": {
+          "title": "Golang",
+          "ext": "go",
+          "comment": {
+            "line": "//"
+          },
+          "module": {
+            "name": "uuid-generator"
+          },
+          "srcfeature": false,
+          "deps": {
+            "github.com/voxgig/struct": {
+              "active": true,
+              "version": "v0.0.0",
+              "replace": "./utility/struct",
+              "kind": "prod"
+            }
+          },
+          "name": "go",
+          "active": true
+        },
+        "lua": {
+          "title": "Lua",
+          "ext": "lua",
+          "comment": {
+            "line": "--"
+          },
+          "module": {
+            "name": "uuid-generator"
+          },
+          "srcfeature": false,
+          "deps": {
+            "dkjson": {
+              "active": true,
+              "version": "2.5",
+              "kind": "prod"
+            }
+          },
+          "name": "lua",
+          "active": true
+        },
+        "php": {
+          "title": "PHP",
+          "ext": "php",
+          "comment": {
+            "line": "//"
+          },
+          "module": {
+            "name": "uuid-generator"
+          },
+          "srcfeature": false,
+          "deps": {},
+          "name": "php",
+          "active": true
+        },
+        "py": {
+          "title": "Python",
+          "ext": "py",
+          "comment": {
+            "line": "#"
+          },
+          "module": {
+            "name": "uuid-generator"
+          },
+          "srcfeature": false,
+          "deps": {
+            "requests": {
+              "active": true,
+              "version": "2.33",
+              "kind": "prod"
+            }
+          },
+          "name": "py",
+          "active": true
+        },
+        "rb": {
+          "title": "Ruby",
+          "ext": "rb",
+          "comment": {
+            "line": "#"
+          },
+          "module": {
+            "name": "uuid-generator"
+          },
+          "srcfeature": false,
+          "deps": {
+            "voxgig-struct": {
+              "active": true,
+              "version": "0.0.10",
+              "kind": "prod"
+            },
+            "json": {
+              "active": true,
+              "version": "0",
+              "kind": "prod"
+            }
+          },
+          "name": "rb",
+          "active": true
+        }
+      },
+      "option": {}
+    },
+    "def": {
+      "desc": ""
+    },
+    "api": {
+      "guide": {},
+      "entity": {}
+    }
+  },
+  "name__orig": "uuid-generator",
+  "Name": "UuidGenerator",
+  "name_": "uuid_generator",
+  "name-": "uuid-generator",
+  "NAME": "UUID-GENERATOR"
+}

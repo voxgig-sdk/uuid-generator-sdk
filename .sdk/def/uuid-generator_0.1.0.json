@@ -1,0 +1,497 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "UUID Generator API",
+    "description": "The UUID Generator API allows you to generate unique UUIDs and GUIDs easily via HTTP requests. It supports multiple versions, including version 1, 3, 4, and 5, and can produce them in bulk formats for efficient testing and development purposes. No authentication is required. All endpoints are limited to 60 requests per minute per IP address.",
+    "version": "1.0.0",
+    "contact": {
+      "url": "https://www.uuidtools.com/docs"
+    },
+    "termsOfService": "https://www.uuidtools.com/terms-of-service"
+  },
+  "servers": [
+    {
+      "url": "https://www.uuidtools.com/api",
+      "description": "Production API server"
+    }
+  ],
+  "paths": {
+    "/generate/v1": {
+      "get": {
+        "summary": "Generate Version-1 UUID",
+        "description": "Generate a single version-1 UUID based on time, the server generating the UUID, and pseudo-randomness.",
+        "operationId": "generateV1Single",
+        "tags": [
+          "Version-1"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully generated UUID(s)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "uuid",
+                    "example": "b01eb720-171a-11ea-b949-73c91bba743d"
+                  },
+                  "minItems": 1,
+                  "maxItems": 1
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded (60 requests per minute per IP)"
+          }
+        }
+      }
+    },
+    "/generate/v1/count/{count}": {
+      "get": {
+        "summary": "Generate Multiple Version-1 UUIDs",
+        "description": "Generate multiple version-1 UUIDs at once (up to 100).",
+        "operationId": "generateV1Multiple",
+        "tags": [
+          "Version-1"
+        ],
+        "parameters": [
+          {
+            "name": "count",
+            "in": "path",
+            "required": true,
+            "description": "Number of UUIDs to generate (1-100)",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "example": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully generated UUIDs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid count parameter"
+          },
+          "429": {
+            "description": "Rate limit exceeded (60 requests per minute per IP)"
+          }
+        }
+      }
+    },
+    "/generate/v3/namespace/{namespace}/name/{name}": {
+      "get": {
+        "summary": "Generate Version-3 UUID",
+        "description": "Generate a deterministic version-3 UUID based on an MD5 hash of the namespace and name. Same input produces same output every time. Name parameter can be base64 encoded by prefixing with 'base64:'.",
+        "operationId": "generateV3",
+        "tags": [
+          "Version-3"
+        ],
+        "parameters": [
+          {
+            "name": "namespace",
+            "in": "path",
+            "required": true,
+            "description": "Namespace identifier. Must be 'ns:url', 'ns:dns', 'ns:OID', 'ns:X500' or a properly formatted UUID.",
+            "schema": {
+              "type": "string",
+              "example": "ns:url"
+            }
+          },
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "description": "Name string of any length. Can be base64 encoded by prefixing with 'base64:'.",
+            "schema": {
+              "type": "string",
+              "example": "https://www.google.com/"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully generated UUID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "minItems": 1,
+                  "maxItems": 1
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid namespace or name parameter"
+          },
+          "429": {
+            "description": "Rate limit exceeded (60 requests per minute per IP)"
+          }
+        }
+      }
+    },
+    "/generate/v4": {
+      "get": {
+        "summary": "Generate Version-4 UUID",
+        "description": "Generate a single version-4 UUID using random generation (not based on time).",
+        "operationId": "generateV4Single",
+        "tags": [
+          "Version-4"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully generated UUID(s)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "minItems": 1,
+                  "maxItems": 1
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded (60 requests per minute per IP)"
+          }
+        }
+      }
+    },
+    "/generate/v4/count/{count}": {
+      "get": {
+        "summary": "Generate Multiple Version-4 UUIDs",
+        "description": "Generate multiple version-4 UUIDs at once (up to 100).",
+        "operationId": "generateV4Multiple",
+        "tags": [
+          "Version-4"
+        ],
+        "parameters": [
+          {
+            "name": "count",
+            "in": "path",
+            "required": true,
+            "description": "Number of UUIDs to generate (1-100)",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "example": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully generated UUIDs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid count parameter"
+          },
+          "429": {
+            "description": "Rate limit exceeded (60 requests per minute per IP)"
+          }
+        }
+      }
+    },
+    "/generate/v5/namespace/{namespace}/name/{name}": {
+      "get": {
+        "summary": "Generate Version-5 UUID",
+        "description": "Generate a deterministic version-5 UUID based on a SHA-1 hash of the namespace and name. Same input produces same output every time. Name parameter can be base64 encoded by prefixing with 'base64:'.",
+        "operationId": "generateV5",
+        "tags": [
+          "Version-5"
+        ],
+        "parameters": [
+          {
+            "name": "namespace",
+            "in": "path",
+            "required": true,
+            "description": "Namespace identifier. Must be 'ns:url', 'ns:dns', 'ns:OID', 'ns:X500' or a properly formatted UUID.",
+            "schema": {
+              "type": "string",
+              "example": "ns:url"
+            }
+          },
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "description": "Name string of any length. Can be base64 encoded by prefixing with 'base64:'.",
+            "schema": {
+              "type": "string",
+              "example": "https://www.uuidtools.com/generate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully generated UUID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "minItems": 1,
+                  "maxItems": 1
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid namespace or name parameter"
+          },
+          "429": {
+            "description": "Rate limit exceeded (60 requests per minute per IP)"
+          }
+        }
+      }
+    },
+    "/generate/timestamp-first": {
+      "get": {
+        "summary": "Generate Timestamp-First UUID",
+        "description": "Generate a single timestamp-first UUID with the current timestamp embedded at the beginning for ordered storage in databases.",
+        "operationId": "generateTimestampFirstSingle",
+        "tags": [
+          "Timestamp-First"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully generated UUID(s)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "minItems": 1,
+                  "maxItems": 1
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded (60 requests per minute per IP)"
+          }
+        }
+      }
+    },
+    "/generate/timestamp-first/count/{count}": {
+      "get": {
+        "summary": "Generate Multiple Timestamp-First UUIDs",
+        "description": "Generate multiple timestamp-first UUIDs at once (up to 100).",
+        "operationId": "generateTimestampFirstMultiple",
+        "tags": [
+          "Timestamp-First"
+        ],
+        "parameters": [
+          {
+            "name": "count",
+            "in": "path",
+            "required": true,
+            "description": "Number of UUIDs to generate (1-100)",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "example": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully generated UUIDs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid count parameter"
+          },
+          "429": {
+            "description": "Rate limit exceeded (60 requests per minute per IP)"
+          }
+        }
+      }
+    },
+    "/decode/{uuid}": {
+      "get": {
+        "summary": "Decode UUID",
+        "description": "Decode a UUID to determine its version and extract embedded information such as timestamp, clock, and node for version-1 UUIDs.",
+        "operationId": "decodeUuid",
+        "tags": [
+          "Decode"
+        ],
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "description": "The UUID to decode",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "b01eb720-171a-11ea-b949-73c91bba743d"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully decoded UUID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "encode": {
+                      "type": "object",
+                      "properties": {
+                        "STR": {
+                          "type": "string",
+                          "format": "uuid",
+                          "description": "UUID in string format"
+                        },
+                        "SIV": {
+                          "type": "string",
+                          "description": "UUID as a single integer value"
+                        }
+                      }
+                    },
+                    "decode": {
+                      "type": "object",
+                      "properties": {
+                        "variant": {
+                          "type": "string",
+                          "description": "UUID variant"
+                        },
+                        "version": {
+                          "type": "string",
+                          "description": "UUID version and type"
+                        },
+                        "content": {
+                          "type": "object",
+                          "description": "Version-specific content (varies by UUID version)",
+                          "properties": {
+                            "time": {
+                              "type": "string",
+                              "description": "Timestamp (for version-1 UUIDs)"
+                            },
+                            "clock": {
+                              "type": "string",
+                              "description": "Clock sequence (for version-1 UUIDs)"
+                            },
+                            "node": {
+                              "type": "string",
+                              "description": "Node identifier (for version-1 UUIDs)"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "encode": {
+                      "STR": "b01eb720-171a-11ea-b949-73c91bba743d",
+                      "SIV": "234103610387309579079392911688732406845"
+                    },
+                    "decode": {
+                      "variant": "DCE 1.1, ISO/IEC 11578:1996",
+                      "version": "1 (time and node based)",
+                      "content": {
+                        "time": "2019-12-05 04:49:57.961296.0 UTC",
+                        "clock": "14665 (usually random)",
+                        "node": "73:c9:1b:ba:74:3d (local multicast)"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid UUID format"
+          },
+          "429": {
+            "description": "Rate limit exceeded (60 requests per minute per IP)"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Version-1",
+      "description": "Version-1 UUIDs based on time, server, and pseudo-randomness"
+    },
+    {
+      "name": "Version-3",
+      "description": "Version-3 UUIDs based on MD5 hash (deterministic)"
+    },
+    {
+      "name": "Version-4",
+      "description": "Version-4 UUIDs based on random generation"
+    },
+    {
+      "name": "Version-5",
+      "description": "Version-5 UUIDs based on SHA-1 hash (deterministic)"
+    },
+    {
+      "name": "Timestamp-First",
+      "description": "Timestamp-first UUIDs for ordered database storage"
+    },
+    {
+      "name": "Decode",
+      "description": "Decode and analyze UUID information"
+    }
+  ],
+  "externalDocs": {
+    "description": "Full API Documentation",
+    "url": "https://www.uuidtools.com/docs"
+  }
+}

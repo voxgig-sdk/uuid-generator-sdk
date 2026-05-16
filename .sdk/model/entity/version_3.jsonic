@@ -1,0 +1,74 @@
+# Entity: version_3
+
+main: kit: entity: version_3: {
+
+  alias: field: {}
+
+  name: "version_3"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                example: "https://www.google.com/"
+                kind: "param"
+                name: "name"
+                orig: "name"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                example: "ns:url"
+                kind: "param"
+                name: "namespace_id"
+                orig: "namespace"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/generate/v3/namespace/{namespace}/name/{name}"
+          parts: [
+            "generate"
+            "v3"
+            "namespace"
+            "{namespace_id}"
+            "name"
+            "{name}"
+          ]
+          rename: {
+            param: {
+              namespace: "namespace_id"
+            }
+          }
+          select: {
+            exist: [
+              "name"
+              "namespace_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "namespace"
+        "name"
+      ]
+    ]
+  }
+
+
+
+}

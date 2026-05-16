@@ -1,0 +1,23 @@
+{
+  "existing": {
+    "version_5": {
+      "VERSION_500": {
+        "name": "NAME01",
+        "namespace_id": "NAMESPACE01"
+      },
+      "VERSION_501": {
+        "name": "NAME01",
+        "namespace_id": "NAMESPACE01"
+      },
+      "VERSION_502": {
+        "name": "NAME01",
+        "namespace_id": "NAMESPACE01"
+      }
+    }
+  },
+  "new": {
+    "version_5": {
+      "version_5_ref01": {}
+    }
+  }
+}

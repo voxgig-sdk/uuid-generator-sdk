@@ -1,0 +1,33 @@
+# BasicVersion5Flow
+
+main: kit: flow: BasicVersion5Flow:
+{
+  entity: "version_5",
+  kind: "basic",
+  name: "BasicVersion5Flow",
+  step: [
+    {
+      input: {
+        ref: "version_5_ref01",
+        srcdatavar: "version_5_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        id: "version_501",
+        namespace_id: "namespace01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-version_5_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicVersion5Flow"
+}

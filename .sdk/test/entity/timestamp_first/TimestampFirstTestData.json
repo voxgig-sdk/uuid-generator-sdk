@@ -1,0 +1,20 @@
+{
+  "existing": {
+    "timestamp_first": {
+      "TIMESTAMP_FIRST00": {
+        "count": "COUNT01"
+      },
+      "TIMESTAMP_FIRST01": {
+        "count": "COUNT01"
+      },
+      "TIMESTAMP_FIRST02": {
+        "count": "COUNT01"
+      }
+    }
+  },
+  "new": {
+    "timestamp_first": {
+      "timestamp_first_ref01": {}
+    }
+  }
+}

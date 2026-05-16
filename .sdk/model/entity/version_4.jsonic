@@ -1,0 +1,74 @@
+# Entity: version_4
+
+main: kit: entity: version_4: {
+
+  alias: field: {}
+
+  name: "version_4"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          method: "GET"
+          orig: "/generate/v4"
+          parts: [
+            "generate"
+            "v4"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                example: 10
+                kind: "param"
+                name: "count"
+                orig: "count"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/generate/v4/count/{count}"
+          parts: [
+            "generate"
+            "v4"
+            "count"
+            "{count}"
+          ]
+          select: {
+            exist: [
+              "count"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "count"
+      ]
+    ]
+  }
+
+
+
+}

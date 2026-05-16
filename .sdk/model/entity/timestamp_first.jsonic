@@ -1,0 +1,74 @@
+# Entity: timestamp_first
+
+main: kit: entity: timestamp_first: {
+
+  alias: field: {}
+
+  name: "timestamp_first"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          method: "GET"
+          orig: "/generate/timestamp-first"
+          parts: [
+            "generate"
+            "timestamp-first"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                example: 10
+                kind: "param"
+                name: "count"
+                orig: "count"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/generate/timestamp-first/count/{count}"
+          parts: [
+            "generate"
+            "timestamp-first"
+            "count"
+            "{count}"
+          ]
+          select: {
+            exist: [
+              "count"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "count"
+      ]
+    ]
+  }
+
+
+
+}

@@ -1,0 +1,65 @@
+# Entity: decode
+
+main: kit: entity: decode: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "decode"
+      req: false
+      type: "`$OBJECT`"
+    }
+    {
+      name: "encode"
+      req: false
+      type: "`$OBJECT`"
+    }
+  ]
+
+  name: "decode"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                example: "b01eb720-171a-11ea-b949-73c91bba743d"
+                kind: "param"
+                name: "id"
+                orig: "uuid"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/decode/{uuid}"
+          parts: [
+            "decode"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              uuid: "id"
+            }
+          }
+          select: {
+            exist: [
+              "id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

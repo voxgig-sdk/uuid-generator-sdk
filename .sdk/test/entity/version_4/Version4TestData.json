@@ -1,0 +1,20 @@
+{
+  "existing": {
+    "version_4": {
+      "VERSION_400": {
+        "count": "COUNT01"
+      },
+      "VERSION_401": {
+        "count": "COUNT01"
+      },
+      "VERSION_402": {
+        "count": "COUNT01"
+      }
+    }
+  },
+  "new": {
+    "version_4": {
+      "version_4_ref01": {}
+    }
+  }
+}

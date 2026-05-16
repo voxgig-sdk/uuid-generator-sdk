@@ -1,0 +1,57 @@
+# Guide
+
+guide: {
+  metrics: count: entity: 6
+  metrics: count: path: 9
+  metrics: count: method: 9
+
+  entity: decode: {
+    path: "/decode/{uuid}": {
+      rename: param: "uuid": *"id"
+      op: load: method: *GET
+      op: load: transform: res: *("`body.decode`")|top
+    }
+  }
+
+  entity: timestamp_first: {
+    path: "/generate/timestamp-first": {
+      op: list: method: *GET
+    }
+    path: "/generate/timestamp-first/count/{count}": {
+      op: load: method: *GET
+    }
+  }
+
+  entity: version_1: {
+    path: "/generate/v1": {
+      op: list: method: *GET
+    }
+    path: "/generate/v1/count/{count}": {
+      op: load: method: *GET
+    }
+  }
+
+  entity: version_3: {
+    path: "/generate/v3/namespace/{namespace}/name/{name}": {
+      rename: param: "namespace": *"namespace_id"
+      op: load: method: *GET
+    }
+  }
+
+  entity: version_4: {
+    path: "/generate/v4": {
+      op: list: method: *GET
+    }
+    path: "/generate/v4/count/{count}": {
+      op: load: method: *GET
+    }
+  }
+
+  entity: version_5: {
+    path: "/generate/v5/namespace/{namespace}/name/{name}": {
+      rename: param: "namespace": *"namespace_id"
+      op: load: method: *GET
+    }
+  }
+
+}
