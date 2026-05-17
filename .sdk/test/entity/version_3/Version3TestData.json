@@ -3,15 +3,18 @@
     "version_3": {
       "VERSION_300": {
         "name": "NAME01",
-        "namespace_id": "NAMESPACE01"
+        "namespace_id": "NAMESPACE01",
+        "id": "VERSION_300"
       },
       "VERSION_301": {
         "name": "NAME01",
-        "namespace_id": "NAMESPACE01"
+        "namespace_id": "NAMESPACE01",
+        "id": "VERSION_301"
       },
       "VERSION_302": {
         "name": "NAME01",
-        "namespace_id": "NAMESPACE01"
+        "namespace_id": "NAMESPACE01",
+        "id": "VERSION_302"
       }
     }
   },

@@ -2,13 +2,16 @@
   "existing": {
     "timestamp_first": {
       "TIMESTAMP_FIRST00": {
-        "count": "COUNT01"
+        "count": "COUNT01",
+        "id": "TIMESTAMP_FIRST00"
       },
       "TIMESTAMP_FIRST01": {
-        "count": "COUNT01"
+        "count": "COUNT01",
+        "id": "TIMESTAMP_FIRST01"
       },
       "TIMESTAMP_FIRST02": {
-        "count": "COUNT01"
+        "count": "COUNT01",
+        "id": "TIMESTAMP_FIRST02"
       }
     }
   },

@@ -1,10 +1,10 @@
 package voxgiguuidgeneratorsdk
 
 import (
-	"github.com/voxgig-sdk/uuid-generator-sdk/core"
-	"github.com/voxgig-sdk/uuid-generator-sdk/entity"
-	"github.com/voxgig-sdk/uuid-generator-sdk/feature"
-	_ "github.com/voxgig-sdk/uuid-generator-sdk/utility"
+	"github.com/voxgig-sdk/uuid-generator-sdk/go/core"
+	"github.com/voxgig-sdk/uuid-generator-sdk/go/entity"
+	"github.com/voxgig-sdk/uuid-generator-sdk/go/feature"
+	_ "github.com/voxgig-sdk/uuid-generator-sdk/go/utility"
 )
 
 // Type aliases preserve external API.

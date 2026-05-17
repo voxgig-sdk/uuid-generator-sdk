@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/uuid-generator-sdk"
-	"github.com/voxgig-sdk/uuid-generator-sdk/core"
+	sdk "github.com/voxgig-sdk/uuid-generator-sdk/go"
+	"github.com/voxgig-sdk/uuid-generator-sdk/go/core"
 )
 
 func TestVersion3Direct(t *testing.T) {

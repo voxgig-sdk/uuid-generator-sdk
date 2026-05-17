@@ -2,13 +2,16 @@
   "existing": {
     "version_1": {
       "VERSION_100": {
-        "count": "COUNT01"
+        "count": "COUNT01",
+        "id": "VERSION_100"
       },
       "VERSION_101": {
-        "count": "COUNT01"
+        "count": "COUNT01",
+        "id": "VERSION_101"
       },
       "VERSION_102": {
-        "count": "COUNT01"
+        "count": "COUNT01",
+        "id": "VERSION_102"
       }
     }
   },

@@ -1,9 +1,9 @@
 package utility
 
 import (
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/uuid-generator-sdk/go/utility/struct"
 
-	"github.com/voxgig-sdk/uuid-generator-sdk/core"
+	"github.com/voxgig-sdk/uuid-generator-sdk/go/core"
 )
 
 func paramUtil(ctx *core.Context, paramdef any) any {

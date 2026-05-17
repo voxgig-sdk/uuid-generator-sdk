@@ -3,15 +3,18 @@
     "decode": {
       "DECODE00": {
         "decode": {},
-        "encode": {}
+        "encode": {},
+        "id": "DECODE00"
       },
       "DECODE01": {
         "decode": {},
-        "encode": {}
+        "encode": {},
+        "id": "DECODE01"
       },
       "DECODE02": {
         "decode": {},
-        "encode": {}
+        "encode": {},
+        "id": "DECODE02"
       }
     }
   },

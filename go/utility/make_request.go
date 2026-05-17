@@ -1,6 +1,6 @@
 package utility
 
-import "github.com/voxgig-sdk/uuid-generator-sdk/core"
+import "github.com/voxgig-sdk/uuid-generator-sdk/go/core"
 
 func makeRequestUtil(ctx *core.Context) (*core.Response, error) {
 	if ctx.Out["request"] != nil {
