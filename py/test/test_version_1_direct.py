@@ -106,14 +106,12 @@ def _version_1_direct_setup(mockres):
     env = runner.env_override({
         "UUIDGENERATOR_TEST_VERSION___ENTID": {},
         "UUIDGENERATOR_TEST_LIVE": "FALSE",
-        "UUIDGENERATOR_APIKEY": "NONE",
     })
 
     live = env.get("UUIDGENERATOR_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {
-            "apikey": env.get("UUIDGENERATOR_APIKEY"),
         }
         client = UuidGeneratorSDK(merged_opts)
         return {

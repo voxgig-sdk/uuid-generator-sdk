@@ -115,14 +115,12 @@ func version_5DirectSetup(mockres any) *version_5DirectSetupResult {
 	env := envOverride(map[string]any{
 		"UUIDGENERATOR_TEST_VERSION___ENTID": map[string]any{},
 		"UUIDGENERATOR_TEST_LIVE":    "FALSE",
-		"UUIDGENERATOR_APIKEY":       "NONE",
 	})
 
 	live := env["UUIDGENERATOR_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
-			"apikey": env["UUIDGENERATOR_APIKEY"],
 		}
 		client := sdk.NewUuidGeneratorSDK(mergedOpts)
 

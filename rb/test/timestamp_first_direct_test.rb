@@ -114,14 +114,12 @@ def timestamp_first_direct_setup(mockres)
   env = Runner.env_override({
     "UUIDGENERATOR_TEST_TIMESTAMP_FIRST_ENTID" => {},
     "UUIDGENERATOR_TEST_LIVE" => "FALSE",
-    "UUIDGENERATOR_APIKEY" => "NONE",
   })
 
   live = env["UUIDGENERATOR_TEST_LIVE"] == "TRUE"
 
   if live
     merged_opts = {
-      "apikey" => env["UUIDGENERATOR_APIKEY"],
     }
     client = UuidGeneratorSDK.new(merged_opts)
     return {

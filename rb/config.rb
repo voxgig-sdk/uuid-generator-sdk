@@ -15,9 +15,6 @@ module UuidGeneratorConfig
       },
       "options" => {
         "base" => "https://www.uuidtools.com/api",
-        "auth" => {
-          "prefix" => "Bearer",
-        },
         "headers" => {
           "content-type" => "application/json",
         },
