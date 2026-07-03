@@ -85,6 +85,7 @@ function version_3_basic_setup($extra)
         "UUIDGENERATOR_TEST_VERSION___ENTID" => $idmap,
         "UUIDGENERATOR_TEST_LIVE" => "FALSE",
         "UUIDGENERATOR_TEST_EXPLAIN" => "FALSE",
+        "UUIDGENERATOR_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -96,6 +97,7 @@ function version_3_basic_setup($extra)
     if ($env["UUIDGENERATOR_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
+                "apikey" => $env["UUIDGENERATOR_APIKEY"],
             ],
             $extra ?? [],
         ]);

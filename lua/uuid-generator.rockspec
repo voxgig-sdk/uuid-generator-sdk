@@ -1,7 +1,11 @@
 package = "voxgig-sdk-uuid-generator"
-version = "0.0-1"
+version = "0.0.1-1"
 source = {
-  url = "git://github.com/voxgig-sdk/uuid-generator-sdk.git"
+  -- git+https (GitHub dropped git:// in 2022); pin the install to the release
+  -- tag pushed by `make publish`, and point at the lua/ subdir of the monorepo.
+  url = "git+https://github.com/voxgig-sdk/uuid-generator-sdk.git",
+  tag = "lua/v0.0.1",
+  dir = "uuid-generator-sdk/lua"
 }
 description = {
   summary = "UuidGenerator SDK for Lua",

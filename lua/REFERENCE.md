@@ -30,12 +30,12 @@ Create a new SDK client instance.
 
 ### Static Methods
 
-#### `sdk.test(testopts, sdkopts)`
+#### `sdk.test(testopts?, sdkopts?)`
 
-Create a test client with mock features active. Both arguments may be `nil`.
+Create a test client with mock features active. Both arguments are optional.
 
 ```lua
-local client = sdk.test(nil, nil)
+local client = sdk.test()
 ```
 
 
@@ -121,7 +121,7 @@ local decode = client:Decode(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Decode(nil):load({ id = "decode_id" }, nil)
+local result, err = client:Decode():load({ id = "decode_id" })
 ```
 
 ### Common Methods
@@ -167,7 +167,7 @@ local timestamp_first = client:TimestampFirst(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:TimestampFirst(nil):list(nil, nil)
+local results, err = client:TimestampFirst():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -175,7 +175,7 @@ local results, err = client:TimestampFirst(nil):list(nil, nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:TimestampFirst(nil):load({ id = "timestamp_first_id" }, nil)
+local result, err = client:TimestampFirst():load({ id = "timestamp_first_id" })
 ```
 
 ### Common Methods
@@ -221,7 +221,7 @@ local version_1 = client:Version1(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Version1(nil):list(nil, nil)
+local results, err = client:Version1():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -229,7 +229,7 @@ local results, err = client:Version1(nil):list(nil, nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Version1(nil):load({ id = "version_1_id" }, nil)
+local result, err = client:Version1():load({ id = "version_1_id" })
 ```
 
 ### Common Methods
@@ -275,7 +275,7 @@ local version_3 = client:Version3(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Version3(nil):load({ id = "version_3_id" }, nil)
+local result, err = client:Version3():load({ id = "version_3_id" })
 ```
 
 ### Common Methods
@@ -321,7 +321,7 @@ local version_4 = client:Version4(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Version4(nil):list(nil, nil)
+local results, err = client:Version4():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -329,7 +329,7 @@ local results, err = client:Version4(nil):list(nil, nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Version4(nil):load({ id = "version_4_id" }, nil)
+local result, err = client:Version4():load({ id = "version_4_id" })
 ```
 
 ### Common Methods
@@ -375,7 +375,7 @@ local version_5 = client:Version5(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Version5(nil):load({ id = "version_5_id" }, nil)
+local result, err = client:Version5():load({ id = "version_5_id" })
 ```
 
 ### Common Methods

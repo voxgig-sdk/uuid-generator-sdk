@@ -117,6 +117,7 @@ func version_3BasicSetup(extra map[string]any) *entityTestSetup {
 		"UUIDGENERATOR_TEST_VERSION___ENTID": idmap,
 		"UUIDGENERATOR_TEST_LIVE":      "FALSE",
 		"UUIDGENERATOR_TEST_EXPLAIN":   "FALSE",
+		"UUIDGENERATOR_APIKEY":         "NONE",
 	})
 
 	idmapResolved := core.ToMapAny(env["UUIDGENERATOR_TEST_VERSION___ENTID"])
@@ -127,6 +128,7 @@ func version_3BasicSetup(extra map[string]any) *entityTestSetup {
 	if env["UUIDGENERATOR_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
+				"apikey": env["UUIDGENERATOR_APIKEY"],
 			},
 			extra,
 		})

@@ -1,23 +1,8 @@
 # UuidGenerator SDK
 
-Generate UUIDs (v1, v3, v4, v5) and timestamp-first identifiers, or decode an existing UUID, over plain HTTP
+UUID Generator API client, generated from the OpenAPI spec.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
-
-## About UUID Generator API
-
-The UUID Generator API is the HTTP front-end for [uuidtools.com](https://www.uuidtools.com/), a small utility site that generates and inspects universally unique identifiers. The same generators that power the site's web UI are exposed under `https://www.uuidtools.com/api/` so other tools and services can request UUIDs directly.
-
-What you get from the API:
-
-- Time-and-node based **version 1** UUIDs (`/generate/v1`), with an optional `count` for bulk generation (up to 100)
-- Namespace + name **version 3** (MD5) UUIDs at `/generate/v3/namespace/{ns}/name/{name}`
-- Random **version 4** UUIDs at `/generate/v4`, also supporting `count`
-- Namespace + name **version 5** (SHA-1) UUIDs at `/generate/v5/namespace/{ns}/name/{name}`
-- **Timestamp-first** ordered UUIDs at `/generate/timestamp-first`, useful as database primary keys
-- A **decoder** at `/decode/{uuid}` that returns the variant, version, embedded timestamp, clock sequence and node information
-
-Operational notes: no API key or OAuth is required, CORS is enabled for browser clients, and the documented limit is 60 requests per minute per IP. Version 2 UUIDs are not provided. For `v3`/`v5`, the `name` segment may be base64-encoded when it contains characters that are awkward in a URL path.
 
 ## Try it
 
@@ -51,27 +36,31 @@ gem install uuid-generator-sdk
 luarocks install uuid-generator-sdk
 ```
 
-## 30-second quickstart
+## Quickstart
 
 ### TypeScript
 
 ```ts
 import { UuidGeneratorSDK } from 'uuid-generator'
 
-const client = new UuidGeneratorSDK({})
+const client = new UuidGeneratorSDK({
+  apikey: process.env.UUID-GENERATOR_APIKEY,
+})
 
+// Load decode data
+const decode = await client.Decode().load({})
+console.log(decode.data)
 ```
 
-See the [TypeScript README](ts/README.md) for the
-full guide, or scroll down for the same example in other languages.
+See the [TypeScript README](ts/README.md) for the full guide.
 
-## What's in the box
+## Surfaces
 
-| Surface | Use it for | Path |
-| --- | --- | --- |
-| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
-| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
-| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+| Surface | Path |
+| --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | `go-cli/` |
+| **MCP server** | `go-mcp/` |
 
 ## Use it from an AI agent (MCP)
 
@@ -101,12 +90,12 @@ The API exposes 6 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Decode** | Inspects a supplied UUID and reports its variant, version and embedded fields (timestamp, clock sequence, node) via `GET /decode/{uuid}`. | `/decode/{uuid}` |
-| **TimestampFirst** | Generates database-friendly UUIDs whose leading bytes encode the creation time, via `GET /generate/timestamp-first` (supports a `count` parameter). | `/generate/timestamp-first` |
-| **Version1** | Time-and-node based UUIDs as defined by RFC 4122 v1, via `GET /generate/v1` with optional `count` (up to 100). | `/generate/v1` |
-| **Version3** | Deterministic UUIDs derived from an MD5 hash of a namespace and a name, via `GET /generate/v3/namespace/{ns}/name/{name}`. | `/generate/v3/namespace/{namespace}/name/{name}` |
-| **Version4** | Random UUIDs as defined by RFC 4122 v4, via `GET /generate/v4` with optional `count` for bulk generation. | `/generate/v4` |
-| **Version5** | Deterministic UUIDs derived from a SHA-1 hash of a namespace and a name, via `GET /generate/v5/namespace/{ns}/name/{name}`. | `/generate/v5/namespace/{namespace}/name/{name}` |
+| **Decode** |  | `/decode/{uuid}` |
+| **TimestampFirst** |  | `/generate/timestamp-first` |
+| **Version1** |  | `/generate/v1` |
+| **Version3** |  | `/generate/v3/namespace/{namespace}/name/{name}` |
+| **Version4** |  | `/generate/v4` |
+| **Version5** |  | `/generate/v5/namespace/{namespace}/name/{name}` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -116,15 +105,17 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
+import os
 from uuidgenerator_sdk import UuidGeneratorSDK
 
-client = UuidGeneratorSDK({})
+client = UuidGeneratorSDK({
+    "apikey": os.environ.get("UUID-GENERATOR_APIKEY"),
+})
 
 
 # Load a specific decode
-decode, err = client.Decode(None).load(
-    {"id": "example_id"}, None
-)
+decode, err = client.Decode().load({"id": "example_id"})
+print(decode)
 ```
 
 ### PHP
@@ -133,13 +124,14 @@ decode, err = client.Decode(None).load(
 <?php
 require_once 'uuidgenerator_sdk.php';
 
-$client = new UuidGeneratorSDK([]);
+$client = new UuidGeneratorSDK([
+    "apikey" => getenv("UUID-GENERATOR_APIKEY"),
+]);
 
 
 // Load a specific decode
-[$decode, $err] = $client->Decode(null)->load(
-    ["id" => "example_id"], null
-);
+[$decode, $err] = $client->Decode()->load(["id" => "example_id"]);
+print_r($decode);
 ```
 
 ### Golang
@@ -147,8 +139,13 @@ $client = new UuidGeneratorSDK([]);
 ```go
 import sdk "github.com/voxgig-sdk/uuid-generator-sdk/go"
 
-client := sdk.NewUuidGeneratorSDK(map[string]any{})
+client := sdk.NewUuidGeneratorSDK(map[string]any{
+    "apikey": os.Getenv("UUID-GENERATOR_APIKEY"),
+})
 
+// Load decode data
+decode, err := client.Decode(nil).Load(map[string]any{}, nil)
+fmt.Println(decode)
 ```
 
 ### Ruby
@@ -156,13 +153,14 @@ client := sdk.NewUuidGeneratorSDK(map[string]any{})
 ```ruby
 require_relative "UuidGenerator_sdk"
 
-client = UuidGeneratorSDK.new({})
+client = UuidGeneratorSDK.new({
+  "apikey" => ENV["UUID-GENERATOR_APIKEY"],
+})
 
 
 # Load a specific decode
-decode, err = client.Decode(nil).load(
-  { "id" => "example_id" }, nil
-)
+decode, err = client.Decode().load({ "id" => "example_id" })
+puts decode
 ```
 
 ### Lua
@@ -170,13 +168,14 @@ decode, err = client.Decode(nil).load(
 ```lua
 local sdk = require("uuid-generator_sdk")
 
-local client = sdk.new({})
+local client = sdk.new({
+  apikey = os.getenv("UUID-GENERATOR_APIKEY"),
+})
 
 
 -- Load a specific decode
-local decode, err = client:Decode(nil):load(
-  { id = "example_id" }, nil
-)
+local decode, err = client:Decode():load({ id = "example_id" })
+print(decode)
 ```
 
 ## Unit testing in offline mode
@@ -195,25 +194,21 @@ const result = await client.Decode().load({ id: 'test01' })
 ### Python
 
 ```python
-client = UuidGeneratorSDK.test(None, None)
-result, err = client.Decode(None).load(
-    {"id": "test01"}, None
-)
+client = UuidGeneratorSDK.test()
+result, err = client.Decode().load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
-$client = UuidGeneratorSDK::test(null, null);
-[$result, $err] = $client->Decode(null)->load(
-    ["id" => "test01"], null
-);
+$client = UuidGeneratorSDK::test();
+[$result, $err] = $client->Decode()->load(["id" => "test01"]);
 ```
 
 ### Golang
 
 ```go
-client := sdk.TestSDK(nil, nil)
+client := sdk.Test()
 result, err := client.Decode(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
@@ -222,19 +217,15 @@ result, err := client.Decode(nil).Load(
 ### Ruby
 
 ```ruby
-client = UuidGeneratorSDK.test(nil, nil)
-result, err = client.Decode(nil).load(
-  { "id" => "test01" }, nil
-)
+client = UuidGeneratorSDK.test
+result, err = client.Decode().load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:Decode(nil):load(
-  { id = "test01" }, nil
-)
+local client = sdk.test()
+local result, err = client:Decode():load({ id = "test01" })
 ```
 
 ## How it works
@@ -338,16 +329,6 @@ local result, err = client:direct({
 - [Golang](go/README.md)
 - [Ruby](rb/README.md)
 - [Lua](lua/README.md)
-
-## Using the UUID Generator API
-
-- Upstream: [https://www.uuidtools.com/](https://www.uuidtools.com/)
-- API docs: [https://www.uuidtools.com/docs](https://www.uuidtools.com/docs)
-
-- Operated by [uuidtools.com](https://www.uuidtools.com/) as a free public endpoint
-- No formal open licence is published; usage is governed by the site [terms](https://www.uuidtools.com/terms)
-- No authentication or API key is required
-- Rate limit advertised at 60 requests per minute per IP address
 
 ---
 

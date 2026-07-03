@@ -115,12 +115,14 @@ function timestamp_first_direct_setup(mockres)
   local env = runner.env_override({
     ["UUIDGENERATOR_TEST_TIMESTAMP_FIRST_ENTID"] = {},
     ["UUIDGENERATOR_TEST_LIVE"] = "FALSE",
+    ["UUIDGENERATOR_APIKEY"] = "NONE",
   })
 
   local live = env["UUIDGENERATOR_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {
+      apikey = env["UUIDGENERATOR_APIKEY"],
     }
     local client = sdk.new(merged_opts)
     return {

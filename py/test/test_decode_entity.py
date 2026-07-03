@@ -91,6 +91,7 @@ def _decode_basic_setup(extra):
         "UUIDGENERATOR_TEST_DECODE_ENTID": idmap,
         "UUIDGENERATOR_TEST_LIVE": "FALSE",
         "UUIDGENERATOR_TEST_EXPLAIN": "FALSE",
+        "UUIDGENERATOR_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -101,6 +102,7 @@ def _decode_basic_setup(extra):
     if env.get("UUIDGENERATOR_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
+                "apikey": env.get("UUIDGENERATOR_APIKEY"),
             },
             extra or {},
         ])
