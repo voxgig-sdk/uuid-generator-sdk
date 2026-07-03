@@ -8,12 +8,14 @@ source = {
   dir = "uuid-generator-sdk/lua"
 }
 description = {
-  summary = "UuidGenerator SDK for Lua",
-  license = "MIT"
+  summary = "Unofficial generated Lua SDK for the UUID Generator public API. Not affiliated with or endorsed by the upstream API provider.",
+  homepage = "https://github.com/voxgig-sdk/uuid-generator-sdk",
+  issues_url = "https://github.com/voxgig-sdk/uuid-generator-sdk/issues",
+  license = "MIT",
+  labels = { "voxgig", "sdk", "generated-sdk", "openapi", "api-client", "uuid-generator" }
 }
 dependencies = {
   "lua >= 5.3",
-  "dkjson >= 2.5",
   "dkjson >= 2.5",
 }
 build = {

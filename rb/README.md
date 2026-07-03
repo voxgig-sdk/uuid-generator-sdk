@@ -10,13 +10,13 @@ The Ruby SDK for the UuidGenerator API — an entity-oriented client using idiom
 
 ## Install
 ```bash
-gem install uuid-generator-sdk
+gem install voxgig-sdk-uuid-generator
 ```
 
 Or add to your `Gemfile`:
 
 ```ruby
-gem "uuid-generator-sdk"
+gem "voxgig-sdk-uuid-generator"
 ```
 
 Then run:
