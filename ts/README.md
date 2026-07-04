@@ -30,11 +30,14 @@ const client = new UuidGeneratorSDK()
 
 ### 3. Load a decode
 
-```ts
-const result = await client.decode.load({ id: 'example_id' })
+`load()` returns the entity directly and throws on failure:
 
-if (result.ok) {
-  console.log(result.data)
+```ts
+try {
+  const decode = await client.Decode().load({ id: 'example_id' })
+  console.log(decode)
+} catch (err) {
+  console.error('load failed:', err)
 }
 ```
 
@@ -52,6 +55,9 @@ const result = await client.direct({
   params: { id: 'example' },
 })
 
+if (result instanceof Error) {
+  throw result
+}
 if (result.ok) {
   console.log(result.status)  // 200
   console.log(result.data)    // response body
@@ -80,9 +86,9 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = UuidGeneratorSDK.test()
 
-const result = await client.decode.load({ id: 'test01' })
-// result.ok === true
-// result.data contains mock response data
+const decode = await client.Decode().load({ id: 'test01' })
+// decode is a bare entity populated with mock response data
+console.log(decode)
 ```
 
 You can also use the instance method:
@@ -97,7 +103,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.decode
+const entity = client.Decode()
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -197,29 +203,30 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `load(reqmatch?, ctrl?): Promise<Result>` | Load a single entity by match criteria. |
-| `list` | `list(reqmatch?, ctrl?): Promise<Result>` | List entities matching the criteria. |
-| `create` | `create(reqdata?, ctrl?): Promise<Result>` | Create a new entity. |
-| `update` | `update(reqdata?, ctrl?): Promise<Result>` | Update an existing entity. |
-| `remove` | `remove(reqmatch?, ctrl?): Promise<Result>` | Remove an entity. |
+| `load` | `load(reqmatch?, ctrl?): Promise<Entity>` | Load a single entity by match criteria. |
+| `list` | `list(reqmatch?, ctrl?): Promise<Entity[]>` | List entities matching the criteria. |
+| `create` | `create(reqdata?, ctrl?): Promise<Entity>` | Create a new entity. |
+| `update` | `update(reqdata?, ctrl?): Promise<Entity>` | Update an existing entity. |
+| `remove` | `remove(reqmatch?, ctrl?): Promise<void>` | Remove an entity. |
 | `data` | `data(data?): any` | Get or set entity data. |
 | `match` | `match(match?): any` | Get or set entity match criteria. |
 | `make` | `make(): Entity` | Create a new instance with the same options. |
 | `client` | `client(): UuidGeneratorSDK` | Return the parent SDK client. |
 | `entopts` | `entopts(): object` | Return a copy of the entity options. |
 
-#### Result shape
+#### Return values
 
-All entity operations return a Result object:
+Entity operations resolve to the entity data directly — there is no
+result envelope:
 
-```ts
-{
-  ok: boolean      // true if the HTTP status is 2xx
-  status: number   // HTTP status code
-  headers: object  // response headers
-  data: any        // parsed JSON response body
-}
-```
+- `load`, `create` and `update` resolve to a single entity object.
+- `list` resolves to an **array** of entity objects (iterate it directly;
+  there is no `.data` and no `.ok`).
+- `remove` resolves to `void`.
+
+On a failed request these methods **throw**, so wrap calls in
+`try`/`catch` to handle errors. Only `direct()` returns the result
+envelope described below.
 
 ### DirectResult shape
 
@@ -314,7 +321,7 @@ API path: `/generate/v5/namespace/{namespace}/name/{name}`
 
 ### Decode
 
-Create an instance: `const decode = client.decode`
+Create an instance: `const decode = client.Decode()`
 
 #### Operations
 
@@ -332,13 +339,13 @@ Create an instance: `const decode = client.decode`
 #### Example: Load
 
 ```ts
-const decode = await client.decode.load({ id: 'decode_id' })
+const decode = await client.Decode().load({ id: 'decode_id' })
 ```
 
 
 ### TimestampFirst
 
-Create an instance: `const timestamp_first = client.timestamp_first`
+Create an instance: `const timestamp_first = client.TimestampFirst()`
 
 #### Operations
 
@@ -350,19 +357,19 @@ Create an instance: `const timestamp_first = client.timestamp_first`
 #### Example: Load
 
 ```ts
-const timestamp_first = await client.timestamp_first.load({ id: 'timestamp_first_id' })
+const timestamp_first = await client.TimestampFirst().load({ id: 'timestamp_first_id' })
 ```
 
 #### Example: List
 
 ```ts
-const timestamp_firsts = await client.timestamp_first.list()
+const timestamp_firsts = await client.TimestampFirst().list()
 ```
 
 
 ### Version1
 
-Create an instance: `const version_1 = client.version_1`
+Create an instance: `const version_1 = client.Version1()`
 
 #### Operations
 
@@ -374,19 +381,19 @@ Create an instance: `const version_1 = client.version_1`
 #### Example: Load
 
 ```ts
-const version_1 = await client.version_1.load({ id: 'version_1_id' })
+const version_1 = await client.Version1().load({ id: 'version_1_id' })
 ```
 
 #### Example: List
 
 ```ts
-const version_1s = await client.version_1.list()
+const version_1s = await client.Version1().list()
 ```
 
 
 ### Version3
 
-Create an instance: `const version_3 = client.version_3`
+Create an instance: `const version_3 = client.Version3()`
 
 #### Operations
 
@@ -397,13 +404,13 @@ Create an instance: `const version_3 = client.version_3`
 #### Example: Load
 
 ```ts
-const version_3 = await client.version_3.load({ id: 'version_3_id' })
+const version_3 = await client.Version3().load({ id: 'version_3_id' })
 ```
 
 
 ### Version4
 
-Create an instance: `const version_4 = client.version_4`
+Create an instance: `const version_4 = client.Version4()`
 
 #### Operations
 
@@ -415,19 +422,19 @@ Create an instance: `const version_4 = client.version_4`
 #### Example: Load
 
 ```ts
-const version_4 = await client.version_4.load({ id: 'version_4_id' })
+const version_4 = await client.Version4().load({ id: 'version_4_id' })
 ```
 
 #### Example: List
 
 ```ts
-const version_4s = await client.version_4.list()
+const version_4s = await client.Version4().list()
 ```
 
 
 ### Version5
 
-Create an instance: `const version_5 = client.version_5`
+Create an instance: `const version_5 = client.Version5()`
 
 #### Operations
 
@@ -438,7 +445,7 @@ Create an instance: `const version_5 = client.version_5`
 #### Example: Load
 
 ```ts
-const version_5 = await client.version_5.load({ id: 'version_5_id' })
+const version_5 = await client.Version5().load({ id: 'version_5_id' })
 ```
 
 
@@ -509,7 +516,7 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const decode = client.decode
+const decode = client.Decode()
 await decode.load({ id: "example_id" })
 
 // decode.data() now returns the loaded decode data

@@ -26,9 +26,9 @@ import { UuidGeneratorSDK } from '@voxgig-sdk/uuid-generator'
 
 const client = new UuidGeneratorSDK()
 
-// Load decode data
-const decode = await client.decode.load({})
-console.log(decode.data)
+// Load decode data (returns a Decode)
+const decode = await client.Decode().load()
+console.log(decode)
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -89,8 +89,8 @@ from uuidgenerator_sdk import UuidGeneratorSDK
 client = UuidGeneratorSDK()
 
 
-# Load a specific decode
-decode = client.decode.load({"id": "example_id"})
+# Load a specific decode (returns the record, raises on error)
+decode = client.Decode().load({"id": "example_id"})
 print(decode)
 ```
 
@@ -103,8 +103,8 @@ require_once 'uuidgenerator_sdk.php';
 $client = new UuidGeneratorSDK();
 
 
-// Load a specific decode
-$decode = $client->decode()->load(["id" => "example_id"]);
+// Load a specific decode (returns the bare record; throws on error)
+$decode = $client->Decode()->load(["id" => "example_id"]);
 print_r($decode);
 ```
 
@@ -128,8 +128,8 @@ require_relative "UuidGenerator_sdk"
 client = UuidGeneratorSDK.new
 
 
-# Load a specific decode
-decode = client.decode.load({ "id" => "example_id" })
+# Load a specific decode (returns the bare record; raises on error)
+decode = client.Decode.load({ "id" => "example_id" })
 puts decode
 ```
 
@@ -142,7 +142,7 @@ local client = sdk.new()
 
 
 -- Load a specific decode
-local decode, err = client:decode():load({ id = "example_id" })
+local decode, err = client:Decode():load({ id = "example_id" })
 print(decode)
 ```
 
@@ -155,22 +155,27 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = UuidGeneratorSDK.test()
-const result = await client.decode.load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+const decode = await client.Decode().load({ id: 'test01' })
+// decode is a bare Decode populated with mock data
+console.log(decode)
 ```
 
 ### Python
 
 ```python
 client = UuidGeneratorSDK.test()
-result = client.decode.load({"id": "test01"})
+decode = client.Decode().load({"id": "test01"})
+print(decode)
 ```
 
 ### PHP
 
 ```php
-$client = UuidGeneratorSDK::test();
-$result = $client->decode()->load(["id" => "test01"]);
+// Seed fixture data so offline calls resolve without a live server.
+$client = UuidGeneratorSDK::test([
+    "entity" => ["decode" => ["test01" => ["id" => "test01"]]],
+]);
+$decode = $client->Decode()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -185,15 +190,18 @@ result, err := client.Decode(nil).Load(
 ### Ruby
 
 ```ruby
-client = UuidGeneratorSDK.test
-result = client.decode.load({ "id" => "test01" })
+# Seed fixture data so offline calls resolve without a live server.
+client = UuidGeneratorSDK.test({
+  "entity" => { "decode" => { "test01" => { "id" => "test01" } } },
+})
+decode = client.Decode.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:decode():load({ id = "test01" })
+local result, err = client:Decode():load({ id = "test01" })
 ```
 
 ## How it works
@@ -241,6 +249,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
+if (result instanceof Error) {
+  throw result
+}
 console.log(result.data)
 ```
 

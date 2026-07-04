@@ -33,9 +33,10 @@ $client = new UuidGeneratorSDK();
 
 ```php
 try {
-    $result = $client->decode()->load(["id" => "example_id"]);
-    print_r($result);
-} catch (\Exception $err) {
+    // load() returns the bare Decode record (throws on error).
+    $decode = $client->Decode()->load(["id" => "example_id"]);
+    print_r($decode);
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -81,13 +82,17 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```php
-$client = UuidGeneratorSDK::test();
+$client = UuidGeneratorSDK::test([
+    "entity" => ["decode" => ["test01" => ["id" => "test01"]]],
+]);
 
-$result = $client->decode()->load(["id" => "test01"]);
-// $result contains mock response data
+// load() returns the bare mock record (throws on error).
+$decode = $client->Decode()->load(["id" => "test01"]);
+print_r($decode);
 ```
 
 ### Use a custom fetch function
@@ -274,7 +279,7 @@ API path: `/generate/v5/namespace/{namespace}/name/{name}`
 
 ### Decode
 
-Create an instance: `const decode = client.decode`
+Create an instance: `$decode = $client->Decode();`
 
 #### Operations
 
@@ -291,14 +296,15 @@ Create an instance: `const decode = client.decode`
 
 #### Example: Load
 
-```ts
-const decode = await client.decode.load({ id: 'decode_id' })
+```php
+// load() returns the bare Decode record (throws on error).
+$decode = $client->Decode()->load(["id" => "decode_id"]);
 ```
 
 
 ### TimestampFirst
 
-Create an instance: `const timestamp_first = client.timestamp_first`
+Create an instance: `$timestamp_first = $client->TimestampFirst();`
 
 #### Operations
 
@@ -309,20 +315,22 @@ Create an instance: `const timestamp_first = client.timestamp_first`
 
 #### Example: Load
 
-```ts
-const timestamp_first = await client.timestamp_first.load({ id: 'timestamp_first_id' })
+```php
+// load() returns the bare TimestampFirst record (throws on error).
+$timestamp_first = $client->TimestampFirst()->load(["id" => "timestamp_first_id"]);
 ```
 
 #### Example: List
 
-```ts
-const timestamp_firsts = await client.timestamp_first.list()
+```php
+// list() returns an array of TimestampFirst records (throws on error).
+$timestamp_firsts = $client->TimestampFirst()->list();
 ```
 
 
 ### Version1
 
-Create an instance: `const version_1 = client.version_1`
+Create an instance: `$version_1 = $client->Version1();`
 
 #### Operations
 
@@ -333,20 +341,22 @@ Create an instance: `const version_1 = client.version_1`
 
 #### Example: Load
 
-```ts
-const version_1 = await client.version_1.load({ id: 'version_1_id' })
+```php
+// load() returns the bare Version1 record (throws on error).
+$version_1 = $client->Version1()->load(["id" => "version_1_id"]);
 ```
 
 #### Example: List
 
-```ts
-const version_1s = await client.version_1.list()
+```php
+// list() returns an array of Version1 records (throws on error).
+$version_1s = $client->Version1()->list();
 ```
 
 
 ### Version3
 
-Create an instance: `const version_3 = client.version_3`
+Create an instance: `$version_3 = $client->Version3();`
 
 #### Operations
 
@@ -356,14 +366,15 @@ Create an instance: `const version_3 = client.version_3`
 
 #### Example: Load
 
-```ts
-const version_3 = await client.version_3.load({ id: 'version_3_id' })
+```php
+// load() returns the bare Version3 record (throws on error).
+$version_3 = $client->Version3()->load(["id" => "version_3_id"]);
 ```
 
 
 ### Version4
 
-Create an instance: `const version_4 = client.version_4`
+Create an instance: `$version_4 = $client->Version4();`
 
 #### Operations
 
@@ -374,20 +385,22 @@ Create an instance: `const version_4 = client.version_4`
 
 #### Example: Load
 
-```ts
-const version_4 = await client.version_4.load({ id: 'version_4_id' })
+```php
+// load() returns the bare Version4 record (throws on error).
+$version_4 = $client->Version4()->load(["id" => "version_4_id"]);
 ```
 
 #### Example: List
 
-```ts
-const version_4s = await client.version_4.list()
+```php
+// list() returns an array of Version4 records (throws on error).
+$version_4s = $client->Version4()->list();
 ```
 
 
 ### Version5
 
-Create an instance: `const version_5 = client.version_5`
+Create an instance: `$version_5 = $client->Version5();`
 
 #### Operations
 
@@ -397,8 +410,9 @@ Create an instance: `const version_5 = client.version_5`
 
 #### Example: Load
 
-```ts
-const version_5 = await client.version_5.load({ id: 'version_5_id' })
+```php
+// load() returns the bare Version5 record (throws on error).
+$version_5 = $client->Version5()->load(["id" => "version_5_id"]);
 ```
 
 
@@ -473,7 +487,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$decode = $client->decode();
+$decode = $client->Decode();
 $decode->load(["id" => "example_id"]);
 
 // $decode->dataGet() now returns the loaded decode data

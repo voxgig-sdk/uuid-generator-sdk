@@ -106,7 +106,7 @@ same parameters as `direct()`. Raises on error.
 ## DecodeEntity
 
 ```ruby
-decode = client.decode
+decode = client.Decode
 ```
 
 ### Fields
@@ -123,7 +123,7 @@ decode = client.decode
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.decode.load({ "id" => "decode_id" })
+result = client.Decode.load({ "id" => "decode_id" })
 ```
 
 ### Common Methods
@@ -159,7 +159,7 @@ Return the entity name.
 ## TimestampFirstEntity
 
 ```ruby
-timestamp_first = client.timestamp_first
+timestamp_first = client.TimestampFirst
 ```
 
 ### Operations
@@ -169,7 +169,7 @@ timestamp_first = client.timestamp_first
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.timestamp_first.list(nil)
+results = client.TimestampFirst.list(nil)
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -177,7 +177,7 @@ results = client.timestamp_first.list(nil)
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.timestamp_first.load({ "id" => "timestamp_first_id" })
+result = client.TimestampFirst.load({ "id" => "timestamp_first_id" })
 ```
 
 ### Common Methods
@@ -213,7 +213,7 @@ Return the entity name.
 ## Version1Entity
 
 ```ruby
-version_1 = client.version_1
+version_1 = client.Version1
 ```
 
 ### Operations
@@ -223,7 +223,7 @@ version_1 = client.version_1
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.version_1.list(nil)
+results = client.Version1.list(nil)
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -231,7 +231,7 @@ results = client.version_1.list(nil)
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.version_1.load({ "id" => "version_1_id" })
+result = client.Version1.load({ "id" => "version_1_id" })
 ```
 
 ### Common Methods
@@ -267,7 +267,7 @@ Return the entity name.
 ## Version3Entity
 
 ```ruby
-version_3 = client.version_3
+version_3 = client.Version3
 ```
 
 ### Operations
@@ -277,7 +277,7 @@ version_3 = client.version_3
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.version_3.load({ "id" => "version_3_id" })
+result = client.Version3.load({ "id" => "version_3_id" })
 ```
 
 ### Common Methods
@@ -313,7 +313,7 @@ Return the entity name.
 ## Version4Entity
 
 ```ruby
-version_4 = client.version_4
+version_4 = client.Version4
 ```
 
 ### Operations
@@ -323,7 +323,7 @@ version_4 = client.version_4
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.version_4.list(nil)
+results = client.Version4.list(nil)
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -331,7 +331,7 @@ results = client.version_4.list(nil)
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.version_4.load({ "id" => "version_4_id" })
+result = client.Version4.load({ "id" => "version_4_id" })
 ```
 
 ### Common Methods
@@ -367,7 +367,7 @@ Return the entity name.
 ## Version5Entity
 
 ```ruby
-version_5 = client.version_5
+version_5 = client.Version5
 ```
 
 ### Operations
@@ -377,7 +377,7 @@ version_5 = client.version_5
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.version_5.load({ "id" => "version_5_id" })
+result = client.Version5.load({ "id" => "version_5_id" })
 ```
 
 ### Common Methods

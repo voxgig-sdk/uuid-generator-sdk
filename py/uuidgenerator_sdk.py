@@ -220,105 +220,45 @@ class UuidGeneratorSDK:
         }
 
 
-    @property
-    def decode(self):
-        """Idiomatic facade: client.decode.list() / client.decode.load({"id": ...})."""
-        from entity.decode_entity import DecodeEntity
-        cached = getattr(self, "_decode", None)
-        if cached is None:
-            cached = DecodeEntity(self, None)
-            self._decode = cached
-        return cached
-
-    def Decode(self, data=None):
-        # Deprecated: use client.decode instead.
+    def Decode(self, data=None) -> "DecodeEntity":
+        """Entity factory: client.Decode().list({}) / client.Decode().load({"id": ...})."""
         from entity.decode_entity import DecodeEntity
         return DecodeEntity(self, data)
 
 
-    @property
-    def timestamp_first(self):
-        """Idiomatic facade: client.timestamp_first.list() / client.timestamp_first.load({"id": ...})."""
-        from entity.timestamp_first_entity import TimestampFirstEntity
-        cached = getattr(self, "_timestamp_first", None)
-        if cached is None:
-            cached = TimestampFirstEntity(self, None)
-            self._timestamp_first = cached
-        return cached
-
-    def TimestampFirst(self, data=None):
-        # Deprecated: use client.timestamp_first instead.
+    def TimestampFirst(self, data=None) -> "TimestampFirstEntity":
+        """Entity factory: client.TimestampFirst().list({}) / client.TimestampFirst().load({"id": ...})."""
         from entity.timestamp_first_entity import TimestampFirstEntity
         return TimestampFirstEntity(self, data)
 
 
-    @property
-    def version_1(self):
-        """Idiomatic facade: client.version_1.list() / client.version_1.load({"id": ...})."""
-        from entity.version_1_entity import Version1Entity
-        cached = getattr(self, "_version_1", None)
-        if cached is None:
-            cached = Version1Entity(self, None)
-            self._version_1 = cached
-        return cached
-
-    def Version1(self, data=None):
-        # Deprecated: use client.version_1 instead.
+    def Version1(self, data=None) -> "Version1Entity":
+        """Entity factory: client.Version1().list({}) / client.Version1().load({"id": ...})."""
         from entity.version_1_entity import Version1Entity
         return Version1Entity(self, data)
 
 
-    @property
-    def version_3(self):
-        """Idiomatic facade: client.version_3.list() / client.version_3.load({"id": ...})."""
-        from entity.version_3_entity import Version3Entity
-        cached = getattr(self, "_version_3", None)
-        if cached is None:
-            cached = Version3Entity(self, None)
-            self._version_3 = cached
-        return cached
-
-    def Version3(self, data=None):
-        # Deprecated: use client.version_3 instead.
+    def Version3(self, data=None) -> "Version3Entity":
+        """Entity factory: client.Version3().list({}) / client.Version3().load({"id": ...})."""
         from entity.version_3_entity import Version3Entity
         return Version3Entity(self, data)
 
 
-    @property
-    def version_4(self):
-        """Idiomatic facade: client.version_4.list() / client.version_4.load({"id": ...})."""
-        from entity.version_4_entity import Version4Entity
-        cached = getattr(self, "_version_4", None)
-        if cached is None:
-            cached = Version4Entity(self, None)
-            self._version_4 = cached
-        return cached
-
-    def Version4(self, data=None):
-        # Deprecated: use client.version_4 instead.
+    def Version4(self, data=None) -> "Version4Entity":
+        """Entity factory: client.Version4().list({}) / client.Version4().load({"id": ...})."""
         from entity.version_4_entity import Version4Entity
         return Version4Entity(self, data)
 
 
-    @property
-    def version_5(self):
-        """Idiomatic facade: client.version_5.list() / client.version_5.load({"id": ...})."""
-        from entity.version_5_entity import Version5Entity
-        cached = getattr(self, "_version_5", None)
-        if cached is None:
-            cached = Version5Entity(self, None)
-            self._version_5 = cached
-        return cached
-
-    def Version5(self, data=None):
-        # Deprecated: use client.version_5 instead.
+    def Version5(self, data=None) -> "Version5Entity":
+        """Entity factory: client.Version5().list({}) / client.Version5().load({"id": ...})."""
         from entity.version_5_entity import Version5Entity
         return Version5Entity(self, data)
 
 
 
     @classmethod
-    def test(cls, testopts=None, sdkopts=None):
+    def test(cls, testopts=None, sdkopts=None) -> "UuidGeneratorSDK":
         if sdkopts is None:
             sdkopts = {}
         sdkopts = vs.clone(sdkopts)
@@ -338,3 +278,14 @@ class UuidGeneratorSDK:
         sdk.mode = "test"
 
         return sdk
+
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from entity.decode_entity import DecodeEntity
+    from entity.timestamp_first_entity import TimestampFirstEntity
+    from entity.version_1_entity import Version1Entity
+    from entity.version_3_entity import Version3Entity
+    from entity.version_4_entity import Version4Entity
+    from entity.version_5_entity import Version5Entity

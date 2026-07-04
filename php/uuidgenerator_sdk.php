@@ -233,10 +233,10 @@ class UuidGeneratorSDK
 
     private $_decode = null;
 
-    // Idiomatic facade: $client->decode()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Decode() (PHP method
-    // names are case-insensitive).
-    public function decode($data = null)
+    // Canonical facade: $client->Decode()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->decode()
+    // resolves here too.
+    public function Decode($data = null)
     {
         require_once __DIR__ . '/entity/decode_entity.php';
         if ($data === null) {
@@ -251,10 +251,10 @@ class UuidGeneratorSDK
 
     private $_timestamp_first = null;
 
-    // Idiomatic facade: $client->timestamp_first()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias TimestampFirst() (PHP method
-    // names are case-insensitive).
-    public function timestamp_first($data = null)
+    // Canonical facade: $client->TimestampFirst()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->timestamp_first()
+    // resolves here too.
+    public function TimestampFirst($data = null)
     {
         require_once __DIR__ . '/entity/timestamp_first_entity.php';
         if ($data === null) {
@@ -269,10 +269,10 @@ class UuidGeneratorSDK
 
     private $_version_1 = null;
 
-    // Idiomatic facade: $client->version_1()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Version1() (PHP method
-    // names are case-insensitive).
-    public function version_1($data = null)
+    // Canonical facade: $client->Version1()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->version_1()
+    // resolves here too.
+    public function Version1($data = null)
     {
         require_once __DIR__ . '/entity/version_1_entity.php';
         if ($data === null) {
@@ -287,10 +287,10 @@ class UuidGeneratorSDK
 
     private $_version_3 = null;
 
-    // Idiomatic facade: $client->version_3()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Version3() (PHP method
-    // names are case-insensitive).
-    public function version_3($data = null)
+    // Canonical facade: $client->Version3()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->version_3()
+    // resolves here too.
+    public function Version3($data = null)
     {
         require_once __DIR__ . '/entity/version_3_entity.php';
         if ($data === null) {
@@ -305,10 +305,10 @@ class UuidGeneratorSDK
 
     private $_version_4 = null;
 
-    // Idiomatic facade: $client->version_4()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Version4() (PHP method
-    // names are case-insensitive).
-    public function version_4($data = null)
+    // Canonical facade: $client->Version4()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->version_4()
+    // resolves here too.
+    public function Version4($data = null)
     {
         require_once __DIR__ . '/entity/version_4_entity.php';
         if ($data === null) {
@@ -323,10 +323,10 @@ class UuidGeneratorSDK
 
     private $_version_5 = null;
 
-    // Idiomatic facade: $client->version_5()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Version5() (PHP method
-    // names are case-insensitive).
-    public function version_5($data = null)
+    // Canonical facade: $client->Version5()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->version_5()
+    // resolves here too.
+    public function Version5($data = null)
     {
         require_once __DIR__ . '/entity/version_5_entity.php';
         if ($data === null) {

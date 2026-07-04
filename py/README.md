@@ -33,10 +33,12 @@ client = UuidGeneratorSDK()
 
 ### 3. Load a decode
 
+`load()` returns the bare record (a `dict`) and raises on error.
+
 ```python
 try:
-    result = client.decode.load({"id": "example_id"})
-    print(result)
+    decode = client.Decode().load({"id": "example_id"})
+    print(decode)
 except Exception as err:
     print(f"load failed: {err}")
 ```
@@ -84,8 +86,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = UuidGeneratorSDK.test()
 
-result = client.decode.load({"id": "test01"})
-# result contains mock response data
+# Entity ops return the bare record and raise on error.
+decode = client.Decode().load({"id": "test01"})
+# decode contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -269,7 +272,7 @@ API path: `/generate/v5/namespace/{namespace}/name/{name}`
 
 ### Decode
 
-Create an instance: `const decode = client.decode`
+Create an instance: `decode = client.Decode()`
 
 #### Operations
 
@@ -286,14 +289,14 @@ Create an instance: `const decode = client.decode`
 
 #### Example: Load
 
-```ts
-const decode = await client.decode.load({ id: 'decode_id' })
+```python
+decode = client.Decode().load({"id": "decode_id"})
 ```
 
 
 ### TimestampFirst
 
-Create an instance: `const timestamp_first = client.timestamp_first`
+Create an instance: `timestamp_first = client.TimestampFirst()`
 
 #### Operations
 
@@ -304,20 +307,20 @@ Create an instance: `const timestamp_first = client.timestamp_first`
 
 #### Example: Load
 
-```ts
-const timestamp_first = await client.timestamp_first.load({ id: 'timestamp_first_id' })
+```python
+timestamp_first = client.TimestampFirst().load({"id": "timestamp_first_id"})
 ```
 
 #### Example: List
 
-```ts
-const timestamp_firsts = await client.timestamp_first.list()
+```python
+timestamp_firsts = client.TimestampFirst().list({})
 ```
 
 
 ### Version1
 
-Create an instance: `const version_1 = client.version_1`
+Create an instance: `version_1 = client.Version1()`
 
 #### Operations
 
@@ -328,20 +331,20 @@ Create an instance: `const version_1 = client.version_1`
 
 #### Example: Load
 
-```ts
-const version_1 = await client.version_1.load({ id: 'version_1_id' })
+```python
+version_1 = client.Version1().load({"id": "version_1_id"})
 ```
 
 #### Example: List
 
-```ts
-const version_1s = await client.version_1.list()
+```python
+version_1s = client.Version1().list({})
 ```
 
 
 ### Version3
 
-Create an instance: `const version_3 = client.version_3`
+Create an instance: `version_3 = client.Version3()`
 
 #### Operations
 
@@ -351,14 +354,14 @@ Create an instance: `const version_3 = client.version_3`
 
 #### Example: Load
 
-```ts
-const version_3 = await client.version_3.load({ id: 'version_3_id' })
+```python
+version_3 = client.Version3().load({"id": "version_3_id"})
 ```
 
 
 ### Version4
 
-Create an instance: `const version_4 = client.version_4`
+Create an instance: `version_4 = client.Version4()`
 
 #### Operations
 
@@ -369,20 +372,20 @@ Create an instance: `const version_4 = client.version_4`
 
 #### Example: Load
 
-```ts
-const version_4 = await client.version_4.load({ id: 'version_4_id' })
+```python
+version_4 = client.Version4().load({"id": "version_4_id"})
 ```
 
 #### Example: List
 
-```ts
-const version_4s = await client.version_4.list()
+```python
+version_4s = client.Version4().list({})
 ```
 
 
 ### Version5
 
-Create an instance: `const version_5 = client.version_5`
+Create an instance: `version_5 = client.Version5()`
 
 #### Operations
 
@@ -392,8 +395,8 @@ Create an instance: `const version_5 = client.version_5`
 
 #### Example: Load
 
-```ts
-const version_5 = await client.version_5.load({ id: 'version_5_id' })
+```python
+version_5 = client.Version5().load({"id": "version_5_id"})
 ```
 
 
@@ -467,7 +470,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-decode = client.decode
+decode = client.Decode()
 decode.load({"id": "example_id"})
 
 # decode.data_get() now returns the loaded decode data

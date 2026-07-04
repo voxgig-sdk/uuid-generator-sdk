@@ -30,36 +30,30 @@ go mod edit -replace github.com/voxgig-sdk/uuid-generator-sdk/go=../uuid-generat
 This tutorial walks through creating a client, listing entities, and
 loading a specific record.
 
-### 1. Create a client
+### Quickstart
+
+A complete program: create a client, then call the entity operations.
+Each operation returns `(value, error)` — the value is the data itself
+(there is no `{ok, data}` wrapper), so check `err` and use the value
+directly.
 
 ```go
 package main
 
 import (
     "fmt"
-
     sdk "github.com/voxgig-sdk/uuid-generator-sdk/go"
-    "github.com/voxgig-sdk/uuid-generator-sdk/go/core"
 )
 
 func main() {
     client := sdk.New()
-```
 
-### 3. Load a decode
-
-```go
-    result, err = client.Decode(nil).Load(
-        map[string]any{"id": "example_id"}, nil,
-    )
+    // Load a single decode — the value is the loaded record.
+    decode, err := client.Decode(nil).Load(map[string]any{"id": "example_id"}, nil)
     if err != nil {
         panic(err)
     }
-
-    rm = core.ToMapAny(result)
-    if rm["ok"] == true {
-        fmt.Println(rm["data"])
-    }
+    fmt.Println(decode)
 }
 ```
 
@@ -110,10 +104,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-result, err := client.Decode(nil).Load(
+decode, err := client.Decode(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
-// result contains mock response data
+if err != nil {
+    panic(err)
+}
+fmt.Println(decode) // the loaded mock data
 ```
 
 ### Use a custom fetch function
@@ -215,17 +212,24 @@ All entities implement the `UuidGeneratorEntity` interface.
 
 ### Result shape
 
-Entity operations return `(any, error)`. The `any` value is a
-`map[string]any` with these keys:
+Entity operations return `(value, error)`. The `value` is the
+operation's data **directly** — there is no wrapper:
 
-| Key | Type | Description |
-| --- | --- | --- |
-| `"ok"` | `bool` | `true` if the HTTP status is 2xx. |
-| `"status"` | `int` | HTTP status code. |
-| `"headers"` | `map[string]any` | Response headers. |
-| `"data"` | `any` | Parsed JSON response body. |
+| Operation | `value` |
+| --- | --- |
+| `Load` / `Create` / `Update` / `Remove` | the entity record (`map[string]any`) |
+| `List` | a `[]any` of entity records |
 
-On error, `"ok"` is `false` and `"err"` contains the error value.
+Check `err` first, then use the value directly (or the typed
+`...Typed` variants, which return the entity's model struct and a typed
+slice):
+
+    decode, err := client.Decode(nil).Load(map[string]any{"id": "example_id"}, nil)
+    if err != nil { /* handle */ }
+    // decode is the loaded record
+
+Only `Direct()` returns a response envelope — a `map[string]any` with
+`"ok"`, `"status"`, `"headers"`, and `"data"` keys.
 
 ### Entities
 
@@ -310,7 +314,11 @@ Create an instance: `decode := client.Decode(nil)`
 #### Example: Load
 
 ```go
-result, err := client.Decode(nil).Load(map[string]any{"id": "decode_id"}, nil)
+decode, err := client.Decode(nil).Load(map[string]any{"id": "decode_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(decode) // the loaded record
 ```
 
 
@@ -328,13 +336,21 @@ Create an instance: `timestamp_first := client.TimestampFirst(nil)`
 #### Example: Load
 
 ```go
-result, err := client.TimestampFirst(nil).Load(map[string]any{"id": "timestamp_first_id"}, nil)
+timestamp_first, err := client.TimestampFirst(nil).Load(map[string]any{"id": "timestamp_first_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(timestamp_first) // the loaded record
 ```
 
 #### Example: List
 
 ```go
-results, err := client.TimestampFirst(nil).List(nil, nil)
+timestamp_firsts, err := client.TimestampFirst(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(timestamp_firsts) // the array of records
 ```
 
 
@@ -352,13 +368,21 @@ Create an instance: `version_1 := client.Version1(nil)`
 #### Example: Load
 
 ```go
-result, err := client.Version1(nil).Load(map[string]any{"id": "version_1_id"}, nil)
+version_1, err := client.Version1(nil).Load(map[string]any{"id": "version_1_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(version_1) // the loaded record
 ```
 
 #### Example: List
 
 ```go
-results, err := client.Version1(nil).List(nil, nil)
+version_1s, err := client.Version1(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(version_1s) // the array of records
 ```
 
 
@@ -375,7 +399,11 @@ Create an instance: `version_3 := client.Version3(nil)`
 #### Example: Load
 
 ```go
-result, err := client.Version3(nil).Load(map[string]any{"id": "version_3_id"}, nil)
+version_3, err := client.Version3(nil).Load(map[string]any{"id": "version_3_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(version_3) // the loaded record
 ```
 
 
@@ -393,13 +421,21 @@ Create an instance: `version_4 := client.Version4(nil)`
 #### Example: Load
 
 ```go
-result, err := client.Version4(nil).Load(map[string]any{"id": "version_4_id"}, nil)
+version_4, err := client.Version4(nil).Load(map[string]any{"id": "version_4_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(version_4) // the loaded record
 ```
 
 #### Example: List
 
 ```go
-results, err := client.Version4(nil).List(nil, nil)
+version_4s, err := client.Version4(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(version_4s) // the array of records
 ```
 
 
@@ -416,7 +452,11 @@ Create an instance: `version_5 := client.Version5(nil)`
 #### Example: Load
 
 ```go
-result, err := client.Version5(nil).Load(map[string]any{"id": "version_5_id"}, nil)
+version_5, err := client.Version5(nil).Load(map[string]any{"id": "version_5_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(version_5) // the loaded record
 ```
 
 

@@ -244,8 +244,9 @@ end
 
 
 
--- Idiomatic facade: client:decode():list() / client:decode():load({ id = ... })
-function UuidGeneratorSDK:decode(data)
+-- Idiomatic facade: client:Decode():list() / client:Decode():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function UuidGeneratorSDK:Decode(data)
   local EntityMod = require("entity.decode_entity")
   if data == nil then
     if self._decode == nil then
@@ -256,15 +257,10 @@ function UuidGeneratorSDK:decode(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:decode() instead.
-function UuidGeneratorSDK:Decode(data)
-  local EntityMod = require("entity.decode_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:timestamp_first():list() / client:timestamp_first():load({ id = ... })
-function UuidGeneratorSDK:timestamp_first(data)
+-- Idiomatic facade: client:TimestampFirst():list() / client:TimestampFirst():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function UuidGeneratorSDK:TimestampFirst(data)
   local EntityMod = require("entity.timestamp_first_entity")
   if data == nil then
     if self._timestamp_first == nil then
@@ -275,15 +271,10 @@ function UuidGeneratorSDK:timestamp_first(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:timestamp_first() instead.
-function UuidGeneratorSDK:TimestampFirst(data)
-  local EntityMod = require("entity.timestamp_first_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:version_1():list() / client:version_1():load({ id = ... })
-function UuidGeneratorSDK:version_1(data)
+-- Idiomatic facade: client:Version1():list() / client:Version1():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function UuidGeneratorSDK:Version1(data)
   local EntityMod = require("entity.version_1_entity")
   if data == nil then
     if self._version_1 == nil then
@@ -294,15 +285,10 @@ function UuidGeneratorSDK:version_1(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:version_1() instead.
-function UuidGeneratorSDK:Version1(data)
-  local EntityMod = require("entity.version_1_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:version_3():list() / client:version_3():load({ id = ... })
-function UuidGeneratorSDK:version_3(data)
+-- Idiomatic facade: client:Version3():list() / client:Version3():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function UuidGeneratorSDK:Version3(data)
   local EntityMod = require("entity.version_3_entity")
   if data == nil then
     if self._version_3 == nil then
@@ -313,15 +299,10 @@ function UuidGeneratorSDK:version_3(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:version_3() instead.
-function UuidGeneratorSDK:Version3(data)
-  local EntityMod = require("entity.version_3_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:version_4():list() / client:version_4():load({ id = ... })
-function UuidGeneratorSDK:version_4(data)
+-- Idiomatic facade: client:Version4():list() / client:Version4():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function UuidGeneratorSDK:Version4(data)
   local EntityMod = require("entity.version_4_entity")
   if data == nil then
     if self._version_4 == nil then
@@ -332,15 +313,10 @@ function UuidGeneratorSDK:version_4(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:version_4() instead.
-function UuidGeneratorSDK:Version4(data)
-  local EntityMod = require("entity.version_4_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:version_5():list() / client:version_5():load({ id = ... })
-function UuidGeneratorSDK:version_5(data)
+-- Idiomatic facade: client:Version5():list() / client:Version5():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function UuidGeneratorSDK:Version5(data)
   local EntityMod = require("entity.version_5_entity")
   if data == nil then
     if self._version_5 == nil then
@@ -348,12 +324,6 @@ function UuidGeneratorSDK:version_5(data)
     end
     return self._version_5
   end
-  return EntityMod.new(self, data)
-end
-
--- Deprecated: use client:version_5() instead.
-function UuidGeneratorSDK:Version5(data)
-  local EntityMod = require("entity.version_5_entity")
   return EntityMod.new(self, data)
 end
 

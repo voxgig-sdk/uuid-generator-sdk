@@ -169,7 +169,7 @@ Alias for `UuidGeneratorSDK.test()`.
 ## DecodeEntity
 
 ```ts
-const decode = client.decode
+const decode = client.Decode()
 ```
 
 ### Fields
@@ -186,7 +186,7 @@ const decode = client.decode
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.decode.load({ id: 'decode_id' })
+const result = await client.Decode().load({ id: 'decode_id' })
 ```
 
 ### Common Methods
@@ -220,7 +220,7 @@ Return a copy of the entity options.
 ## TimestampFirstEntity
 
 ```ts
-const timestamp_first = client.timestamp_first
+const timestamp_first = client.TimestampFirst()
 ```
 
 ### Operations
@@ -230,7 +230,7 @@ const timestamp_first = client.timestamp_first
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.timestamp_first.list()
+const results = await client.TimestampFirst().list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -238,7 +238,7 @@ const results = await client.timestamp_first.list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.timestamp_first.load({ id: 'timestamp_first_id' })
+const result = await client.TimestampFirst().load({ id: 'timestamp_first_id' })
 ```
 
 ### Common Methods
@@ -272,7 +272,7 @@ Return a copy of the entity options.
 ## Version1Entity
 
 ```ts
-const version_1 = client.version_1
+const version_1 = client.Version1()
 ```
 
 ### Operations
@@ -282,7 +282,7 @@ const version_1 = client.version_1
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.version_1.list()
+const results = await client.Version1().list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -290,7 +290,7 @@ const results = await client.version_1.list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.version_1.load({ id: 'version_1_id' })
+const result = await client.Version1().load({ id: 'version_1_id' })
 ```
 
 ### Common Methods
@@ -324,7 +324,7 @@ Return a copy of the entity options.
 ## Version3Entity
 
 ```ts
-const version_3 = client.version_3
+const version_3 = client.Version3()
 ```
 
 ### Operations
@@ -334,7 +334,7 @@ const version_3 = client.version_3
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.version_3.load({ id: 'version_3_id' })
+const result = await client.Version3().load({ id: 'version_3_id' })
 ```
 
 ### Common Methods
@@ -368,7 +368,7 @@ Return a copy of the entity options.
 ## Version4Entity
 
 ```ts
-const version_4 = client.version_4
+const version_4 = client.Version4()
 ```
 
 ### Operations
@@ -378,7 +378,7 @@ const version_4 = client.version_4
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.version_4.list()
+const results = await client.Version4().list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -386,7 +386,7 @@ const results = await client.version_4.list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.version_4.load({ id: 'version_4_id' })
+const result = await client.Version4().load({ id: 'version_4_id' })
 ```
 
 ### Common Methods
@@ -420,7 +420,7 @@ Return a copy of the entity options.
 ## Version5Entity
 
 ```ts
-const version_5 = client.version_5
+const version_5 = client.Version5()
 ```
 
 ### Operations
@@ -430,7 +430,7 @@ const version_5 = client.version_5
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.version_5.load({ id: 'version_5_id' })
+const result = await client.Version5().load({ id: 'version_5_id' })
 ```
 
 ### Common Methods

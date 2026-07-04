@@ -208,78 +208,42 @@ class UuidGeneratorSDK
   end
 
 
-  # Idiomatic facade: client.decode.list / client.decode.load({ "id" => ... })
-  def decode
-    require_relative 'entity/decode_entity'
-    @decode ||= DecodeEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.decode instead.
+  # Canonical facade: client.Decode.list / client.Decode.load({ "id" => ... })
   def Decode(data = nil)
     require_relative 'entity/decode_entity'
     DecodeEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.timestamp_first.list / client.timestamp_first.load({ "id" => ... })
-  def timestamp_first
-    require_relative 'entity/timestamp_first_entity'
-    @timestamp_first ||= TimestampFirstEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.timestamp_first instead.
+  # Canonical facade: client.TimestampFirst.list / client.TimestampFirst.load({ "id" => ... })
   def TimestampFirst(data = nil)
     require_relative 'entity/timestamp_first_entity'
     TimestampFirstEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.version_1.list / client.version_1.load({ "id" => ... })
-  def version_1
-    require_relative 'entity/version_1_entity'
-    @version_1 ||= Version1Entity.new(self, nil)
-  end
-
-  # Deprecated: use client.version_1 instead.
+  # Canonical facade: client.Version1.list / client.Version1.load({ "id" => ... })
   def Version1(data = nil)
     require_relative 'entity/version_1_entity'
     Version1Entity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.version_3.list / client.version_3.load({ "id" => ... })
-  def version_3
-    require_relative 'entity/version_3_entity'
-    @version_3 ||= Version3Entity.new(self, nil)
-  end
-
-  # Deprecated: use client.version_3 instead.
+  # Canonical facade: client.Version3.list / client.Version3.load({ "id" => ... })
   def Version3(data = nil)
     require_relative 'entity/version_3_entity'
     Version3Entity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.version_4.list / client.version_4.load({ "id" => ... })
-  def version_4
-    require_relative 'entity/version_4_entity'
-    @version_4 ||= Version4Entity.new(self, nil)
-  end
-
-  # Deprecated: use client.version_4 instead.
+  # Canonical facade: client.Version4.list / client.Version4.load({ "id" => ... })
   def Version4(data = nil)
     require_relative 'entity/version_4_entity'
     Version4Entity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.version_5.list / client.version_5.load({ "id" => ... })
-  def version_5
-    require_relative 'entity/version_5_entity'
-    @version_5 ||= Version5Entity.new(self, nil)
-  end
-
-  # Deprecated: use client.version_5 instead.
+  # Canonical facade: client.Version5.list / client.Version5.load({ "id" => ... })
   def Version5(data = nil)
     require_relative 'entity/version_5_entity'
     Version5Entity.new(self, data)

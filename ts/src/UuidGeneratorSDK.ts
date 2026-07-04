@@ -209,84 +209,42 @@ class UuidGeneratorSDK {
 
 
 
-  _decode?: DecodeEntity
-
-  // Idiomatic facade: `client.decode.list()` / `client.decode.load({ id })`.
-  get decode(): DecodeEntity {
-    return (this._decode ??= new DecodeEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.decode` instead. */
+  // Entity access: `client.Decode().list()` / `client.Decode().load({ id })`.
   Decode(data?: any) {
     const self = this
     return new DecodeEntity(self,data)
   }
 
 
-  _timestamp_first?: TimestampFirstEntity
-
-  // Idiomatic facade: `client.timestamp_first.list()` / `client.timestamp_first.load({ id })`.
-  get timestamp_first(): TimestampFirstEntity {
-    return (this._timestamp_first ??= new TimestampFirstEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.timestamp_first` instead. */
+  // Entity access: `client.TimestampFirst().list()` / `client.TimestampFirst().load({ id })`.
   TimestampFirst(data?: any) {
     const self = this
     return new TimestampFirstEntity(self,data)
   }
 
 
-  _version_1?: Version1Entity
-
-  // Idiomatic facade: `client.version_1.list()` / `client.version_1.load({ id })`.
-  get version_1(): Version1Entity {
-    return (this._version_1 ??= new Version1Entity(this, undefined))
-  }
-
-  /** @deprecated Use `client.version_1` instead. */
+  // Entity access: `client.Version1().list()` / `client.Version1().load({ id })`.
   Version1(data?: any) {
     const self = this
     return new Version1Entity(self,data)
   }
 
 
-  _version_3?: Version3Entity
-
-  // Idiomatic facade: `client.version_3.list()` / `client.version_3.load({ id })`.
-  get version_3(): Version3Entity {
-    return (this._version_3 ??= new Version3Entity(this, undefined))
-  }
-
-  /** @deprecated Use `client.version_3` instead. */
+  // Entity access: `client.Version3().list()` / `client.Version3().load({ id })`.
   Version3(data?: any) {
     const self = this
     return new Version3Entity(self,data)
   }
 
 
-  _version_4?: Version4Entity
-
-  // Idiomatic facade: `client.version_4.list()` / `client.version_4.load({ id })`.
-  get version_4(): Version4Entity {
-    return (this._version_4 ??= new Version4Entity(this, undefined))
-  }
-
-  /** @deprecated Use `client.version_4` instead. */
+  // Entity access: `client.Version4().list()` / `client.Version4().load({ id })`.
   Version4(data?: any) {
     const self = this
     return new Version4Entity(self,data)
   }
 
 
-  _version_5?: Version5Entity
-
-  // Idiomatic facade: `client.version_5.list()` / `client.version_5.load({ id })`.
-  get version_5(): Version5Entity {
-    return (this._version_5 ??= new Version5Entity(this, undefined))
-  }
-
-  /** @deprecated Use `client.version_5` instead. */
+  // Entity access: `client.Version5().list()` / `client.Version5().load({ id })`.
   Version5(data?: any) {
     const self = this
     return new Version5Entity(self,data)

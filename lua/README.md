@@ -34,9 +34,9 @@ local client = sdk.new()
 ### 3. Load a decode
 
 ```lua
-local result, err = client:decode():load({ id = "example_id" })
+local decode, err = client:Decode():load({ id = "example_id" })
 if err then error(err) end
-print(result)
+print(decode)
 ```
 
 
@@ -82,8 +82,8 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:decode():load({ id = "test01" })
--- result contains mock response data
+local result, err = client:Decode():load({ id = "test01" })
+-- result is the loaded data; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -188,17 +188,22 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(any, err)`. The first value is a
-`table` with these keys:
+Entity operations return `(value, err)`. The `value` is the operation's
+data **directly** — there is no wrapper:
 
-| Key | Type | Description |
-| --- | --- | --- |
-| `ok` | `boolean` | `true` if the HTTP status is 2xx. |
-| `status` | `number` | HTTP status code. |
-| `headers` | `table` | Response headers. |
-| `data` | `any` | Parsed JSON response body. |
+| Operation | `value` |
+| --- | --- |
+| `load` / `create` / `update` / `remove` | the entity record (a `table`) |
+| `list` | an array (`table`) of entity records |
 
-On error, `ok` is `false` and `err` contains the error value.
+Check `err` first (it is non-`nil` on failure), then use `value`:
+
+    local decode, err = client:Decode():load({ id = "example_id" })
+    if err then error(err) end
+    -- decode is the loaded record
+
+Only `direct()` returns a response envelope — a `table` with `ok`,
+`status`, `headers`, and `data` keys.
 
 ### Entities
 
@@ -265,7 +270,7 @@ API path: `/generate/v5/namespace/{namespace}/name/{name}`
 
 ### Decode
 
-Create an instance: `const decode = client.decode`
+Create an instance: `local decode = client:Decode(nil)`
 
 #### Operations
 
@@ -282,14 +287,14 @@ Create an instance: `const decode = client.decode`
 
 #### Example: Load
 
-```ts
-const decode = await client.decode.load({ id: 'decode_id' })
+```lua
+local decode, err = client:Decode():load({ id = "decode_id" })
 ```
 
 
 ### TimestampFirst
 
-Create an instance: `const timestamp_first = client.timestamp_first`
+Create an instance: `local timestamp_first = client:TimestampFirst(nil)`
 
 #### Operations
 
@@ -300,20 +305,20 @@ Create an instance: `const timestamp_first = client.timestamp_first`
 
 #### Example: Load
 
-```ts
-const timestamp_first = await client.timestamp_first.load({ id: 'timestamp_first_id' })
+```lua
+local timestamp_first, err = client:TimestampFirst():load({ id = "timestamp_first_id" })
 ```
 
 #### Example: List
 
-```ts
-const timestamp_firsts = await client.timestamp_first.list()
+```lua
+local timestamp_firsts, err = client:TimestampFirst():list()
 ```
 
 
 ### Version1
 
-Create an instance: `const version_1 = client.version_1`
+Create an instance: `local version_1 = client:Version1(nil)`
 
 #### Operations
 
@@ -324,20 +329,20 @@ Create an instance: `const version_1 = client.version_1`
 
 #### Example: Load
 
-```ts
-const version_1 = await client.version_1.load({ id: 'version_1_id' })
+```lua
+local version_1, err = client:Version1():load({ id = "version_1_id" })
 ```
 
 #### Example: List
 
-```ts
-const version_1s = await client.version_1.list()
+```lua
+local version_1s, err = client:Version1():list()
 ```
 
 
 ### Version3
 
-Create an instance: `const version_3 = client.version_3`
+Create an instance: `local version_3 = client:Version3(nil)`
 
 #### Operations
 
@@ -347,14 +352,14 @@ Create an instance: `const version_3 = client.version_3`
 
 #### Example: Load
 
-```ts
-const version_3 = await client.version_3.load({ id: 'version_3_id' })
+```lua
+local version_3, err = client:Version3():load({ id = "version_3_id" })
 ```
 
 
 ### Version4
 
-Create an instance: `const version_4 = client.version_4`
+Create an instance: `local version_4 = client:Version4(nil)`
 
 #### Operations
 
@@ -365,20 +370,20 @@ Create an instance: `const version_4 = client.version_4`
 
 #### Example: Load
 
-```ts
-const version_4 = await client.version_4.load({ id: 'version_4_id' })
+```lua
+local version_4, err = client:Version4():load({ id = "version_4_id" })
 ```
 
 #### Example: List
 
-```ts
-const version_4s = await client.version_4.list()
+```lua
+local version_4s, err = client:Version4():list()
 ```
 
 
 ### Version5
 
-Create an instance: `const version_5 = client.version_5`
+Create an instance: `local version_5 = client:Version5(nil)`
 
 #### Operations
 
@@ -388,8 +393,8 @@ Create an instance: `const version_5 = client.version_5`
 
 #### Example: Load
 
-```ts
-const version_5 = await client.version_5.load({ id: 'version_5_id' })
+```lua
+local version_5, err = client:Version5():load({ id = "version_5_id" })
 ```
 
 
@@ -464,7 +469,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local decode = client:decode()
+local decode = client:Decode()
 decode:load({ id = "example_id" })
 
 -- decode:data_get() now returns the loaded decode data
