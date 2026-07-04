@@ -55,6 +55,9 @@ class Version1Entity
         return new Version1Entity($this->_client, $opts);
     }
 
+    /**
+     * @param Version1|array $args Version1 data (assoc-array) to store.
+     */
     public function data_set($args): void
     {
         if ($args) {
@@ -63,12 +66,18 @@ class Version1Entity
         }
     }
 
+    /**
+     * @return Version1|array The current Version1 data as an assoc-array.
+     */
     public function data_get()
     {
         ($this->_utility->feature_hook)($this->_entctx, "GetData");
         return Struct::clone($this->_data);
     }
 
+    /**
+     * @param array $args Match filter (any subset of Version1 fields).
+     */
     public function match_set($args): void
     {
         if ($args) {
@@ -77,6 +86,9 @@ class Version1Entity
         }
     }
 
+    /**
+     * @return array The current match filter (any subset of Version1 fields).
+     */
     public function match_get()
     {
         ($this->_utility->feature_hook)($this->_entctx, "GetMatch");
@@ -84,7 +96,16 @@ class Version1Entity
     }
 
     
-    public function load($reqmatch, $ctrl = null): array
+    /**
+     * Load a single Version1.
+     *
+     * @param Version1LoadMatch|array|null $reqmatch Match criteria (id/query
+     *   fields) as an assoc-array; a typed Version1LoadMatch names the shape.
+     * @param mixed $ctrl Optional per-call control overrides.
+     * @return Version1|array The loaded Version1 as an assoc-array at the
+     *   SDK boundary; throws UuidGeneratorError on failure (item-5 convention).
+     */
+    public function load(?array $reqmatch = null, $ctrl = null): mixed
     {
         $utility = $this->_utility;
         $ctx = ($utility->make_context)([
@@ -110,7 +131,16 @@ class Version1Entity
 
 
     
-    public function list($reqmatch, $ctrl = null): array
+    /**
+     * List Version1 items matching the given filter.
+     *
+     * @param Version1ListMatch|array|null $reqmatch Match filter (any subset
+     *   of Version1 fields) as an assoc-array; Version1ListMatch names the shape.
+     * @param mixed $ctrl Optional per-call control overrides.
+     * @return Version1[]|array A list of Version1 items as assoc-arrays at
+     *   the SDK boundary; throws UuidGeneratorError on failure (item-5 convention).
+     */
+    public function list(?array $reqmatch = null, $ctrl = null): mixed
     {
         $utility = $this->_utility;
         $ctx = ($utility->make_context)([
@@ -138,7 +168,7 @@ class Version1Entity
 
     
 
-    private function _run_op($ctx, callable $post_done): array
+    private function _run_op($ctx, callable $post_done): mixed
     {
         $utility = $this->_utility;
 

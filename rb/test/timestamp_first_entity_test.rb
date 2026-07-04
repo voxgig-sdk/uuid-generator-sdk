@@ -43,14 +43,12 @@ class TimestampFirstEntityTest < Minitest::Test
     timestamp_first_ref01_ent = client.TimestampFirst(nil)
     timestamp_first_ref01_match = {}
 
-    timestamp_first_ref01_list_result, err = timestamp_first_ref01_ent.list(timestamp_first_ref01_match, nil)
-    assert_nil err
+    timestamp_first_ref01_list_result = timestamp_first_ref01_ent.list(timestamp_first_ref01_match, nil)
     assert timestamp_first_ref01_list_result.is_a?(Array)
 
     # LOAD
     timestamp_first_ref01_match_dt0 = {}
-    timestamp_first_ref01_data_dt0_loaded, err = timestamp_first_ref01_ent.load(timestamp_first_ref01_match_dt0, nil)
-    assert_nil err
+    timestamp_first_ref01_data_dt0_loaded = timestamp_first_ref01_ent.load(timestamp_first_ref01_match_dt0, nil)
     assert !timestamp_first_ref01_data_dt0_loaded.nil?
 
   end
@@ -89,7 +87,6 @@ def timestamp_first_basic_setup(extra)
     "UUIDGENERATOR_TEST_TIMESTAMP_FIRST_ENTID" => idmap,
     "UUIDGENERATOR_TEST_LIVE" => "FALSE",
     "UUIDGENERATOR_TEST_EXPLAIN" => "FALSE",
-    "UUIDGENERATOR_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -101,7 +98,6 @@ def timestamp_first_basic_setup(extra)
   if env["UUIDGENERATOR_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["UUIDGENERATOR_APIKEY"],
       },
       extra || {},
     ])

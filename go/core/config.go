@@ -14,9 +14,6 @@ func MakeConfig() map[string]any {
 		},
 		"options": map[string]any{
 			"base": "https://www.uuidtools.com/api",
-			"auth": map[string]any{
-				"prefix": "Bearer",
-			},
 			"headers": map[string]any{
 				"content-type": "application/json",
 			},
@@ -65,6 +62,7 @@ func MakeConfig() map[string]any {
 											"orig": "uuid",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 0,
 										},
 									},
 								},
@@ -141,6 +139,7 @@ func MakeConfig() map[string]any {
 											"orig": "count",
 											"reqd": true,
 											"type": "`$INTEGER`",
+											"index$": 0,
 										},
 									},
 								},
@@ -218,6 +217,7 @@ func MakeConfig() map[string]any {
 											"orig": "count",
 											"reqd": true,
 											"type": "`$INTEGER`",
+											"index$": 0,
 										},
 									},
 								},
@@ -272,6 +272,7 @@ func MakeConfig() map[string]any {
 											"orig": "name",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 0,
 										},
 										map[string]any{
 											"active": true,
@@ -281,6 +282,7 @@ func MakeConfig() map[string]any {
 											"orig": "namespace",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 1,
 										},
 									},
 								},
@@ -367,6 +369,7 @@ func MakeConfig() map[string]any {
 											"orig": "count",
 											"reqd": true,
 											"type": "`$INTEGER`",
+											"index$": 0,
 										},
 									},
 								},
@@ -421,6 +424,7 @@ func MakeConfig() map[string]any {
 											"orig": "name",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 0,
 										},
 										map[string]any{
 											"active": true,
@@ -430,6 +434,7 @@ func MakeConfig() map[string]any {
 											"orig": "namespace",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 1,
 										},
 									},
 								},

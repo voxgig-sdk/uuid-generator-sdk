@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch Version4LoadMatch
+---@param ctrl? table
+---@return Version4
+---@return string? err
 function Version4Entity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -104,6 +108,10 @@ end
 
 
 
+---@param reqmatch Version4ListMatch
+---@param ctrl? table
+---@return Version4[]
+---@return string? err
 function Version4Entity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

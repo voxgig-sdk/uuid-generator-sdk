@@ -9,12 +9,9 @@ The Lua SDK for the UuidGenerator API — an entity-oriented client using Lua co
 
 
 ## Install
-```bash
-luarocks install voxgig-sdk-uuid-generator
-```
-
-If the module is not yet published, add the source directory to
-your `LUA_PATH`:
+This package is not yet published to LuaRocks. Install it from the
+GitHub release tag (`lua/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/uuid-generator-sdk/releases)),
+or add the source directory to your `LUA_PATH`:
 
 ```bash
 export LUA_PATH="path/to/lua/?.lua;path/to/lua/?/init.lua;;"
@@ -31,15 +28,13 @@ loading a specific record.
 ```lua
 local sdk = require("uuid-generator_sdk")
 
-local client = sdk.new({
-  apikey = os.getenv("UUID-GENERATOR_APIKEY"),
-})
+local client = sdk.new()
 ```
 
 ### 3. Load a decode
 
 ```lua
-local result, err = client:Decode():load({ id = "example_id" })
+local result, err = client:decode():load({ id = "example_id" })
 if err then error(err) end
 print(result)
 ```
@@ -87,7 +82,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:UuidGenerator():load({ id = "test01" })
+local result, err = client:decode():load({ id = "test01" })
 -- result contains mock response data
 ```
 
@@ -120,8 +115,7 @@ local client = sdk.new({
 Create a `.env.local` file at the project root:
 
 ```
-UUID-GENERATOR_TEST_LIVE=TRUE
-UUID-GENERATOR_APIKEY=<your-key>
+UUID_GENERATOR_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -144,7 +138,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -272,7 +265,7 @@ API path: `/generate/v5/namespace/{namespace}/name/{name}`
 
 ### Decode
 
-Create an instance: `const decode = client.Decode()`
+Create an instance: `const decode = client.decode`
 
 #### Operations
 
@@ -290,13 +283,13 @@ Create an instance: `const decode = client.Decode()`
 #### Example: Load
 
 ```ts
-const decode = await client.Decode().load({ id: 'decode_id' })
+const decode = await client.decode.load({ id: 'decode_id' })
 ```
 
 
 ### TimestampFirst
 
-Create an instance: `const timestamp_first = client.TimestampFirst()`
+Create an instance: `const timestamp_first = client.timestamp_first`
 
 #### Operations
 
@@ -308,19 +301,19 @@ Create an instance: `const timestamp_first = client.TimestampFirst()`
 #### Example: Load
 
 ```ts
-const timestamp_first = await client.TimestampFirst().load({ id: 'timestamp_first_id' })
+const timestamp_first = await client.timestamp_first.load({ id: 'timestamp_first_id' })
 ```
 
 #### Example: List
 
 ```ts
-const timestamp_firsts = await client.TimestampFirst().list()
+const timestamp_firsts = await client.timestamp_first.list()
 ```
 
 
 ### Version1
 
-Create an instance: `const version_1 = client.Version1()`
+Create an instance: `const version_1 = client.version_1`
 
 #### Operations
 
@@ -332,19 +325,19 @@ Create an instance: `const version_1 = client.Version1()`
 #### Example: Load
 
 ```ts
-const version_1 = await client.Version1().load({ id: 'version_1_id' })
+const version_1 = await client.version_1.load({ id: 'version_1_id' })
 ```
 
 #### Example: List
 
 ```ts
-const version_1s = await client.Version1().list()
+const version_1s = await client.version_1.list()
 ```
 
 
 ### Version3
 
-Create an instance: `const version_3 = client.Version3()`
+Create an instance: `const version_3 = client.version_3`
 
 #### Operations
 
@@ -355,13 +348,13 @@ Create an instance: `const version_3 = client.Version3()`
 #### Example: Load
 
 ```ts
-const version_3 = await client.Version3().load({ id: 'version_3_id' })
+const version_3 = await client.version_3.load({ id: 'version_3_id' })
 ```
 
 
 ### Version4
 
-Create an instance: `const version_4 = client.Version4()`
+Create an instance: `const version_4 = client.version_4`
 
 #### Operations
 
@@ -373,19 +366,19 @@ Create an instance: `const version_4 = client.Version4()`
 #### Example: Load
 
 ```ts
-const version_4 = await client.Version4().load({ id: 'version_4_id' })
+const version_4 = await client.version_4.load({ id: 'version_4_id' })
 ```
 
 #### Example: List
 
 ```ts
-const version_4s = await client.Version4().list()
+const version_4s = await client.version_4.list()
 ```
 
 
 ### Version5
 
-Create an instance: `const version_5 = client.Version5()`
+Create an instance: `const version_5 = client.version_5`
 
 #### Operations
 
@@ -396,7 +389,7 @@ Create an instance: `const version_5 = client.Version5()`
 #### Example: Load
 
 ```ts
-const version_5 = await client.Version5().load({ id: 'version_5_id' })
+const version_5 = await client.version_5.load({ id: 'version_5_id' })
 ```
 
 
@@ -471,11 +464,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local moon = client:Moon(nil)
-moon:load({ planet_id = "earth", id = "luna" }, nil)
+local decode = client:decode()
+decode:load({ id = "example_id" })
 
--- moon:data_get() now returns the loaded moon data
--- moon:match_get() returns the last match criteria
+-- decode:data_get() now returns the loaded decode data
+-- decode:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

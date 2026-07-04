@@ -1,7 +1,13 @@
 # UuidGenerator SDK Version3 entity
 
+from __future__ import annotations
+
 from utility.voxgig_struct import voxgig_struct as vs
 from core import helpers
+from uuidgenerator_types import (
+    Version3,
+    Version3LoadMatch,
+)
 
 
 class Version3Entity:
@@ -44,7 +50,7 @@ class Version3Entity:
             self._data = helpers.to_map(vs.clone(args)) or {}
             self._utility.feature_hook(self._entctx, "SetData")
 
-    def data_get(self):
+    def data_get(self) -> Version3:
         self._utility.feature_hook(self._entctx, "GetData")
         return vs.clone(self._data)
 
@@ -53,12 +59,12 @@ class Version3Entity:
             self._match = helpers.to_map(vs.clone(args)) or {}
             self._utility.feature_hook(self._entctx, "SetMatch")
 
-    def match_get(self):
+    def match_get(self) -> Version3:
         self._utility.feature_hook(self._entctx, "GetMatch")
         return vs.clone(self._match)
 
     
-    def load(self, reqmatch, ctrl=None):
+    def load(self, reqmatch: Version3LoadMatch, ctrl=None) -> Version3:
         utility = self._utility
         ctx = utility.make_context({
             "opname": "load",

@@ -20,9 +20,6 @@ class UuidGeneratorConfig
             ],
             "options" => [
                 "base" => "https://www.uuidtools.com/api",
-                "auth" => [
-                    "prefix" => "Bearer",
-                ],
                 "headers" => [
           'content-type' => 'application/json',
         ],
@@ -71,6 +68,7 @@ class UuidGeneratorConfig
                         'orig' => 'uuid',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 0,
                       ],
                     ],
                   ],
@@ -147,6 +145,7 @@ class UuidGeneratorConfig
                         'orig' => 'count',
                         'reqd' => true,
                         'type' => '`$INTEGER`',
+                        'index$' => 0,
                       ],
                     ],
                   ],
@@ -224,6 +223,7 @@ class UuidGeneratorConfig
                         'orig' => 'count',
                         'reqd' => true,
                         'type' => '`$INTEGER`',
+                        'index$' => 0,
                       ],
                     ],
                   ],
@@ -278,6 +278,7 @@ class UuidGeneratorConfig
                         'orig' => 'name',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 0,
                       ],
                       [
                         'active' => true,
@@ -287,6 +288,7 @@ class UuidGeneratorConfig
                         'orig' => 'namespace',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 1,
                       ],
                     ],
                   ],
@@ -373,6 +375,7 @@ class UuidGeneratorConfig
                         'orig' => 'count',
                         'reqd' => true,
                         'type' => '`$INTEGER`',
+                        'index$' => 0,
                       ],
                     ],
                   ],
@@ -427,6 +430,7 @@ class UuidGeneratorConfig
                         'orig' => 'name',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 0,
                       ],
                       [
                         'active' => true,
@@ -436,6 +440,7 @@ class UuidGeneratorConfig
                         'orig' => 'namespace',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 1,
                       ],
                     ],
                   ],

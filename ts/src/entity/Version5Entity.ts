@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Version5,
+  Version5LoadMatch,
+} from '../UuidGeneratorTypes'
 
 // TODO: needs Entity superclass
-class Version5Entity extends UuidGeneratorEntityBase {
+class Version5Entity extends UuidGeneratorEntityBase<Version5> {
 
   constructor(client: UuidGeneratorSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +36,7 @@ class Version5Entity extends UuidGeneratorEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: Version5LoadMatch, ctrl?: Control): Promise<Version5> {
 
     const utility = this._utility
 
@@ -136,7 +140,9 @@ class Version5Entity extends UuidGeneratorEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Version5> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

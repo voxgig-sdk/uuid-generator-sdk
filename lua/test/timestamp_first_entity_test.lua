@@ -98,7 +98,6 @@ function timestamp_first_basic_setup(extra)
     ["UUIDGENERATOR_TEST_TIMESTAMP_FIRST_ENTID"] = idmap,
     ["UUIDGENERATOR_TEST_LIVE"] = "FALSE",
     ["UUIDGENERATOR_TEST_EXPLAIN"] = "FALSE",
-    ["UUIDGENERATOR_APIKEY"] = "NONE",
   })
 
   local idmap_resolved = helpers.to_map(
@@ -110,7 +109,6 @@ function timestamp_first_basic_setup(extra)
   if env["UUIDGENERATOR_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
       {
-        apikey = env["UUIDGENERATOR_APIKEY"],
       },
       extra or {},
     })

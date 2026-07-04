@@ -50,14 +50,12 @@ class TestTimestampFirstEntity:
         timestamp_first_ref01_ent = client.TimestampFirst(None)
         timestamp_first_ref01_match = {}
 
-        timestamp_first_ref01_list_result, err = timestamp_first_ref01_ent.list(timestamp_first_ref01_match, None)
-        assert err is None
+        timestamp_first_ref01_list_result = timestamp_first_ref01_ent.list(timestamp_first_ref01_match, None)
         assert isinstance(timestamp_first_ref01_list_result, list)
 
         # LOAD
         timestamp_first_ref01_match_dt0 = {}
-        timestamp_first_ref01_data_dt0_loaded, err = timestamp_first_ref01_ent.load(timestamp_first_ref01_match_dt0, None)
-        assert err is None
+        timestamp_first_ref01_data_dt0_loaded = timestamp_first_ref01_ent.load(timestamp_first_ref01_match_dt0, None)
         assert timestamp_first_ref01_data_dt0_loaded is not None
 
 
@@ -98,7 +96,6 @@ def _timestamp_first_basic_setup(extra):
         "UUIDGENERATOR_TEST_TIMESTAMP_FIRST_ENTID": idmap,
         "UUIDGENERATOR_TEST_LIVE": "FALSE",
         "UUIDGENERATOR_TEST_EXPLAIN": "FALSE",
-        "UUIDGENERATOR_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -109,7 +106,6 @@ def _timestamp_first_basic_setup(extra):
     if env.get("UUIDGENERATOR_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("UUIDGENERATOR_APIKEY"),
             },
             extra or {},
         ])

@@ -245,31 +245,49 @@ func (sdk *UuidGeneratorSDK) Direct(fetchargs map[string]any) (map[string]any, e
 }
 
 
+// Decode returns a Decode entity bound to this client.
+// Idiomatic usage: client.Decode(nil).List(nil, nil) or
+// client.Decode(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *UuidGeneratorSDK) Decode(data map[string]any) UuidGeneratorEntity {
 	return NewDecodeEntityFunc(sdk, data)
 }
 
 
+// TimestampFirst returns a TimestampFirst entity bound to this client.
+// Idiomatic usage: client.TimestampFirst(nil).List(nil, nil) or
+// client.TimestampFirst(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *UuidGeneratorSDK) TimestampFirst(data map[string]any) UuidGeneratorEntity {
 	return NewTimestampFirstEntityFunc(sdk, data)
 }
 
 
+// Version1 returns a Version1 entity bound to this client.
+// Idiomatic usage: client.Version1(nil).List(nil, nil) or
+// client.Version1(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *UuidGeneratorSDK) Version1(data map[string]any) UuidGeneratorEntity {
 	return NewVersion1EntityFunc(sdk, data)
 }
 
 
+// Version3 returns a Version3 entity bound to this client.
+// Idiomatic usage: client.Version3(nil).List(nil, nil) or
+// client.Version3(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *UuidGeneratorSDK) Version3(data map[string]any) UuidGeneratorEntity {
 	return NewVersion3EntityFunc(sdk, data)
 }
 
 
+// Version4 returns a Version4 entity bound to this client.
+// Idiomatic usage: client.Version4(nil).List(nil, nil) or
+// client.Version4(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *UuidGeneratorSDK) Version4(data map[string]any) UuidGeneratorEntity {
 	return NewVersion4EntityFunc(sdk, data)
 }
 
 
+// Version5 returns a Version5 entity bound to this client.
+// Idiomatic usage: client.Version5(nil).List(nil, nil) or
+// client.Version5(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *UuidGeneratorSDK) Version5(data map[string]any) UuidGeneratorEntity {
 	return NewVersion5EntityFunc(sdk, data)
 }

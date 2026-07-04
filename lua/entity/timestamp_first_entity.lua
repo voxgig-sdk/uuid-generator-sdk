@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch TimestampFirstLoadMatch
+---@param ctrl? table
+---@return TimestampFirst
+---@return string? err
 function TimestampFirstEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -104,6 +108,10 @@ end
 
 
 
+---@param reqmatch TimestampFirstListMatch
+---@param ctrl? table
+---@return TimestampFirst[]
+---@return string? err
 function TimestampFirstEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch DecodeLoadMatch
+---@param ctrl? table
+---@return Decode
+---@return string? err
 function DecodeEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

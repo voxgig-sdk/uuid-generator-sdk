@@ -9,11 +9,9 @@ The Python SDK for the UuidGenerator API — an entity-oriented client following
 
 
 ## Install
-```bash
-pip install voxgig-sdk-uuid-generator
-```
-
-Or install from source:
+This package is not yet published to PyPI. Install it from the GitHub
+release tag (`py/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/uuid-generator-sdk/releases)) or
+from a source checkout:
 
 ```bash
 pip install -e .
@@ -28,21 +26,19 @@ loading a specific record.
 ### 1. Create a client
 
 ```python
-import os
 from uuidgenerator_sdk import UuidGeneratorSDK
 
-client = UuidGeneratorSDK({
-    "apikey": os.environ.get("UUID-GENERATOR_APIKEY"),
-})
+client = UuidGeneratorSDK()
 ```
 
 ### 3. Load a decode
 
 ```python
-result, err = client.Decode().load({"id": "example_id"})
-if err:
-    raise Exception(err)
-print(result)
+try:
+    result = client.decode.load({"id": "example_id"})
+    print(result)
+except Exception as err:
+    print(f"load failed: {err}")
 ```
 
 
@@ -53,29 +49,28 @@ print(result)
 For endpoints not covered by entity methods:
 
 ```python
-result, err = client.direct({
+result = client.direct({
     "path": "/api/resource/{id}",
     "method": "GET",
     "params": {"id": "example"},
 })
-if err:
-    raise Exception(err)
 
 if result["ok"]:
     print(result["status"])  # 200
     print(result["data"])    # response body
+else:
+    print(result["err"])     # error value
 ```
 
 ### Prepare a request without sending it
 
 ```python
-fetchdef, err = client.prepare({
+# prepare() returns the fetch definition and raises on error.
+fetchdef = client.prepare({
     "path": "/api/resource/{id}",
     "method": "DELETE",
     "params": {"id": "example"},
 })
-if err:
-    raise Exception(err)
 
 print(fetchdef["url"])
 print(fetchdef["method"])
@@ -89,7 +84,7 @@ Create a mock client for unit testing — no server required:
 ```python
 client = UuidGeneratorSDK.test()
 
-result, err = client.UuidGenerator().load({"id": "test01"})
+result = client.decode.load({"id": "test01"})
 # result contains mock response data
 ```
 
@@ -119,8 +114,7 @@ client = UuidGeneratorSDK({
 Create a `.env.local` file at the project root:
 
 ```
-UUID-GENERATOR_TEST_LIVE=TRUE
-UUID-GENERATOR_APIKEY=<your-key>
+UUID_GENERATOR_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -144,7 +138,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `str` | API key for authentication. |
 | `base` | `str` | Base URL of the API server. |
 | `prefix` | `str` | URL path prefix prepended to all requests. |
 | `suffix` | `str` | URL path suffix appended to all requests. |
@@ -166,8 +159,8 @@ Creates a test-mode client with mock transport. Both arguments may be `None`.
 | --- | --- | --- |
 | `options_map` | `() -> dict` | Deep copy of current SDK options. |
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
-| `prepare` | `(fetchargs) -> (dict, err)` | Build an HTTP request definition without sending. |
-| `direct` | `(fetchargs) -> (dict, err)` | Build and send an HTTP request. |
+| `prepare` | `(fetchargs) -> dict` | Build an HTTP request definition without sending. Raises on error. |
+| `direct` | `(fetchargs) -> dict` | Build and send an HTTP request. Returns a result dict (branch on `ok`). |
 | `Decode` | `(data) -> DecodeEntity` | Create a Decode entity instance. |
 | `TimestampFirst` | `(data) -> TimestampFirstEntity` | Create a TimestampFirst entity instance. |
 | `Version1` | `(data) -> Version1Entity` | Create a Version1 entity instance. |
@@ -181,11 +174,11 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> (any, err)` | Load a single entity by match criteria. |
-| `list` | `(reqmatch, ctrl) -> (any, err)` | List entities matching the criteria. |
-| `create` | `(reqdata, ctrl) -> (any, err)` | Create a new entity. |
-| `update` | `(reqdata, ctrl) -> (any, err)` | Update an existing entity. |
-| `remove` | `(reqmatch, ctrl) -> (any, err)` | Remove an entity. |
+| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
+| `list` | `(reqmatch, ctrl) -> list` | List entities matching the criteria. Raises on error. |
+| `create` | `(reqdata, ctrl) -> any` | Create a new entity. Raises on error. |
+| `update` | `(reqdata, ctrl) -> any` | Update an existing entity. Raises on error. |
+| `remove` | `(reqmatch, ctrl) -> any` | Remove an entity. Raises on error. |
 | `data_get` | `() -> dict` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> dict` | Get entity match criteria. |
@@ -195,8 +188,12 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(any, err)`. The first value is a
-`dict` with these keys:
+Entity operations return the bare result data (a `dict` for single-entity
+ops, a `list` for `list`) and raise on error. Wrap calls in
+`try`/`except` to handle failures.
+
+The `direct()` escape hatch never raises — it returns a result `dict`
+you branch on via `result["ok"]`:
 
 | Key | Type | Description |
 | --- | --- | --- |
@@ -272,7 +269,7 @@ API path: `/generate/v5/namespace/{namespace}/name/{name}`
 
 ### Decode
 
-Create an instance: `const decode = client.Decode()`
+Create an instance: `const decode = client.decode`
 
 #### Operations
 
@@ -290,13 +287,13 @@ Create an instance: `const decode = client.Decode()`
 #### Example: Load
 
 ```ts
-const decode = await client.Decode().load({ id: 'decode_id' })
+const decode = await client.decode.load({ id: 'decode_id' })
 ```
 
 
 ### TimestampFirst
 
-Create an instance: `const timestamp_first = client.TimestampFirst()`
+Create an instance: `const timestamp_first = client.timestamp_first`
 
 #### Operations
 
@@ -308,19 +305,19 @@ Create an instance: `const timestamp_first = client.TimestampFirst()`
 #### Example: Load
 
 ```ts
-const timestamp_first = await client.TimestampFirst().load({ id: 'timestamp_first_id' })
+const timestamp_first = await client.timestamp_first.load({ id: 'timestamp_first_id' })
 ```
 
 #### Example: List
 
 ```ts
-const timestamp_firsts = await client.TimestampFirst().list()
+const timestamp_firsts = await client.timestamp_first.list()
 ```
 
 
 ### Version1
 
-Create an instance: `const version_1 = client.Version1()`
+Create an instance: `const version_1 = client.version_1`
 
 #### Operations
 
@@ -332,19 +329,19 @@ Create an instance: `const version_1 = client.Version1()`
 #### Example: Load
 
 ```ts
-const version_1 = await client.Version1().load({ id: 'version_1_id' })
+const version_1 = await client.version_1.load({ id: 'version_1_id' })
 ```
 
 #### Example: List
 
 ```ts
-const version_1s = await client.Version1().list()
+const version_1s = await client.version_1.list()
 ```
 
 
 ### Version3
 
-Create an instance: `const version_3 = client.Version3()`
+Create an instance: `const version_3 = client.version_3`
 
 #### Operations
 
@@ -355,13 +352,13 @@ Create an instance: `const version_3 = client.Version3()`
 #### Example: Load
 
 ```ts
-const version_3 = await client.Version3().load({ id: 'version_3_id' })
+const version_3 = await client.version_3.load({ id: 'version_3_id' })
 ```
 
 
 ### Version4
 
-Create an instance: `const version_4 = client.Version4()`
+Create an instance: `const version_4 = client.version_4`
 
 #### Operations
 
@@ -373,19 +370,19 @@ Create an instance: `const version_4 = client.Version4()`
 #### Example: Load
 
 ```ts
-const version_4 = await client.Version4().load({ id: 'version_4_id' })
+const version_4 = await client.version_4.load({ id: 'version_4_id' })
 ```
 
 #### Example: List
 
 ```ts
-const version_4s = await client.Version4().list()
+const version_4s = await client.version_4.list()
 ```
 
 
 ### Version5
 
-Create an instance: `const version_5 = client.Version5()`
+Create an instance: `const version_5 = client.version_5`
 
 #### Operations
 
@@ -396,7 +393,7 @@ Create an instance: `const version_5 = client.Version5()`
 #### Example: Load
 
 ```ts
-const version_5 = await client.Version5().load({ id: 'version_5_id' })
+const version_5 = await client.version_5.load({ id: 'version_5_id' })
 ```
 
 
@@ -470,11 +467,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-moon = client.Moon()
-moon.load({"planet_id": "earth", "id": "luna"})
+decode = client.decode
+decode.load({"id": "example_id"})
 
-# moon.data_get() now returns the loaded moon data
-# moon.match_get() returns the last match criteria
+# decode.data_get() now returns the loaded decode data
+# decode.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

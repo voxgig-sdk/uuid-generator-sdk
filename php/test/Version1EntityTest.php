@@ -50,14 +50,12 @@ class Version1EntityTest extends TestCase
         $version_1_ref01_ent = $client->Version1(null);
         $version_1_ref01_match = [];
 
-        [$version_1_ref01_list_result, $err] = $version_1_ref01_ent->list($version_1_ref01_match, null);
-        $this->assertNull($err);
+        $version_1_ref01_list_result = $version_1_ref01_ent->list($version_1_ref01_match, null);
         $this->assertIsArray($version_1_ref01_list_result);
 
         // LOAD
         $version_1_ref01_match_dt0 = [];
-        [$version_1_ref01_data_dt0_loaded, $err] = $version_1_ref01_ent->load($version_1_ref01_match_dt0, null);
-        $this->assertNull($err);
+        $version_1_ref01_data_dt0_loaded = $version_1_ref01_ent->load($version_1_ref01_match_dt0, null);
         $this->assertNotNull($version_1_ref01_data_dt0_loaded);
 
     }
@@ -92,7 +90,6 @@ function version_1_basic_setup($extra)
         "UUIDGENERATOR_TEST_VERSION___ENTID" => $idmap,
         "UUIDGENERATOR_TEST_LIVE" => "FALSE",
         "UUIDGENERATOR_TEST_EXPLAIN" => "FALSE",
-        "UUIDGENERATOR_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -104,7 +101,6 @@ function version_1_basic_setup($extra)
     if ($env["UUIDGENERATOR_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["UUIDGENERATOR_APIKEY"],
             ],
             $extra ?? [],
         ]);

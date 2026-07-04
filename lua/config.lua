@@ -14,9 +14,6 @@ local function make_config()
     },
     options = {
       base = "https://www.uuidtools.com/api",
-      auth = {
-        prefix = "Bearer",
-      },
       headers = {
         ["content-type"] = "application/json",
       },
@@ -65,6 +62,7 @@ local function make_config()
                       ["orig"] = "uuid",
                       ["reqd"] = true,
                       ["type"] = "`$STRING`",
+                      ["index$"] = 0,
                     },
                   },
                 },
@@ -141,6 +139,7 @@ local function make_config()
                       ["orig"] = "count",
                       ["reqd"] = true,
                       ["type"] = "`$INTEGER`",
+                      ["index$"] = 0,
                     },
                   },
                 },
@@ -218,6 +217,7 @@ local function make_config()
                       ["orig"] = "count",
                       ["reqd"] = true,
                       ["type"] = "`$INTEGER`",
+                      ["index$"] = 0,
                     },
                   },
                 },
@@ -272,6 +272,7 @@ local function make_config()
                       ["orig"] = "name",
                       ["reqd"] = true,
                       ["type"] = "`$STRING`",
+                      ["index$"] = 0,
                     },
                     {
                       ["active"] = true,
@@ -281,6 +282,7 @@ local function make_config()
                       ["orig"] = "namespace",
                       ["reqd"] = true,
                       ["type"] = "`$STRING`",
+                      ["index$"] = 1,
                     },
                   },
                 },
@@ -367,6 +369,7 @@ local function make_config()
                       ["orig"] = "count",
                       ["reqd"] = true,
                       ["type"] = "`$INTEGER`",
+                      ["index$"] = 0,
                     },
                   },
                 },
@@ -421,6 +424,7 @@ local function make_config()
                       ["orig"] = "name",
                       ["reqd"] = true,
                       ["type"] = "`$STRING`",
+                      ["index$"] = 0,
                     },
                     {
                       ["active"] = true,
@@ -430,6 +434,7 @@ local function make_config()
                       ["orig"] = "namespace",
                       ["reqd"] = true,
                       ["type"] = "`$STRING`",
+                      ["index$"] = 1,
                     },
                   },
                 },

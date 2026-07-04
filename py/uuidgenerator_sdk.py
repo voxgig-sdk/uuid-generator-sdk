@@ -144,16 +144,23 @@ class UuidGeneratorSDK:
 
         _, err = utility.prepare_auth(ctx)
         if err is not None:
-            return None, err
+            raise err
 
-        return utility.make_fetch_def(ctx)
+        fetchdef, err = utility.make_fetch_def(ctx)
+        if err is not None:
+            raise err
+
+        return fetchdef
 
     def direct(self, fetchargs=None):
         utility = self._utility
 
-        fetchdef, err = self.prepare(fetchargs)
-        if err is not None:
-            return {"ok": False, "err": err}, None
+        try:
+            fetchdef = self.prepare(fetchargs)
+        except Exception as err:
+            # direct() is the raw-HTTP escape hatch: it never raises, it
+            # returns a result object callers branch on via result["ok"].
+            return {"ok": False, "err": err}
 
         if fetchargs is None:
             fetchargs = {}
@@ -170,13 +177,13 @@ class UuidGeneratorSDK:
         fetched, fetch_err = utility.fetcher(ctx, url, fetchdef)
 
         if fetch_err is not None:
-            return {"ok": False, "err": fetch_err}, None
+            return {"ok": False, "err": fetch_err}
 
         if fetched is None:
             return {
                 "ok": False,
                 "err": ctx.make_error("direct_no_response", "response: undefined"),
-            }, None
+            }
 
         if isinstance(fetched, dict):
             status = helpers.to_int(vs.getprop(fetched, "status"))
@@ -205,40 +212,106 @@ class UuidGeneratorSDK:
                 "status": status,
                 "headers": headers,
                 "data": json_data,
-            }, None
+            }
 
         return {
             "ok": False,
             "err": ctx.make_error("direct_invalid", "invalid response type"),
-        }, None
+        }
 
+
+    @property
+    def decode(self):
+        """Idiomatic facade: client.decode.list() / client.decode.load({"id": ...})."""
+        from entity.decode_entity import DecodeEntity
+        cached = getattr(self, "_decode", None)
+        if cached is None:
+            cached = DecodeEntity(self, None)
+            self._decode = cached
+        return cached
 
     def Decode(self, data=None):
+        # Deprecated: use client.decode instead.
         from entity.decode_entity import DecodeEntity
         return DecodeEntity(self, data)
 
 
+    @property
+    def timestamp_first(self):
+        """Idiomatic facade: client.timestamp_first.list() / client.timestamp_first.load({"id": ...})."""
+        from entity.timestamp_first_entity import TimestampFirstEntity
+        cached = getattr(self, "_timestamp_first", None)
+        if cached is None:
+            cached = TimestampFirstEntity(self, None)
+            self._timestamp_first = cached
+        return cached
+
     def TimestampFirst(self, data=None):
+        # Deprecated: use client.timestamp_first instead.
         from entity.timestamp_first_entity import TimestampFirstEntity
         return TimestampFirstEntity(self, data)
 
 
+    @property
+    def version_1(self):
+        """Idiomatic facade: client.version_1.list() / client.version_1.load({"id": ...})."""
+        from entity.version_1_entity import Version1Entity
+        cached = getattr(self, "_version_1", None)
+        if cached is None:
+            cached = Version1Entity(self, None)
+            self._version_1 = cached
+        return cached
+
     def Version1(self, data=None):
+        # Deprecated: use client.version_1 instead.
         from entity.version_1_entity import Version1Entity
         return Version1Entity(self, data)
 
 
+    @property
+    def version_3(self):
+        """Idiomatic facade: client.version_3.list() / client.version_3.load({"id": ...})."""
+        from entity.version_3_entity import Version3Entity
+        cached = getattr(self, "_version_3", None)
+        if cached is None:
+            cached = Version3Entity(self, None)
+            self._version_3 = cached
+        return cached
+
     def Version3(self, data=None):
+        # Deprecated: use client.version_3 instead.
         from entity.version_3_entity import Version3Entity
         return Version3Entity(self, data)
 
 
+    @property
+    def version_4(self):
+        """Idiomatic facade: client.version_4.list() / client.version_4.load({"id": ...})."""
+        from entity.version_4_entity import Version4Entity
+        cached = getattr(self, "_version_4", None)
+        if cached is None:
+            cached = Version4Entity(self, None)
+            self._version_4 = cached
+        return cached
+
     def Version4(self, data=None):
+        # Deprecated: use client.version_4 instead.
         from entity.version_4_entity import Version4Entity
         return Version4Entity(self, data)
 
 
+    @property
+    def version_5(self):
+        """Idiomatic facade: client.version_5.list() / client.version_5.load({"id": ...})."""
+        from entity.version_5_entity import Version5Entity
+        cached = getattr(self, "_version_5", None)
+        if cached is None:
+            cached = Version5Entity(self, None)
+            self._version_5 = cached
+        return cached
+
     def Version5(self, data=None):
+        # Deprecated: use client.version_5 instead.
         from entity.version_5_entity import Version5Entity
         return Version5Entity(self, data)
 

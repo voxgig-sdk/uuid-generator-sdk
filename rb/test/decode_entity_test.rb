@@ -42,8 +42,7 @@ class DecodeEntityTest < Minitest::Test
     # LOAD
     decode_ref01_ent = client.Decode(nil)
     decode_ref01_match_dt0 = {}
-    decode_ref01_data_dt0_loaded, err = decode_ref01_ent.load(decode_ref01_match_dt0, nil)
-    assert_nil err
+    decode_ref01_data_dt0_loaded = decode_ref01_ent.load(decode_ref01_match_dt0, nil)
     assert !decode_ref01_data_dt0_loaded.nil?
 
   end
@@ -82,7 +81,6 @@ def decode_basic_setup(extra)
     "UUIDGENERATOR_TEST_DECODE_ENTID" => idmap,
     "UUIDGENERATOR_TEST_LIVE" => "FALSE",
     "UUIDGENERATOR_TEST_EXPLAIN" => "FALSE",
-    "UUIDGENERATOR_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -94,7 +92,6 @@ def decode_basic_setup(extra)
   if env["UUIDGENERATOR_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["UUIDGENERATOR_APIKEY"],
       },
       extra || {},
     ])

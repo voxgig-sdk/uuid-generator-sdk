@@ -13,6 +13,9 @@ require_relative 'config'
 require_relative 'feature/base_feature'
 require_relative 'features'
 
+# Load typed models (Struct value objects).
+require_relative 'UuidGenerator_types'
+
 
 class UuidGeneratorSDK
   attr_accessor :mode, :features, :options
@@ -131,7 +134,7 @@ class UuidGeneratorSDK
     end
 
     _, err = utility.prepare_auth.call(ctx)
-    return nil, err if err
+    raise err if err
 
     utility.make_fetch_def.call(ctx)
   end
@@ -139,8 +142,14 @@ class UuidGeneratorSDK
   def direct(fetchargs = {})
     utility = @_utility
 
-    fetchdef, err = prepare(fetchargs)
-    return { "ok" => false, "err" => err }, nil if err
+    # direct() is the raw-HTTP escape hatch: it always returns a result hash
+    # ({ "ok" => ..., ... }) and never raises. prepare() raises on error, so
+    # trap that and surface it in the hash.
+    begin
+      fetchdef = prepare(fetchargs)
+    rescue UuidGeneratorError => err
+      return { "ok" => false, "err" => err }
+    end
 
     fetchargs ||= {}
     ctrl = UuidGeneratorHelpers.to_map(VoxgigStruct.getprop(fetchargs, "ctrl")) || {}
@@ -153,13 +162,13 @@ class UuidGeneratorSDK
     url = fetchdef["url"] || ""
     fetched, fetch_err = utility.fetcher.call(ctx, url, fetchdef)
 
-    return { "ok" => false, "err" => fetch_err }, nil if fetch_err
+    return { "ok" => false, "err" => fetch_err } if fetch_err
 
     if fetched.nil?
       return {
         "ok" => false,
         "err" => ctx.make_error("direct_no_response", "response: undefined"),
-      }, nil
+      }
     end
 
     if fetched.is_a?(Hash)
@@ -189,46 +198,88 @@ class UuidGeneratorSDK
         "status" => status,
         "headers" => headers,
         "data" => json_data,
-      }, nil
+      }
     end
 
     return {
       "ok" => false,
       "err" => ctx.make_error("direct_invalid", "invalid response type"),
-    }, nil
+    }
   end
 
 
+  # Idiomatic facade: client.decode.list / client.decode.load({ "id" => ... })
+  def decode
+    require_relative 'entity/decode_entity'
+    @decode ||= DecodeEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.decode instead.
   def Decode(data = nil)
     require_relative 'entity/decode_entity'
     DecodeEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.timestamp_first.list / client.timestamp_first.load({ "id" => ... })
+  def timestamp_first
+    require_relative 'entity/timestamp_first_entity'
+    @timestamp_first ||= TimestampFirstEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.timestamp_first instead.
   def TimestampFirst(data = nil)
     require_relative 'entity/timestamp_first_entity'
     TimestampFirstEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.version_1.list / client.version_1.load({ "id" => ... })
+  def version_1
+    require_relative 'entity/version_1_entity'
+    @version_1 ||= Version1Entity.new(self, nil)
+  end
+
+  # Deprecated: use client.version_1 instead.
   def Version1(data = nil)
     require_relative 'entity/version_1_entity'
     Version1Entity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.version_3.list / client.version_3.load({ "id" => ... })
+  def version_3
+    require_relative 'entity/version_3_entity'
+    @version_3 ||= Version3Entity.new(self, nil)
+  end
+
+  # Deprecated: use client.version_3 instead.
   def Version3(data = nil)
     require_relative 'entity/version_3_entity'
     Version3Entity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.version_4.list / client.version_4.load({ "id" => ... })
+  def version_4
+    require_relative 'entity/version_4_entity'
+    @version_4 ||= Version4Entity.new(self, nil)
+  end
+
+  # Deprecated: use client.version_4 instead.
   def Version4(data = nil)
     require_relative 'entity/version_4_entity'
     Version4Entity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.version_5.list / client.version_5.load({ "id" => ... })
+  def version_5
+    require_relative 'entity/version_5_entity'
+    @version_5 ||= Version5Entity.new(self, nil)
+  end
+
+  # Deprecated: use client.version_5 instead.
   def Version5(data = nil)
     require_relative 'entity/version_5_entity'
     Version5Entity.new(self, data)

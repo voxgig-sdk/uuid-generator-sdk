@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Decode,
+  DecodeLoadMatch,
+} from '../UuidGeneratorTypes'
 
 // TODO: needs Entity superclass
-class DecodeEntity extends UuidGeneratorEntityBase {
+class DecodeEntity extends UuidGeneratorEntityBase<Decode> {
 
   constructor(client: UuidGeneratorSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +36,7 @@ class DecodeEntity extends UuidGeneratorEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: DecodeLoadMatch, ctrl?: Control): Promise<Decode> {
 
     const utility = this._utility
 
@@ -136,7 +140,9 @@ class DecodeEntity extends UuidGeneratorEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Decode> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

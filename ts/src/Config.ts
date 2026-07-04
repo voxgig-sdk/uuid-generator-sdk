@@ -38,10 +38,6 @@ class Config {
   options = {
     base: 'https://www.uuidtools.com/api',
 
-    auth: {
-      prefix: 'Bearer',
-    },
-
     headers: {
       "content-type": "application/json"
     },
@@ -105,7 +101,8 @@ class Config {
                     "name": "id",
                     "orig": "uuid",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },
@@ -181,7 +178,8 @@ class Config {
                     "name": "count",
                     "orig": "count",
                     "reqd": true,
-                    "type": "`$INTEGER`"
+                    "type": "`$INTEGER`",
+                    "index$": 0
                   }
                 ]
               },
@@ -258,7 +256,8 @@ class Config {
                     "name": "count",
                     "orig": "count",
                     "reqd": true,
-                    "type": "`$INTEGER`"
+                    "type": "`$INTEGER`",
+                    "index$": 0
                   }
                 ]
               },
@@ -312,7 +311,8 @@ class Config {
                     "name": "name",
                     "orig": "name",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   },
                   {
                     "active": true,
@@ -321,7 +321,8 @@ class Config {
                     "name": "namespace_id",
                     "orig": "namespace",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 1
                   }
                 ]
               },
@@ -407,7 +408,8 @@ class Config {
                     "name": "count",
                     "orig": "count",
                     "reqd": true,
-                    "type": "`$INTEGER`"
+                    "type": "`$INTEGER`",
+                    "index$": 0
                   }
                 ]
               },
@@ -461,7 +463,8 @@ class Config {
                     "name": "name",
                     "orig": "name",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   },
                   {
                     "active": true,
@@ -470,7 +473,8 @@ class Config {
                     "name": "namespace_id",
                     "orig": "namespace",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 1
                   }
                 ]
               },

@@ -103,7 +103,7 @@ class UuidGeneratorSDK
         return $this->_rootctx;
     }
 
-    public function prepare(array $fetchargs = []): array
+    public function prepare(array $fetchargs = []): mixed
     {
         $utility = $this->_utility;
         $fetchargs = $fetchargs ?? [];
@@ -149,19 +149,27 @@ class UuidGeneratorSDK
 
         [$_, $err] = ($utility->prepare_auth)($ctx);
         if ($err) {
-            return [null, $err];
+            return ($utility->make_error)($ctx, $err);
         }
 
-        return ($utility->make_fetch_def)($ctx);
+        [$fetchdef, $fd_err] = ($utility->make_fetch_def)($ctx);
+        if ($fd_err) {
+            return ($utility->make_error)($ctx, $fd_err);
+        }
+        return $fetchdef;
     }
 
-    public function direct(array $fetchargs = []): array
+    public function direct(array $fetchargs = []): mixed
     {
         $utility = $this->_utility;
 
-        [$fetchdef, $err] = $this->prepare($fetchargs);
-        if ($err) {
-            return [["ok" => false, "err" => $err], null];
+        // direct() is the raw-HTTP escape hatch: it never throws, it returns
+        // an {ok, err, ...} dict. prepare() now raises on error, so catch it
+        // and surface the failure through the dict instead.
+        try {
+            $fetchdef = $this->prepare($fetchargs);
+        } catch (\Throwable $err) {
+            return ["ok" => false, "err" => $err];
         }
 
         $fetchargs = $fetchargs ?? [];
@@ -176,14 +184,14 @@ class UuidGeneratorSDK
         [$fetched, $fetch_err] = ($utility->fetcher)($ctx, $url, $fetchdef);
 
         if ($fetch_err) {
-            return [["ok" => false, "err" => $fetch_err], null];
+            return ["ok" => false, "err" => $fetch_err];
         }
 
         if ($fetched === null) {
-            return [[
+            return [
                 "ok" => false,
                 "err" => $ctx->make_error("direct_no_response", "response: undefined"),
-            ], null];
+            ];
         }
 
         if (is_array($fetched)) {
@@ -208,59 +216,125 @@ class UuidGeneratorSDK
                 }
             }
 
-            return [[
+            return [
                 "ok" => $status >= 200 && $status < 300,
                 "status" => $status,
                 "headers" => Struct::getprop($fetched, "headers"),
                 "data" => $json_data,
-            ], null];
+            ];
         }
 
-        return [[
+        return [
             "ok" => false,
             "err" => $ctx->make_error("direct_invalid", "invalid response type"),
-        ], null];
+        ];
     }
 
 
-    public function Decode($data = null)
+    private $_decode = null;
+
+    // Idiomatic facade: $client->decode()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Decode() (PHP method
+    // names are case-insensitive).
+    public function decode($data = null)
     {
         require_once __DIR__ . '/entity/decode_entity.php';
+        if ($data === null) {
+            if ($this->_decode === null) {
+                $this->_decode = new DecodeEntity($this, null);
+            }
+            return $this->_decode;
+        }
         return new DecodeEntity($this, $data);
     }
 
 
-    public function TimestampFirst($data = null)
+    private $_timestamp_first = null;
+
+    // Idiomatic facade: $client->timestamp_first()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias TimestampFirst() (PHP method
+    // names are case-insensitive).
+    public function timestamp_first($data = null)
     {
         require_once __DIR__ . '/entity/timestamp_first_entity.php';
+        if ($data === null) {
+            if ($this->_timestamp_first === null) {
+                $this->_timestamp_first = new TimestampFirstEntity($this, null);
+            }
+            return $this->_timestamp_first;
+        }
         return new TimestampFirstEntity($this, $data);
     }
 
 
-    public function Version1($data = null)
+    private $_version_1 = null;
+
+    // Idiomatic facade: $client->version_1()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Version1() (PHP method
+    // names are case-insensitive).
+    public function version_1($data = null)
     {
         require_once __DIR__ . '/entity/version_1_entity.php';
+        if ($data === null) {
+            if ($this->_version_1 === null) {
+                $this->_version_1 = new Version1Entity($this, null);
+            }
+            return $this->_version_1;
+        }
         return new Version1Entity($this, $data);
     }
 
 
-    public function Version3($data = null)
+    private $_version_3 = null;
+
+    // Idiomatic facade: $client->version_3()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Version3() (PHP method
+    // names are case-insensitive).
+    public function version_3($data = null)
     {
         require_once __DIR__ . '/entity/version_3_entity.php';
+        if ($data === null) {
+            if ($this->_version_3 === null) {
+                $this->_version_3 = new Version3Entity($this, null);
+            }
+            return $this->_version_3;
+        }
         return new Version3Entity($this, $data);
     }
 
 
-    public function Version4($data = null)
+    private $_version_4 = null;
+
+    // Idiomatic facade: $client->version_4()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Version4() (PHP method
+    // names are case-insensitive).
+    public function version_4($data = null)
     {
         require_once __DIR__ . '/entity/version_4_entity.php';
+        if ($data === null) {
+            if ($this->_version_4 === null) {
+                $this->_version_4 = new Version4Entity($this, null);
+            }
+            return $this->_version_4;
+        }
         return new Version4Entity($this, $data);
     }
 
 
-    public function Version5($data = null)
+    private $_version_5 = null;
+
+    // Idiomatic facade: $client->version_5()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Version5() (PHP method
+    // names are case-insensitive).
+    public function version_5($data = null)
     {
         require_once __DIR__ . '/entity/version_5_entity.php';
+        if ($data === null) {
+            if ($this->_version_5 === null) {
+                $this->_version_5 = new Version5Entity($this, null);
+            }
+            return $this->_version_5;
+        }
         return new Version5Entity($this, $data);
     }
 

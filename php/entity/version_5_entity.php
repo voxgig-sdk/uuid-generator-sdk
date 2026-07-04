@@ -55,6 +55,9 @@ class Version5Entity
         return new Version5Entity($this->_client, $opts);
     }
 
+    /**
+     * @param Version5|array $args Version5 data (assoc-array) to store.
+     */
     public function data_set($args): void
     {
         if ($args) {
@@ -63,12 +66,18 @@ class Version5Entity
         }
     }
 
+    /**
+     * @return Version5|array The current Version5 data as an assoc-array.
+     */
     public function data_get()
     {
         ($this->_utility->feature_hook)($this->_entctx, "GetData");
         return Struct::clone($this->_data);
     }
 
+    /**
+     * @param array $args Match filter (any subset of Version5 fields).
+     */
     public function match_set($args): void
     {
         if ($args) {
@@ -77,6 +86,9 @@ class Version5Entity
         }
     }
 
+    /**
+     * @return array The current match filter (any subset of Version5 fields).
+     */
     public function match_get()
     {
         ($this->_utility->feature_hook)($this->_entctx, "GetMatch");
@@ -84,7 +96,16 @@ class Version5Entity
     }
 
     
-    public function load($reqmatch, $ctrl = null): array
+    /**
+     * Load a single Version5.
+     *
+     * @param Version5LoadMatch|array|null $reqmatch Match criteria (id/query
+     *   fields) as an assoc-array; a typed Version5LoadMatch names the shape.
+     * @param mixed $ctrl Optional per-call control overrides.
+     * @return Version5|array The loaded Version5 as an assoc-array at the
+     *   SDK boundary; throws UuidGeneratorError on failure (item-5 convention).
+     */
+    public function load(?array $reqmatch = null, $ctrl = null): mixed
     {
         $utility = $this->_utility;
         $ctx = ($utility->make_context)([
@@ -117,7 +138,7 @@ class Version5Entity
 
     
 
-    private function _run_op($ctx, callable $post_done): array
+    private function _run_op($ctx, callable $post_done): mixed
     {
         $utility = $this->_utility;
 

@@ -50,14 +50,12 @@ class TestVersion4Entity:
         version_4_ref01_ent = client.Version4(None)
         version_4_ref01_match = {}
 
-        version_4_ref01_list_result, err = version_4_ref01_ent.list(version_4_ref01_match, None)
-        assert err is None
+        version_4_ref01_list_result = version_4_ref01_ent.list(version_4_ref01_match, None)
         assert isinstance(version_4_ref01_list_result, list)
 
         # LOAD
         version_4_ref01_match_dt0 = {}
-        version_4_ref01_data_dt0_loaded, err = version_4_ref01_ent.load(version_4_ref01_match_dt0, None)
-        assert err is None
+        version_4_ref01_data_dt0_loaded = version_4_ref01_ent.load(version_4_ref01_match_dt0, None)
         assert version_4_ref01_data_dt0_loaded is not None
 
 
@@ -98,7 +96,6 @@ def _version_4_basic_setup(extra):
         "UUIDGENERATOR_TEST_VERSION___ENTID": idmap,
         "UUIDGENERATOR_TEST_LIVE": "FALSE",
         "UUIDGENERATOR_TEST_EXPLAIN": "FALSE",
-        "UUIDGENERATOR_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -109,7 +106,6 @@ def _version_4_basic_setup(extra):
     if env.get("UUIDGENERATOR_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("UUIDGENERATOR_APIKEY"),
             },
             extra or {},
         ])

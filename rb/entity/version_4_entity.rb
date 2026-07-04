@@ -45,6 +45,7 @@ class Version4Entity
     end
   end
 
+  # @return [Version4, Hash] the current Version4 data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,12 +58,18 @@ class Version4Entity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of Version4 fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
   end
 
   
+  # Load a single Version4.
+  #
+  # @param reqmatch [Version4LoadMatch, Hash, nil] match criteria (id/query fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Version4, Hash] the loaded Version4; raises UuidGeneratorError on failure
   def load(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -86,6 +93,11 @@ class Version4Entity
 
 
   
+  # List Version4 items matching the given filter.
+  #
+  # @param reqmatch [Version4ListMatch, Hash, nil] match filter (any subset of Version4 fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<Version4>, Array] the matching Version4 items; raises UuidGeneratorError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

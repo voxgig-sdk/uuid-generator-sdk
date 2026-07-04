@@ -50,14 +50,12 @@ class TimestampFirstEntityTest extends TestCase
         $timestamp_first_ref01_ent = $client->TimestampFirst(null);
         $timestamp_first_ref01_match = [];
 
-        [$timestamp_first_ref01_list_result, $err] = $timestamp_first_ref01_ent->list($timestamp_first_ref01_match, null);
-        $this->assertNull($err);
+        $timestamp_first_ref01_list_result = $timestamp_first_ref01_ent->list($timestamp_first_ref01_match, null);
         $this->assertIsArray($timestamp_first_ref01_list_result);
 
         // LOAD
         $timestamp_first_ref01_match_dt0 = [];
-        [$timestamp_first_ref01_data_dt0_loaded, $err] = $timestamp_first_ref01_ent->load($timestamp_first_ref01_match_dt0, null);
-        $this->assertNull($err);
+        $timestamp_first_ref01_data_dt0_loaded = $timestamp_first_ref01_ent->load($timestamp_first_ref01_match_dt0, null);
         $this->assertNotNull($timestamp_first_ref01_data_dt0_loaded);
 
     }
@@ -92,7 +90,6 @@ function timestamp_first_basic_setup($extra)
         "UUIDGENERATOR_TEST_TIMESTAMP_FIRST_ENTID" => $idmap,
         "UUIDGENERATOR_TEST_LIVE" => "FALSE",
         "UUIDGENERATOR_TEST_EXPLAIN" => "FALSE",
-        "UUIDGENERATOR_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -104,7 +101,6 @@ function timestamp_first_basic_setup($extra)
     if ($env["UUIDGENERATOR_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["UUIDGENERATOR_APIKEY"],
             ],
             $extra ?? [],
         ]);

@@ -9,9 +9,12 @@ The TypeScript SDK for the UuidGenerator API — a type-safe, entity-oriented cl
 
 
 ## Install
-```bash
-npm install @voxgig-sdk/uuid-generator
-```
+This package is not yet published to npm. Install it from the GitHub
+release tag (`ts/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/uuid-generator-sdk/releases](https://github.com/voxgig-sdk/uuid-generator-sdk/releases)
+
+
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
@@ -20,17 +23,15 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { UuidGeneratorSDK } from 'uuid-generator'
+import { UuidGeneratorSDK } from '@voxgig-sdk/uuid-generator'
 
-const client = new UuidGeneratorSDK({
-  apikey: process.env.UUID-GENERATOR_APIKEY,
-})
+const client = new UuidGeneratorSDK()
 ```
 
 ### 3. Load a decode
 
 ```ts
-const result = await client.Decode().load({ id: 'example_id' })
+const result = await client.decode.load({ id: 'example_id' })
 
 if (result.ok) {
   console.log(result.data)
@@ -79,7 +80,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = UuidGeneratorSDK.test()
 
-const result = await client.Planet().load({ id: 'test01' })
+const result = await client.decode.load({ id: 'test01' })
 // result.ok === true
 // result.data contains mock response data
 ```
@@ -87,7 +88,7 @@ const result = await client.Planet().load({ id: 'test01' })
 You can also use the instance method:
 
 ```ts
-const client = new UuidGeneratorSDK({ apikey: '...' })
+const client = new UuidGeneratorSDK()
 const testClient = client.tester()
 ```
 
@@ -96,7 +97,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Planet()
+const entity = client.decode
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -123,7 +124,6 @@ const logger = {
 }
 
 const client = new UuidGeneratorSDK({
-  apikey: '...',
   extend: [logger],
 })
 ```
@@ -133,8 +133,7 @@ const client = new UuidGeneratorSDK({
 Create a `.env.local` file at the project root:
 
 ```
-UUID-GENERATOR_TEST_LIVE=TRUE
-UUID-GENERATOR_APIKEY=<your-key>
+UUID_GENERATOR_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -152,7 +151,6 @@ cd ts && npm test
 
 ```ts
 new UuidGeneratorSDK(options?: {
-  apikey?: string
   base?: string
   prefix?: string
   suffix?: string
@@ -163,7 +161,6 @@ new UuidGeneratorSDK(options?: {
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -317,7 +314,7 @@ API path: `/generate/v5/namespace/{namespace}/name/{name}`
 
 ### Decode
 
-Create an instance: `const decode = client.Decode()`
+Create an instance: `const decode = client.decode`
 
 #### Operations
 
@@ -335,13 +332,13 @@ Create an instance: `const decode = client.Decode()`
 #### Example: Load
 
 ```ts
-const decode = await client.Decode().load({ id: 'decode_id' })
+const decode = await client.decode.load({ id: 'decode_id' })
 ```
 
 
 ### TimestampFirst
 
-Create an instance: `const timestamp_first = client.TimestampFirst()`
+Create an instance: `const timestamp_first = client.timestamp_first`
 
 #### Operations
 
@@ -353,19 +350,19 @@ Create an instance: `const timestamp_first = client.TimestampFirst()`
 #### Example: Load
 
 ```ts
-const timestamp_first = await client.TimestampFirst().load({ id: 'timestamp_first_id' })
+const timestamp_first = await client.timestamp_first.load({ id: 'timestamp_first_id' })
 ```
 
 #### Example: List
 
 ```ts
-const timestamp_firsts = await client.TimestampFirst().list()
+const timestamp_firsts = await client.timestamp_first.list()
 ```
 
 
 ### Version1
 
-Create an instance: `const version_1 = client.Version1()`
+Create an instance: `const version_1 = client.version_1`
 
 #### Operations
 
@@ -377,19 +374,19 @@ Create an instance: `const version_1 = client.Version1()`
 #### Example: Load
 
 ```ts
-const version_1 = await client.Version1().load({ id: 'version_1_id' })
+const version_1 = await client.version_1.load({ id: 'version_1_id' })
 ```
 
 #### Example: List
 
 ```ts
-const version_1s = await client.Version1().list()
+const version_1s = await client.version_1.list()
 ```
 
 
 ### Version3
 
-Create an instance: `const version_3 = client.Version3()`
+Create an instance: `const version_3 = client.version_3`
 
 #### Operations
 
@@ -400,13 +397,13 @@ Create an instance: `const version_3 = client.Version3()`
 #### Example: Load
 
 ```ts
-const version_3 = await client.Version3().load({ id: 'version_3_id' })
+const version_3 = await client.version_3.load({ id: 'version_3_id' })
 ```
 
 
 ### Version4
 
-Create an instance: `const version_4 = client.Version4()`
+Create an instance: `const version_4 = client.version_4`
 
 #### Operations
 
@@ -418,19 +415,19 @@ Create an instance: `const version_4 = client.Version4()`
 #### Example: Load
 
 ```ts
-const version_4 = await client.Version4().load({ id: 'version_4_id' })
+const version_4 = await client.version_4.load({ id: 'version_4_id' })
 ```
 
 #### Example: List
 
 ```ts
-const version_4s = await client.Version4().list()
+const version_4s = await client.version_4.list()
 ```
 
 
 ### Version5
 
-Create an instance: `const version_5 = client.Version5()`
+Create an instance: `const version_5 = client.version_5`
 
 #### Operations
 
@@ -441,7 +438,7 @@ Create an instance: `const version_5 = client.Version5()`
 #### Example: Load
 
 ```ts
-const version_5 = await client.Version5().load({ id: 'version_5_id' })
+const version_5 = await client.version_5.load({ id: 'version_5_id' })
 ```
 
 
@@ -502,7 +499,7 @@ uuid-generator/
 Import the SDK from the package root:
 
 ```ts
-import { UuidGeneratorSDK } from 'uuid-generator'
+import { UuidGeneratorSDK } from '@voxgig-sdk/uuid-generator'
 ```
 
 ### Entity state
@@ -512,11 +509,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const moon = client.Moon()
-await moon.load({ planet_id: 'earth', id: 'luna' })
+const decode = client.decode
+await decode.load({ id: "example_id" })
 
-// moon.data() now returns the loaded moon data
-// moon.match() returns { planet_id: 'earth', id: 'luna' }
+// decode.data() now returns the loaded decode data
+// decode.match() returns { id: "example_id" }
 ```
 
 Call `make()` to create a fresh instance with the same configuration

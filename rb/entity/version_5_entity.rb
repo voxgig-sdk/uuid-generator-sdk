@@ -45,6 +45,7 @@ class Version5Entity
     end
   end
 
+  # @return [Version5, Hash] the current Version5 data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,12 +58,18 @@ class Version5Entity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of Version5 fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
   end
 
   
+  # Load a single Version5.
+  #
+  # @param reqmatch [Version5LoadMatch, Hash, nil] match criteria (id/query fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Version5, Hash] the loaded Version5; raises UuidGeneratorError on failure
   def load(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

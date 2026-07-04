@@ -85,6 +85,27 @@ func (e *Version1Entity) Match(args ...any) any {
 	return out
 }
 
+// DataTyped is the statically-typed accessor for this entity's data. With no
+// argument it returns the current data as an Version1; with an argument it
+// sets the data and returns the stored value. It delegates to the untyped Data
+// (identical runtime) and converts at the typed boundary.
+func (e *Version1Entity) DataTyped(data ...Version1) Version1 {
+	if len(data) > 0 {
+		return typedFrom[Version1](e.Data(asMap(data[0])))
+	}
+	return typedFrom[Version1](e.Data())
+}
+
+// MatchTyped mirrors DataTyped for the entity's match filter. The match is a
+// partial of the entity, so it round-trips through Version1 (all fields
+// optional at the wire level).
+func (e *Version1Entity) MatchTyped(match ...Version1) Version1 {
+	if len(match) > 0 {
+		return typedFrom[Version1](e.Match(asMap(match[0])))
+	}
+	return typedFrom[Version1](e.Match())
+}
+
 
 func (e *Version1Entity) Load(reqmatch map[string]any, ctrl map[string]any) (any, error) {
 	utility := e.utility
@@ -111,6 +132,17 @@ func (e *Version1Entity) Load(reqmatch map[string]any, ctrl map[string]any) (any
 	})
 }
 
+// LoadTyped is the statically-typed variant of Load: it takes an
+// Version1LoadMatch and returns an Version1. It delegates to the untyped
+// Load (identical runtime) and converts at the typed boundary.
+func (e *Version1Entity) LoadTyped(reqmatch Version1LoadMatch, ctrl map[string]any) (Version1, error) {
+	res, err := e.Load(asMap(reqmatch), ctrl)
+	if err != nil {
+		return Version1{}, err
+	}
+	return typedFrom[Version1](res), nil
+}
+
 
 
 
@@ -131,6 +163,17 @@ func (e *Version1Entity) List(reqmatch map[string]any, ctrl map[string]any) (any
 			}
 		}
 	})
+}
+
+// ListTyped is the statically-typed variant of List: it takes an
+// Version1ListMatch and returns []Version1. It delegates to the untyped
+// List (identical runtime) and converts at the typed boundary.
+func (e *Version1Entity) ListTyped(reqmatch Version1ListMatch, ctrl map[string]any) ([]Version1, error) {
+	res, err := e.List(asMap(reqmatch), ctrl)
+	if err != nil {
+		return nil, err
+	}
+	return typedSliceFrom[Version1](res), nil
 }
 
 

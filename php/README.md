@@ -9,9 +9,10 @@ The PHP SDK for the UuidGenerator API — an entity-oriented client using PHP co
 
 
 ## Install
-```bash
-composer require voxgig-sdk/uuid-generator
-```
+This package is not yet published to Packagist. Install it from the
+GitHub release tag (`php/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/uuid-generator-sdk/releases](https://github.com/voxgig-sdk/uuid-generator-sdk/releases)
 
 
 ## Tutorial: your first API call
@@ -25,17 +26,18 @@ loading a specific record.
 <?php
 require_once 'uuidgenerator_sdk.php';
 
-$client = new UuidGeneratorSDK([
-    "apikey" => getenv("UUID-GENERATOR_APIKEY"),
-]);
+$client = new UuidGeneratorSDK();
 ```
 
 ### 3. Load a decode
 
 ```php
-[$result, $err] = $client->Decode()->load(["id" => "example_id"]);
-if ($err) { throw new \Exception($err); }
-print_r($result);
+try {
+    $result = $client->decode()->load(["id" => "example_id"]);
+    print_r($result);
+} catch (\Exception $err) {
+    echo "Error: " . $err->getMessage();
+}
 ```
 
 
@@ -46,28 +48,31 @@ print_r($result);
 For endpoints not covered by entity methods:
 
 ```php
-[$result, $err] = $client->direct([
+// direct() is the raw-HTTP escape hatch: it returns a result array
+// (it does not throw). Branch on $result["ok"].
+$result = $client->direct([
     "path" => "/api/resource/{id}",
     "method" => "GET",
     "params" => ["id" => "example"],
 ]);
-if ($err) { throw new \Exception($err); }
 
 if ($result["ok"]) {
     echo $result["status"];  // 200
     print_r($result["data"]);  // response body
+} else {
+    echo "Error: " . $result["err"]->getMessage();
 }
 ```
 
 ### Prepare a request without sending it
 
 ```php
-[$fetchdef, $err] = $client->prepare([
+// prepare() throws on error and returns the fetch definition.
+$fetchdef = $client->prepare([
     "path" => "/api/resource/{id}",
     "method" => "DELETE",
     "params" => ["id" => "example"],
 ]);
-if ($err) { throw new \Exception($err); }
 
 echo $fetchdef["url"];
 echo $fetchdef["method"];
@@ -81,7 +86,7 @@ Create a mock client for unit testing — no server required:
 ```php
 $client = UuidGeneratorSDK::test();
 
-[$result, $err] = $client->UuidGenerator()->load(["id" => "test01"]);
+$result = $client->decode()->load(["id" => "test01"]);
 // $result contains mock response data
 ```
 
@@ -115,8 +120,7 @@ $client = new UuidGeneratorSDK([
 Create a `.env.local` file at the project root:
 
 ```
-UUID-GENERATOR_TEST_LIVE=TRUE
-UUID-GENERATOR_APIKEY=<your-key>
+UUID_GENERATOR_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -139,7 +143,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -190,8 +193,12 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `[$result, $err]`. The first value is an
-`array` with these keys:
+Entity operations return the bare result data (an `array` for single-entity
+ops, a `list` for `list`) and throw on error. Wrap calls in
+`try`/`catch` to handle failures.
+
+The `direct()` escape hatch never throws — it returns a result `array`
+you branch on via `$result["ok"]`:
 
 | Key | Type | Description |
 | --- | --- | --- |
@@ -267,7 +274,7 @@ API path: `/generate/v5/namespace/{namespace}/name/{name}`
 
 ### Decode
 
-Create an instance: `const decode = client.Decode()`
+Create an instance: `const decode = client.decode`
 
 #### Operations
 
@@ -285,13 +292,13 @@ Create an instance: `const decode = client.Decode()`
 #### Example: Load
 
 ```ts
-const decode = await client.Decode().load({ id: 'decode_id' })
+const decode = await client.decode.load({ id: 'decode_id' })
 ```
 
 
 ### TimestampFirst
 
-Create an instance: `const timestamp_first = client.TimestampFirst()`
+Create an instance: `const timestamp_first = client.timestamp_first`
 
 #### Operations
 
@@ -303,19 +310,19 @@ Create an instance: `const timestamp_first = client.TimestampFirst()`
 #### Example: Load
 
 ```ts
-const timestamp_first = await client.TimestampFirst().load({ id: 'timestamp_first_id' })
+const timestamp_first = await client.timestamp_first.load({ id: 'timestamp_first_id' })
 ```
 
 #### Example: List
 
 ```ts
-const timestamp_firsts = await client.TimestampFirst().list()
+const timestamp_firsts = await client.timestamp_first.list()
 ```
 
 
 ### Version1
 
-Create an instance: `const version_1 = client.Version1()`
+Create an instance: `const version_1 = client.version_1`
 
 #### Operations
 
@@ -327,19 +334,19 @@ Create an instance: `const version_1 = client.Version1()`
 #### Example: Load
 
 ```ts
-const version_1 = await client.Version1().load({ id: 'version_1_id' })
+const version_1 = await client.version_1.load({ id: 'version_1_id' })
 ```
 
 #### Example: List
 
 ```ts
-const version_1s = await client.Version1().list()
+const version_1s = await client.version_1.list()
 ```
 
 
 ### Version3
 
-Create an instance: `const version_3 = client.Version3()`
+Create an instance: `const version_3 = client.version_3`
 
 #### Operations
 
@@ -350,13 +357,13 @@ Create an instance: `const version_3 = client.Version3()`
 #### Example: Load
 
 ```ts
-const version_3 = await client.Version3().load({ id: 'version_3_id' })
+const version_3 = await client.version_3.load({ id: 'version_3_id' })
 ```
 
 
 ### Version4
 
-Create an instance: `const version_4 = client.Version4()`
+Create an instance: `const version_4 = client.version_4`
 
 #### Operations
 
@@ -368,19 +375,19 @@ Create an instance: `const version_4 = client.Version4()`
 #### Example: Load
 
 ```ts
-const version_4 = await client.Version4().load({ id: 'version_4_id' })
+const version_4 = await client.version_4.load({ id: 'version_4_id' })
 ```
 
 #### Example: List
 
 ```ts
-const version_4s = await client.Version4().list()
+const version_4s = await client.version_4.list()
 ```
 
 
 ### Version5
 
-Create an instance: `const version_5 = client.Version5()`
+Create an instance: `const version_5 = client.version_5`
 
 #### Operations
 
@@ -391,7 +398,7 @@ Create an instance: `const version_5 = client.Version5()`
 #### Example: Load
 
 ```ts
-const version_5 = await client.Version5().load({ id: 'version_5_id' })
+const version_5 = await client.version_5.load({ id: 'version_5_id' })
 ```
 
 
@@ -466,11 +473,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$moon = $client->Moon();
-[$result, $err] = $moon->load(["planet_id" => "earth", "id" => "luna"]);
+$decode = $client->decode();
+$decode->load(["id" => "example_id"]);
 
-// $moon->dataGet() now returns the loaded moon data
-// $moon->matchGet() returns the last match criteria
+// $decode->dataGet() now returns the loaded decode data
+// $decode->matchGet() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

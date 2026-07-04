@@ -45,6 +45,7 @@ class TimestampFirstEntity
     end
   end
 
+  # @return [TimestampFirst, Hash] the current TimestampFirst data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,12 +58,18 @@ class TimestampFirstEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of TimestampFirst fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
   end
 
   
+  # Load a single TimestampFirst.
+  #
+  # @param reqmatch [TimestampFirstLoadMatch, Hash, nil] match criteria (id/query fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [TimestampFirst, Hash] the loaded TimestampFirst; raises UuidGeneratorError on failure
   def load(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -86,6 +93,11 @@ class TimestampFirstEntity
 
 
   
+  # List TimestampFirst items matching the given filter.
+  #
+  # @param reqmatch [TimestampFirstListMatch, Hash, nil] match filter (any subset of TimestampFirst fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<TimestampFirst>, Array] the matching TimestampFirst items; raises UuidGeneratorError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

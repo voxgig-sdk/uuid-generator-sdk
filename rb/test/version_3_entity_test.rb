@@ -42,8 +42,7 @@ class Version3EntityTest < Minitest::Test
     # LOAD
     version_3_ref01_ent = client.Version3(nil)
     version_3_ref01_match_dt0 = {}
-    version_3_ref01_data_dt0_loaded, err = version_3_ref01_ent.load(version_3_ref01_match_dt0, nil)
-    assert_nil err
+    version_3_ref01_data_dt0_loaded = version_3_ref01_ent.load(version_3_ref01_match_dt0, nil)
     assert !version_3_ref01_data_dt0_loaded.nil?
 
   end
@@ -82,7 +81,6 @@ def version_3_basic_setup(extra)
     "UUIDGENERATOR_TEST_VERSION___ENTID" => idmap,
     "UUIDGENERATOR_TEST_LIVE" => "FALSE",
     "UUIDGENERATOR_TEST_EXPLAIN" => "FALSE",
-    "UUIDGENERATOR_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -94,7 +92,6 @@ def version_3_basic_setup(extra)
   if env["UUIDGENERATOR_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["UUIDGENERATOR_APIKEY"],
       },
       extra || {},
     ])
