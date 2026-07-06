@@ -21,7 +21,8 @@ export interface TimestampFirstLoadMatch {
   count: number
 }
 
-export type TimestampFirstListMatch = Partial<TimestampFirst>
+export interface TimestampFirstListMatch {
+}
 
 export interface Version1 {
 }
@@ -30,7 +31,8 @@ export interface Version1LoadMatch {
   count: number
 }
 
-export type Version1ListMatch = Partial<Version1>
+export interface Version1ListMatch {
+}
 
 export interface Version3 {
 }
@@ -47,7 +49,8 @@ export interface Version4LoadMatch {
   count: number
 }
 
-export type Version4ListMatch = Partial<Version4>
+export interface Version4ListMatch {
+}
 
 export interface Version5 {
 }

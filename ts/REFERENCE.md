@@ -176,8 +176,8 @@ const decode = client.Decode()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `decode` | ``$OBJECT`` | No |  |
-| `encode` | ``$OBJECT`` | No |  |
+| `decode` | `Record<string, any>` | No |  |
+| `encode` | `Record<string, any>` | No |  |
 
 ### Operations
 
@@ -238,7 +238,7 @@ const results = await client.TimestampFirst().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.TimestampFirst().load({ id: 'timestamp_first_id' })
+const result = await client.TimestampFirst().load()
 ```
 
 ### Common Methods
@@ -290,7 +290,7 @@ const results = await client.Version1().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Version1().load({ id: 'version_1_id' })
+const result = await client.Version1().load()
 ```
 
 ### Common Methods
@@ -334,7 +334,7 @@ const version_3 = client.Version3()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Version3().load({ id: 'version_3_id' })
+const result = await client.Version3().load()
 ```
 
 ### Common Methods
@@ -386,7 +386,7 @@ const results = await client.Version4().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Version4().load({ id: 'version_4_id' })
+const result = await client.Version4().load()
 ```
 
 ### Common Methods
@@ -430,7 +430,7 @@ const version_5 = client.Version5()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Version5().load({ id: 'version_5_id' })
+const result = await client.Version5().load()
 ```
 
 ### Common Methods

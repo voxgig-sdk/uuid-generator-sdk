@@ -28,8 +28,7 @@ type TimestampFirstLoadMatch struct {
 	Count int `json:"count"`
 }
 
-// TimestampFirstListMatch mirrors the timestamp_first fields as an all-optional match
-// filter (Go analog of Partial<TimestampFirst>).
+// TimestampFirstListMatch is the typed request payload for TimestampFirst.ListTyped.
 type TimestampFirstListMatch struct {
 }
 
@@ -42,8 +41,7 @@ type Version1LoadMatch struct {
 	Count int `json:"count"`
 }
 
-// Version1ListMatch mirrors the version_1 fields as an all-optional match
-// filter (Go analog of Partial<Version1>).
+// Version1ListMatch is the typed request payload for Version1.ListTyped.
 type Version1ListMatch struct {
 }
 
@@ -66,8 +64,7 @@ type Version4LoadMatch struct {
 	Count int `json:"count"`
 }
 
-// Version4ListMatch mirrors the version_4 fields as an all-optional match
-// filter (Go analog of Partial<Version4>).
+// Version4ListMatch is the typed request payload for Version4.ListTyped.
 type Version4ListMatch struct {
 }
 

@@ -8,7 +8,7 @@ Complete API reference for the UuidGenerator PHP SDK.
 ### Constructor
 
 ```php
-require_once __DIR__ . '/uuid-generator_sdk.php';
+require_once __DIR__ . '/uuidgenerator_sdk.php';
 
 $client = new UuidGeneratorSDK($options);
 ```
@@ -65,11 +65,11 @@ Create a new `Version4Entity` instance. Pass `null` for no initial data.
 
 Create a new `Version5Entity` instance. Pass `null` for no initial data.
 
-#### `optionsMap(): array`
+#### `options_map(): array`
 
 Return a deep copy of the current SDK options.
 
-#### `getUtility(): ProjectNameUtility`
+#### `get_utility(): UuidGeneratorUtility`
 
 Return a copy of the SDK utility object.
 
@@ -112,8 +112,8 @@ $decode = $client->Decode();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `decode` | ``$OBJECT`` | No |  |
-| `encode` | ``$OBJECT`` | No |  |
+| `decode` | `array` | No |  |
+| `encode` | `array` | No |  |
 
 ### Operations
 
@@ -127,19 +127,19 @@ $result = $client->Decode()->load(["id" => "decode_id"]);
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -148,7 +148,7 @@ Set the entity match criteria.
 Create a new `DecodeEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -163,12 +163,12 @@ $timestamp_first = $client->TimestampFirst();
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->TimestampFirst()->list([]);
+$results = $client->TimestampFirst()->list();
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -176,24 +176,24 @@ $results = $client->TimestampFirst()->list([]);
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->TimestampFirst()->load(["id" => "timestamp_first_id"]);
+$result = $client->TimestampFirst()->load();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -202,7 +202,7 @@ Set the entity match criteria.
 Create a new `TimestampFirstEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -217,12 +217,12 @@ $version_1 = $client->Version1();
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Version1()->list([]);
+$results = $client->Version1()->list();
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -230,24 +230,24 @@ $results = $client->Version1()->list([]);
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->Version1()->load(["id" => "version_1_id"]);
+$result = $client->Version1()->load();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -256,7 +256,7 @@ Set the entity match criteria.
 Create a new `Version1Entity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -276,24 +276,24 @@ $version_3 = $client->Version3();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->Version3()->load(["id" => "version_3_id"]);
+$result = $client->Version3()->load();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -302,7 +302,7 @@ Set the entity match criteria.
 Create a new `Version3Entity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -317,12 +317,12 @@ $version_4 = $client->Version4();
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Version4()->list([]);
+$results = $client->Version4()->list();
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -330,24 +330,24 @@ $results = $client->Version4()->list([]);
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->Version4()->load(["id" => "version_4_id"]);
+$result = $client->Version4()->load();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -356,7 +356,7 @@ Set the entity match criteria.
 Create a new `Version4Entity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -376,24 +376,24 @@ $version_5 = $client->Version5();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->Version5()->load(["id" => "version_5_id"]);
+$result = $client->Version5()->load();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -402,7 +402,7 @@ Set the entity match criteria.
 Create a new `Version5Entity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 

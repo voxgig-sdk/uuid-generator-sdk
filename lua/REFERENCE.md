@@ -110,8 +110,8 @@ local decode = client:Decode(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `decode` | ``$OBJECT`` | No |  |
-| `encode` | ``$OBJECT`` | No |  |
+| `decode` | `table` | No |  |
+| `encode` | `table` | No |  |
 
 ### Operations
 
@@ -174,7 +174,7 @@ local results, err = client:TimestampFirst():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:TimestampFirst():load({ id = "timestamp_first_id" })
+local result, err = client:TimestampFirst():load()
 ```
 
 ### Common Methods
@@ -228,7 +228,7 @@ local results, err = client:Version1():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Version1():load({ id = "version_1_id" })
+local result, err = client:Version1():load()
 ```
 
 ### Common Methods
@@ -274,7 +274,7 @@ local version_3 = client:Version3(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Version3():load({ id = "version_3_id" })
+local result, err = client:Version3():load()
 ```
 
 ### Common Methods
@@ -328,7 +328,7 @@ local results, err = client:Version4():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Version4():load({ id = "version_4_id" })
+local result, err = client:Version4():load()
 ```
 
 ### Common Methods
@@ -374,7 +374,7 @@ local version_5 = client:Version5(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Version5():load({ id = "version_5_id" })
+local result, err = client:Version5():load()
 ```
 
 ### Common Methods

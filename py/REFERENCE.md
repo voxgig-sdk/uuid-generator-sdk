@@ -8,7 +8,7 @@ Complete API reference for the UuidGenerator Python SDK.
 ### Constructor
 
 ```python
-from uuid-generator_sdk import UuidGeneratorSDK
+from uuidgenerator_sdk import UuidGeneratorSDK
 
 client = UuidGeneratorSDK(options)
 ```
@@ -107,8 +107,8 @@ decode = client.Decode()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `decode` | ``$OBJECT`` | No |  |
-| `encode` | ``$OBJECT`` | No |  |
+| `decode` | `dict` | No |  |
+| `encode` | `dict` | No |  |
 
 ### Operations
 
@@ -157,12 +157,12 @@ timestamp_first = client.TimestampFirst()
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.TimestampFirst().list({})
+results = client.TimestampFirst().list()
 for timestamp_first in results:
     print(timestamp_first)
 ```
@@ -172,7 +172,7 @@ for timestamp_first in results:
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.TimestampFirst().load({"id": "timestamp_first_id"})
+result = client.TimestampFirst().load()
 ```
 
 ### Common Methods
@@ -212,12 +212,12 @@ version_1 = client.Version1()
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Version1().list({})
+results = client.Version1().list()
 for version_1 in results:
     print(version_1)
 ```
@@ -227,7 +227,7 @@ for version_1 in results:
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.Version1().load({"id": "version_1_id"})
+result = client.Version1().load()
 ```
 
 ### Common Methods
@@ -272,7 +272,7 @@ version_3 = client.Version3()
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.Version3().load({"id": "version_3_id"})
+result = client.Version3().load()
 ```
 
 ### Common Methods
@@ -312,12 +312,12 @@ version_4 = client.Version4()
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Version4().list({})
+results = client.Version4().list()
 for version_4 in results:
     print(version_4)
 ```
@@ -327,7 +327,7 @@ for version_4 in results:
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.Version4().load({"id": "version_4_id"})
+result = client.Version4().load()
 ```
 
 ### Common Methods
@@ -372,7 +372,7 @@ version_5 = client.Version5()
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.Version5().load({"id": "version_5_id"})
+result = client.Version5().load()
 ```
 
 ### Common Methods

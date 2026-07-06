@@ -8,7 +8,7 @@ Complete API reference for the UuidGenerator Ruby SDK.
 ### Constructor
 
 ```ruby
-require_relative 'uuid-generator_sdk'
+require_relative 'UuidGenerator_sdk'
 
 client = UuidGeneratorSDK.new(options)
 ```
@@ -113,8 +113,8 @@ decode = client.Decode
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `decode` | ``$OBJECT`` | No |  |
-| `encode` | ``$OBJECT`` | No |  |
+| `decode` | `Hash` | No |  |
+| `encode` | `Hash` | No |  |
 
 ### Operations
 
@@ -164,12 +164,12 @@ timestamp_first = client.TimestampFirst
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.TimestampFirst.list(nil)
+results = client.TimestampFirst.list
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -177,7 +177,7 @@ results = client.TimestampFirst.list(nil)
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.TimestampFirst.load({ "id" => "timestamp_first_id" })
+result = client.TimestampFirst.load()
 ```
 
 ### Common Methods
@@ -218,12 +218,12 @@ version_1 = client.Version1
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Version1.list(nil)
+results = client.Version1.list
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -231,7 +231,7 @@ results = client.Version1.list(nil)
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.Version1.load({ "id" => "version_1_id" })
+result = client.Version1.load()
 ```
 
 ### Common Methods
@@ -277,7 +277,7 @@ version_3 = client.Version3
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.Version3.load({ "id" => "version_3_id" })
+result = client.Version3.load()
 ```
 
 ### Common Methods
@@ -318,12 +318,12 @@ version_4 = client.Version4
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Version4.list(nil)
+results = client.Version4.list
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -331,7 +331,7 @@ results = client.Version4.list(nil)
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.Version4.load({ "id" => "version_4_id" })
+result = client.Version4.load()
 ```
 
 ### Common Methods
@@ -377,7 +377,7 @@ version_5 = client.Version5
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.Version5.load({ "id" => "version_5_id" })
+result = client.Version5.load()
 ```
 
 ### Common Methods

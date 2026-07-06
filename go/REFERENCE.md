@@ -117,8 +117,8 @@ decode := client.Decode(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `decode` | ``$OBJECT`` | No |  |
-| `encode` | ``$OBJECT`` | No |  |
+| `decode` | `map[string]any` | No |  |
+| `encode` | `map[string]any` | No |  |
 
 ### Operations
 
@@ -175,7 +175,7 @@ results, err := client.TimestampFirst(nil).List(nil, nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.TimestampFirst(nil).Load(map[string]any{"id": "timestamp_first_id"}, nil)
+result, err := client.TimestampFirst(nil).Load(nil, nil)
 ```
 
 ### Common Methods
@@ -223,7 +223,7 @@ results, err := client.Version1(nil).List(nil, nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.Version1(nil).Load(map[string]any{"id": "version_1_id"}, nil)
+result, err := client.Version1(nil).Load(nil, nil)
 ```
 
 ### Common Methods
@@ -263,7 +263,7 @@ version_3 := client.Version3(nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.Version3(nil).Load(map[string]any{"id": "version_3_id"}, nil)
+result, err := client.Version3(nil).Load(nil, nil)
 ```
 
 ### Common Methods
@@ -311,7 +311,7 @@ results, err := client.Version4(nil).List(nil, nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.Version4(nil).Load(map[string]any{"id": "version_4_id"}, nil)
+result, err := client.Version4(nil).Load(nil, nil)
 ```
 
 ### Common Methods
@@ -351,7 +351,7 @@ version_5 := client.Version5(nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.Version5(nil).Load(map[string]any{"id": "version_5_id"}, nil)
+result, err := client.Version5(nil).Load(nil, nil)
 ```
 
 ### Common Methods

@@ -221,37 +221,37 @@ class UuidGeneratorSDK:
 
 
     def Decode(self, data=None) -> "DecodeEntity":
-        """Entity factory: client.Decode().list({}) / client.Decode().load({"id": ...})."""
+        """Entity factory: client.Decode().list() / client.Decode().load({"id": ...})."""
         from entity.decode_entity import DecodeEntity
         return DecodeEntity(self, data)
 
 
     def TimestampFirst(self, data=None) -> "TimestampFirstEntity":
-        """Entity factory: client.TimestampFirst().list({}) / client.TimestampFirst().load({"id": ...})."""
+        """Entity factory: client.TimestampFirst().list() / client.TimestampFirst().load({"id": ...})."""
         from entity.timestamp_first_entity import TimestampFirstEntity
         return TimestampFirstEntity(self, data)
 
 
     def Version1(self, data=None) -> "Version1Entity":
-        """Entity factory: client.Version1().list({}) / client.Version1().load({"id": ...})."""
+        """Entity factory: client.Version1().list() / client.Version1().load({"id": ...})."""
         from entity.version_1_entity import Version1Entity
         return Version1Entity(self, data)
 
 
     def Version3(self, data=None) -> "Version3Entity":
-        """Entity factory: client.Version3().list({}) / client.Version3().load({"id": ...})."""
+        """Entity factory: client.Version3().list() / client.Version3().load({"id": ...})."""
         from entity.version_3_entity import Version3Entity
         return Version3Entity(self, data)
 
 
     def Version4(self, data=None) -> "Version4Entity":
-        """Entity factory: client.Version4().list({}) / client.Version4().load({"id": ...})."""
+        """Entity factory: client.Version4().list() / client.Version4().load({"id": ...})."""
         from entity.version_4_entity import Version4Entity
         return Version4Entity(self, data)
 
 
     def Version5(self, data=None) -> "Version5Entity":
-        """Entity factory: client.Version5().list({}) / client.Version5().load({"id": ...})."""
+        """Entity factory: client.Version5().list() / client.Version5().load({"id": ...})."""
         from entity.version_5_entity import Version5Entity
         return Version5Entity(self, data)
 

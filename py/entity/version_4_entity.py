@@ -65,8 +65,13 @@ class Version4Entity:
         return vs.clone(self._match)
 
     
-    def load(self, reqmatch: Version4LoadMatch, ctrl=None) -> Version4:
+    def load(self, reqmatch=None, ctrl=None) -> Version4:
         utility = self._utility
+        # reqmatch is optional: an entity with no id-like key loads with no
+        # match. Treat None as an empty match so client.Version4().load()
+        # works with no args.
+        if reqmatch is None:
+            reqmatch = {}
         ctx = utility.make_context({
             "opname": "load",
             "ctrl": ctrl,
@@ -87,8 +92,12 @@ class Version4Entity:
 
 
     
-    def list(self, reqmatch: Version4ListMatch, ctrl=None) -> list[Version4]:
+    def list(self, reqmatch=None, ctrl=None) -> list[Version4]:
         utility = self._utility
+        # reqmatch is optional: an omitted match lists all records. Treat None
+        # as an empty match so client.Version4().list() works with no args.
+        if reqmatch is None:
+            reqmatch = {}
         ctx = utility.make_context({
             "opname": "list",
             "ctrl": ctrl,

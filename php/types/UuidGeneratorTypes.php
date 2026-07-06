@@ -36,7 +36,7 @@ class TimestampFirstLoadMatch
     public int $count;
 }
 
-/** Match filter for TimestampFirst#list (any subset of TimestampFirst fields). */
+/** Request payload for TimestampFirst#list. */
 class TimestampFirstListMatch
 {
 }
@@ -52,7 +52,7 @@ class Version1LoadMatch
     public int $count;
 }
 
-/** Match filter for Version1#list (any subset of Version1 fields). */
+/** Request payload for Version1#list. */
 class Version1ListMatch
 {
 }
@@ -80,7 +80,7 @@ class Version4LoadMatch
     public int $count;
 }
 
-/** Match filter for Version4#list (any subset of Version4 fields). */
+/** Request payload for Version4#list. */
 class Version4ListMatch
 {
 }
