@@ -238,7 +238,7 @@ const results = await client.TimestampFirst().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.TimestampFirst().load()
+const result = await client.TimestampFirst().load({ count: 1 })
 ```
 
 ### Common Methods
@@ -290,7 +290,7 @@ const results = await client.Version1().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Version1().load()
+const result = await client.Version1().load({ count: 1 })
 ```
 
 ### Common Methods
@@ -334,7 +334,7 @@ const version_3 = client.Version3()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Version3().load()
+const result = await client.Version3().load({ name: 'name', namespace_id: 'namespace_id' })
 ```
 
 ### Common Methods
@@ -386,7 +386,7 @@ const results = await client.Version4().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Version4().load()
+const result = await client.Version4().load({ count: 1 })
 ```
 
 ### Common Methods
@@ -430,7 +430,7 @@ const version_5 = client.Version5()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Version5().load()
+const result = await client.Version5().load({ name: 'name', namespace_id: 'namespace_id' })
 ```
 
 ### Common Methods

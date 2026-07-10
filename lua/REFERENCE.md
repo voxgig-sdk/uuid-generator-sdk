@@ -174,7 +174,7 @@ local results, err = client:TimestampFirst():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:TimestampFirst():load()
+local result, err = client:TimestampFirst():load({ count = 1 })
 ```
 
 ### Common Methods
@@ -228,7 +228,7 @@ local results, err = client:Version1():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Version1():load()
+local result, err = client:Version1():load({ count = 1 })
 ```
 
 ### Common Methods
@@ -274,7 +274,7 @@ local version_3 = client:Version3(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Version3():load()
+local result, err = client:Version3():load({ name = "name", namespace_id = "namespace_id" })
 ```
 
 ### Common Methods
@@ -328,7 +328,7 @@ local results, err = client:Version4():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Version4():load()
+local result, err = client:Version4():load({ count = 1 })
 ```
 
 ### Common Methods
@@ -374,7 +374,7 @@ local version_5 = client:Version5(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Version5():load()
+local result, err = client:Version5():load({ name = "name", namespace_id = "namespace_id" })
 ```
 
 ### Common Methods

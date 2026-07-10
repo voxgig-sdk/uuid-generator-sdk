@@ -33,12 +33,14 @@ local sdk = require("uuid-generator_sdk")
 local client = sdk.new()
 ```
 
-### 3. Load a decode
+### 3. Load a timestampfirst
+
+TimestampFirst is nested under count, so provide the `count`.
 
 ```lua
-local decode, err = client:Decode():load({ id = "example_id" })
+local timestampfirst, err = client:TimestampFirst():load({ count = 1 })
 if err then error(err) end
-print(decode)
+print(timestampfirst)
 ```
 
 
@@ -327,7 +329,7 @@ Create an instance: `local timestamp_first = client:TimestampFirst(nil)`
 #### Example: Load
 
 ```lua
-local timestamp_first, err = client:TimestampFirst():load()
+local timestamp_first, err = client:TimestampFirst():load({ count = 1 })
 ```
 
 #### Example: List
@@ -351,7 +353,7 @@ Create an instance: `local version_1 = client:Version1(nil)`
 #### Example: Load
 
 ```lua
-local version_1, err = client:Version1():load()
+local version_1, err = client:Version1():load({ count = 1 })
 ```
 
 #### Example: List
@@ -374,7 +376,7 @@ Create an instance: `local version_3 = client:Version3(nil)`
 #### Example: Load
 
 ```lua
-local version_3, err = client:Version3():load()
+local version_3, err = client:Version3():load({ name = "name", namespace_id = "namespace_id" })
 ```
 
 
@@ -392,7 +394,7 @@ Create an instance: `local version_4 = client:Version4(nil)`
 #### Example: Load
 
 ```lua
-local version_4, err = client:Version4():load()
+local version_4, err = client:Version4():load({ count = 1 })
 ```
 
 #### Example: List
@@ -415,7 +417,7 @@ Create an instance: `local version_5 = client:Version5(nil)`
 #### Example: Load
 
 ```lua
-local version_5, err = client:Version5():load()
+local version_5, err = client:Version5():load({ name = "name", namespace_id = "namespace_id" })
 ```
 
 

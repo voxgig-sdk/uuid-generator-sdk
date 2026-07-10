@@ -51,7 +51,7 @@ func main() {
     client := sdk.New()
 
     // Load a single decode — the value is the loaded record.
-    decode, err := client.Decode(nil).Load(map[string]any{"id": "example"}, nil)
+    decode, err := client.Decode(nil).Load(map[string]any{"id": "example_id"}, nil)
     if err != nil {
         panic(err)
     }
@@ -352,7 +352,7 @@ fmt.Println(decode) // the loaded record
 
 ### TimestampFirst
 
-Create an instance: `timestamp_first := client.TimestampFirst(nil)`
+Create an instance: `timestampFirst := client.TimestampFirst(nil)`
 
 #### Operations
 
@@ -364,27 +364,27 @@ Create an instance: `timestamp_first := client.TimestampFirst(nil)`
 #### Example: Load
 
 ```go
-timestamp_first, err := client.TimestampFirst(nil).Load(nil, nil)
+timestampFirst, err := client.TimestampFirst(nil).Load(map[string]any{"count": 1}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(timestamp_first) // the loaded record
+fmt.Println(timestampFirst) // the loaded record
 ```
 
 #### Example: List
 
 ```go
-timestamp_firsts, err := client.TimestampFirst(nil).List(nil, nil)
+timestampFirsts, err := client.TimestampFirst(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(timestamp_firsts) // the array of records
+fmt.Println(timestampFirsts) // the array of records
 ```
 
 
 ### Version1
 
-Create an instance: `version_1 := client.Version1(nil)`
+Create an instance: `version1 := client.Version1(nil)`
 
 #### Operations
 
@@ -396,27 +396,27 @@ Create an instance: `version_1 := client.Version1(nil)`
 #### Example: Load
 
 ```go
-version_1, err := client.Version1(nil).Load(nil, nil)
+version1, err := client.Version1(nil).Load(map[string]any{"count": 1}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(version_1) // the loaded record
+fmt.Println(version1) // the loaded record
 ```
 
 #### Example: List
 
 ```go
-version_1s, err := client.Version1(nil).List(nil, nil)
+version1s, err := client.Version1(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(version_1s) // the array of records
+fmt.Println(version1s) // the array of records
 ```
 
 
 ### Version3
 
-Create an instance: `version_3 := client.Version3(nil)`
+Create an instance: `version3 := client.Version3(nil)`
 
 #### Operations
 
@@ -427,17 +427,17 @@ Create an instance: `version_3 := client.Version3(nil)`
 #### Example: Load
 
 ```go
-version_3, err := client.Version3(nil).Load(nil, nil)
+version3, err := client.Version3(nil).Load(map[string]any{"name": "name", "namespace_id": "namespace_id"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(version_3) // the loaded record
+fmt.Println(version3) // the loaded record
 ```
 
 
 ### Version4
 
-Create an instance: `version_4 := client.Version4(nil)`
+Create an instance: `version4 := client.Version4(nil)`
 
 #### Operations
 
@@ -449,27 +449,27 @@ Create an instance: `version_4 := client.Version4(nil)`
 #### Example: Load
 
 ```go
-version_4, err := client.Version4(nil).Load(nil, nil)
+version4, err := client.Version4(nil).Load(map[string]any{"count": 1}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(version_4) // the loaded record
+fmt.Println(version4) // the loaded record
 ```
 
 #### Example: List
 
 ```go
-version_4s, err := client.Version4(nil).List(nil, nil)
+version4s, err := client.Version4(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(version_4s) // the array of records
+fmt.Println(version4s) // the array of records
 ```
 
 
 ### Version5
 
-Create an instance: `version_5 := client.Version5(nil)`
+Create an instance: `version5 := client.Version5(nil)`
 
 #### Operations
 
@@ -480,11 +480,11 @@ Create an instance: `version_5 := client.Version5(nil)`
 #### Example: Load
 
 ```go
-version_5, err := client.Version5(nil).Load(nil, nil)
+version5, err := client.Version5(nil).Load(map[string]any{"name": "name", "namespace_id": "namespace_id"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(version_5) // the loaded record
+fmt.Println(version5) // the loaded record
 ```
 
 

@@ -31,13 +31,15 @@ require_once 'uuidgenerator_sdk.php';
 $client = new UuidGeneratorSDK();
 ```
 
-### 3. Load a decode
+### 3. Load a timestampfirst
+
+TimestampFirst is nested under count, so provide the `count`.
 
 ```php
 try {
-    // load() returns the bare Decode record (throws on error).
-    $decode = $client->Decode()->load(["id" => "example_id"]);
-    print_r($decode);
+    // load() returns the bare TimestampFirst record (throws on error).
+    $timestampfirst = $client->TimestampFirst()->load(["count" => 1]);
+    print_r($timestampfirst);
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -350,7 +352,7 @@ Create an instance: `$timestamp_first = $client->TimestampFirst();`
 
 ```php
 // load() returns the bare TimestampFirst record (throws on error).
-$timestamp_first = $client->TimestampFirst()->load();
+$timestamp_first = $client->TimestampFirst()->load(["count" => 1]);
 ```
 
 #### Example: List
@@ -376,7 +378,7 @@ Create an instance: `$version_1 = $client->Version1();`
 
 ```php
 // load() returns the bare Version1 record (throws on error).
-$version_1 = $client->Version1()->load();
+$version_1 = $client->Version1()->load(["count" => 1]);
 ```
 
 #### Example: List
@@ -401,7 +403,7 @@ Create an instance: `$version_3 = $client->Version3();`
 
 ```php
 // load() returns the bare Version3 record (throws on error).
-$version_3 = $client->Version3()->load();
+$version_3 = $client->Version3()->load(["name" => "name", "namespace_id" => "namespace_id"]);
 ```
 
 
@@ -420,7 +422,7 @@ Create an instance: `$version_4 = $client->Version4();`
 
 ```php
 // load() returns the bare Version4 record (throws on error).
-$version_4 = $client->Version4()->load();
+$version_4 = $client->Version4()->load(["count" => 1]);
 ```
 
 #### Example: List
@@ -445,7 +447,7 @@ Create an instance: `$version_5 = $client->Version5();`
 
 ```php
 // load() returns the bare Version5 record (throws on error).
-$version_5 = $client->Version5()->load();
+$version_5 = $client->Version5()->load(["name" => "name", "namespace_id" => "namespace_id"]);
 ```
 
 

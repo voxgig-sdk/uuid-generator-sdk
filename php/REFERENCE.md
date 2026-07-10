@@ -176,7 +176,7 @@ $results = $client->TimestampFirst()->list();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->TimestampFirst()->load();
+$result = $client->TimestampFirst()->load(["count" => 1]);
 ```
 
 ### Common Methods
@@ -230,7 +230,7 @@ $results = $client->Version1()->list();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->Version1()->load();
+$result = $client->Version1()->load(["count" => 1]);
 ```
 
 ### Common Methods
@@ -276,7 +276,7 @@ $version_3 = $client->Version3();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->Version3()->load();
+$result = $client->Version3()->load(["name" => "name", "namespace_id" => "namespace_id"]);
 ```
 
 ### Common Methods
@@ -330,7 +330,7 @@ $results = $client->Version4()->list();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->Version4()->load();
+$result = $client->Version4()->load(["count" => 1]);
 ```
 
 ### Common Methods
@@ -376,7 +376,7 @@ $version_5 = $client->Version5();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->Version5()->load();
+$result = $client->Version5()->load(["name" => "name", "namespace_id" => "namespace_id"]);
 ```
 
 ### Common Methods

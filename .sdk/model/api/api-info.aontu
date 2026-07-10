@@ -15,10 +15,10 @@ main: {
           url: "https://www.uuidtools.com/api"
         }
       ]
+      summary: "The UUID Generator API allows you to generate unique UUIDs and GUIDs easily via HTTP requests."
       termsOfService: "https://www.uuidtools.com/terms-of-service"
       title: "UUID Generator API"
       version: "1.0.0"
+      website: "https://www.uuidtools.com/docs"
     }
   }
-}
-

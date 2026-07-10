@@ -33,14 +33,17 @@ import { UuidGeneratorSDK } from '@voxgig-sdk/uuid-generator'
 const client = new UuidGeneratorSDK()
 ```
 
-### 3. Load a decode
+### 3. Load a timestampfirst
 
+TimestampFirst is nested under count, so provide the `count`.
 `load()` returns the entity directly and throws on failure:
 
 ```ts
 try {
-  const decode = await client.Decode().load({ id: 'example_id' })
-  console.log(decode)
+  const timestampfirst = await client.TimestampFirst().load({
+    count: 1,
+  })
+  console.log(timestampfirst)
 } catch (err) {
   console.error('load failed:', err)
 }
@@ -387,7 +390,7 @@ Create an instance: `const timestamp_first = client.TimestampFirst()`
 #### Example: Load
 
 ```ts
-const timestamp_first = await client.TimestampFirst().load()
+const timestamp_first = await client.TimestampFirst().load({ count: 1 })
 ```
 
 #### Example: List
@@ -411,7 +414,7 @@ Create an instance: `const version_1 = client.Version1()`
 #### Example: Load
 
 ```ts
-const version_1 = await client.Version1().load()
+const version_1 = await client.Version1().load({ count: 1 })
 ```
 
 #### Example: List
@@ -434,7 +437,7 @@ Create an instance: `const version_3 = client.Version3()`
 #### Example: Load
 
 ```ts
-const version_3 = await client.Version3().load()
+const version_3 = await client.Version3().load({ name: 'name', namespace_id: 'namespace_id' })
 ```
 
 
@@ -452,7 +455,7 @@ Create an instance: `const version_4 = client.Version4()`
 #### Example: Load
 
 ```ts
-const version_4 = await client.Version4().load()
+const version_4 = await client.Version4().load({ count: 1 })
 ```
 
 #### Example: List
@@ -475,7 +478,7 @@ Create an instance: `const version_5 = client.Version5()`
 #### Example: Load
 
 ```ts
-const version_5 = await client.Version5().load()
+const version_5 = await client.Version5().load({ name: 'name', namespace_id: 'namespace_id' })
 ```
 
 

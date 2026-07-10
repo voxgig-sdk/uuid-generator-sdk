@@ -111,6 +111,7 @@ same parameters as `Direct()`.
 
 ```go
 decode := client.Decode(nil)
+fmt.Println(decode.GetName()) // "decode"
 ```
 
 ### Fields
@@ -128,6 +129,10 @@ Load a single entity matching the given criteria.
 
 ```go
 result, err := client.Decode(nil).Load(map[string]any{"id": "decode_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -157,7 +162,8 @@ Return the entity name.
 ## TimestampFirstEntity
 
 ```go
-timestamp_first := client.TimestampFirst(nil)
+timestampFirst := client.TimestampFirst(nil)
+fmt.Println(timestampFirst.GetName()) // "timestamp_first"
 ```
 
 ### Operations
@@ -168,6 +174,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.TimestampFirst(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 #### `Load(reqmatch, ctrl map[string]any) (any, error)`
@@ -175,7 +185,11 @@ results, err := client.TimestampFirst(nil).List(nil, nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.TimestampFirst(nil).Load(nil, nil)
+result, err := client.TimestampFirst(nil).Load(map[string]any{"count": 1}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -205,7 +219,8 @@ Return the entity name.
 ## Version1Entity
 
 ```go
-version_1 := client.Version1(nil)
+version1 := client.Version1(nil)
+fmt.Println(version1.GetName()) // "version_1"
 ```
 
 ### Operations
@@ -216,6 +231,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Version1(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 #### `Load(reqmatch, ctrl map[string]any) (any, error)`
@@ -223,7 +242,11 @@ results, err := client.Version1(nil).List(nil, nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.Version1(nil).Load(nil, nil)
+result, err := client.Version1(nil).Load(map[string]any{"count": 1}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -253,7 +276,8 @@ Return the entity name.
 ## Version3Entity
 
 ```go
-version_3 := client.Version3(nil)
+version3 := client.Version3(nil)
+fmt.Println(version3.GetName()) // "version_3"
 ```
 
 ### Operations
@@ -263,7 +287,11 @@ version_3 := client.Version3(nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.Version3(nil).Load(nil, nil)
+result, err := client.Version3(nil).Load(map[string]any{"name": "name", "namespace_id": "namespace_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -293,7 +321,8 @@ Return the entity name.
 ## Version4Entity
 
 ```go
-version_4 := client.Version4(nil)
+version4 := client.Version4(nil)
+fmt.Println(version4.GetName()) // "version_4"
 ```
 
 ### Operations
@@ -304,6 +333,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Version4(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 #### `Load(reqmatch, ctrl map[string]any) (any, error)`
@@ -311,7 +344,11 @@ results, err := client.Version4(nil).List(nil, nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.Version4(nil).Load(nil, nil)
+result, err := client.Version4(nil).Load(map[string]any{"count": 1}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -341,7 +378,8 @@ Return the entity name.
 ## Version5Entity
 
 ```go
-version_5 := client.Version5(nil)
+version5 := client.Version5(nil)
+fmt.Println(version5.GetName()) // "version_5"
 ```
 
 ### Operations
@@ -351,7 +389,11 @@ version_5 := client.Version5(nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.Version5(nil).Load(nil, nil)
+result, err := client.Version5(nil).Load(map[string]any{"name": "name", "namespace_id": "namespace_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods

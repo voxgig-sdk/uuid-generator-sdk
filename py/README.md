@@ -36,14 +36,15 @@ from uuidgenerator_sdk import UuidGeneratorSDK
 client = UuidGeneratorSDK()
 ```
 
-### 3. Load a decode
+### 3. Load a timestampfirst
 
+TimestampFirst is nested under count, so provide the `count`.
 `load()` returns the bare record (a `dict`) and raises on error.
 
 ```python
 try:
-    decode = client.Decode().load({"id": "example_id"})
-    print(decode)
+    timestampfirst = client.TimestampFirst().load({"count": 1})
+    print(timestampfirst)
 except Exception as err:
     print(f"load failed: {err}")
 ```
@@ -341,7 +342,7 @@ Create an instance: `timestamp_first = client.TimestampFirst()`
 #### Example: Load
 
 ```python
-timestamp_first = client.TimestampFirst().load()
+timestamp_first = client.TimestampFirst().load({"count": 1})
 ```
 
 #### Example: List
@@ -365,7 +366,7 @@ Create an instance: `version_1 = client.Version1()`
 #### Example: Load
 
 ```python
-version_1 = client.Version1().load()
+version_1 = client.Version1().load({"count": 1})
 ```
 
 #### Example: List
@@ -388,7 +389,7 @@ Create an instance: `version_3 = client.Version3()`
 #### Example: Load
 
 ```python
-version_3 = client.Version3().load()
+version_3 = client.Version3().load({"name": "name", "namespace_id": "namespace_id"})
 ```
 
 
@@ -406,7 +407,7 @@ Create an instance: `version_4 = client.Version4()`
 #### Example: Load
 
 ```python
-version_4 = client.Version4().load()
+version_4 = client.Version4().load({"count": 1})
 ```
 
 #### Example: List
@@ -429,7 +430,7 @@ Create an instance: `version_5 = client.Version5()`
 #### Example: Load
 
 ```python
-version_5 = client.Version5().load()
+version_5 = client.Version5().load({"name": "name", "namespace_id": "namespace_id"})
 ```
 
 
