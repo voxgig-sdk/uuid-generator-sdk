@@ -67,6 +67,7 @@ module UuidGeneratorConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/decode/{uuid}",
                   "parts" => [
@@ -108,6 +109,7 @@ module UuidGeneratorConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/generate/timestamp-first",
                   "parts" => [
@@ -144,6 +146,7 @@ module UuidGeneratorConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/generate/timestamp-first/count/{count}",
                   "parts" => [
@@ -186,6 +189,7 @@ module UuidGeneratorConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/generate/v1",
                   "parts" => [
@@ -222,6 +226,7 @@ module UuidGeneratorConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/generate/v1/count/{count}",
                   "parts" => [
@@ -287,6 +292,7 @@ module UuidGeneratorConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/generate/v3/namespace/{namespace}/name/{name}",
                   "parts" => [
@@ -338,6 +344,7 @@ module UuidGeneratorConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/generate/v4",
                   "parts" => [
@@ -374,6 +381,7 @@ module UuidGeneratorConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/generate/v4/count/{count}",
                   "parts" => [
@@ -439,6 +447,7 @@ module UuidGeneratorConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/generate/v5/namespace/{namespace}/name/{name}",
                   "parts" => [

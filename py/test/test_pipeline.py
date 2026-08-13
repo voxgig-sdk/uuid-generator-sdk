@@ -16,11 +16,11 @@
 import pytest
 
 from uuidgenerator_sdk import UuidGeneratorSDK
-from core.error import UuidGeneratorError
-from core.result import UuidGeneratorResult
-from core.response import UuidGeneratorResponse
-from core.spec import UuidGeneratorSpec
-from feature.base_feature import UuidGeneratorBaseFeature
+from uuidgenerator_sdk.core.error import UuidGeneratorError
+from uuidgenerator_sdk.core.result import UuidGeneratorResult
+from uuidgenerator_sdk.core.response import UuidGeneratorResponse
+from uuidgenerator_sdk.core.spec import UuidGeneratorSpec
+from uuidgenerator_sdk.feature.base_feature import UuidGeneratorBaseFeature
 
 
 def _client():

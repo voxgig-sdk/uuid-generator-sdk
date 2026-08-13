@@ -50,7 +50,7 @@ Entity operations return `(value, err)`. Check `err` before using
 the value:
 
 ```lua
-local decode, err = client:Decode():load({ id = "example_id" })
+local version1s, err = client:Version1():list()
 if err then error(err) end
 ```
 
@@ -108,7 +108,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:Decode():load({ id = "test01" })
+local result, err = client:Version1():list()
 -- result is the returned data; err is set on failure
 ```
 
@@ -493,15 +493,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local decode = client:Decode()
-decode:load({ id = "example_id" })
+local version1 = client:Version1()
+version1:list()
 
--- decode:data_get() now returns the decode data from the last load
--- decode:match_get() returns the last match criteria
+-- version1:data_get() now returns the version1 data from the last list
+-- version1:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

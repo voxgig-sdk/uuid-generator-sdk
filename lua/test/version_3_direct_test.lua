@@ -70,11 +70,11 @@ function version_3_direct_setup(mockres)
   local calls = {}
 
   local env = runner.env_override({
-    ["UUIDGENERATOR_TEST_VERSION___ENTID"] = {},
-    ["UUIDGENERATOR_TEST_LIVE"] = "FALSE",
+    ["UUID_GENERATOR_TEST_VERSION_3_ENTID"] = {},
+    ["UUID_GENERATOR_TEST_LIVE"] = "FALSE",
   })
 
-  local live = env["UUIDGENERATOR_TEST_LIVE"] == "TRUE"
+  local live = env["UUID_GENERATOR_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {

@@ -26,8 +26,8 @@ import {
 describe('DecodeEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when UUIDGENERATOR_TEST_LIVE=TRUE.
-  afterEach(liveDelay('UUIDGENERATOR_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when UUID_GENERATOR_TEST_LIVE=TRUE.
+  afterEach(liveDelay('UUID_GENERATOR_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = UuidGeneratorSDK.test()

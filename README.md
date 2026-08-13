@@ -23,7 +23,7 @@ support (`list`, `load`):
 
 ```ts
 const client = new UuidGeneratorSDK()
-const decode = await client.Decode().load()
+const decode = await client.Decode().load({ id: "example_id" })
 ```
 
 Thinking in entities keeps the mental model small — for people and AI agents alike —
@@ -38,18 +38,27 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = UuidGeneratorSDK.test()
-const decode = await client.Decode().load({ id: 'test01' })
-// decode is a bare Decode populated with mock data
-console.log(decode)
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = UuidGeneratorSDK.test({
+  entity: {
+    version_1: {
+      test01: { id: 'test01' },
+    },
+  },
+})
+const version1s = await client.Version1().list()
+// version1s is an array of Version1 entities, populated with mock data
+// — call version1s[0].data() for the record itself
+console.log(version1s)
 ```
 
 ### Python
 
 ```python
 client = UuidGeneratorSDK.test()
-decode = client.Decode().load({"id": "test01"})
-print(decode)
+version1s = client.Version1().list()
+print(version1s)
 ```
 
 ### PHP
@@ -57,17 +66,17 @@ print(decode)
 ```php
 // Seed fixture data so offline calls resolve without a live server.
 $client = UuidGeneratorSDK::test([
-    "entity" => ["decode" => ["test01" => ["id" => "test01"]]],
+    "entity" => ["version1" => ["test01" => []]],
 ]);
-$decode = $client->Decode()->load(["id" => "test01"]);
+$version1s = $client->Version1()->list();
 ```
 
 ### Golang
 
 ```go
 client := sdk.Test()
-result, err := client.Decode(nil).Load(
-    map[string]any{"id": "test01"}, nil,
+result, err := client.Version1(nil).List(
+    nil, nil,
 )
 ```
 
@@ -76,16 +85,16 @@ result, err := client.Decode(nil).Load(
 ```ruby
 # Seed fixture data so offline calls resolve without a live server.
 client = UuidGeneratorSDK.test({
-  "entity" => { "decode" => { "test01" => { "id" => "test01" } } },
+  "entity" => { "version1" => { "test01" => {} } },
 })
-decode = client.Decode.load({ "id" => "test01" })
+version1s = client.Version1.list()
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:Decode():load({ id = "test01" })
+local results, err = client:Version1():list()
 ```
 
 ## Packages
@@ -190,7 +199,7 @@ require_once 'uuidgenerator_sdk.php';
 $client = new UuidGeneratorSDK();
 
 
-// Load a specific decode (returns the bare record; throws on error)
+// Load a specific decode (returns the ENTITY; call data_get() for the record; throws on error)
 $decode = $client->Decode()->load(["id" => "example_id"]);
 print_r($decode);
 ```
@@ -221,7 +230,7 @@ require_relative "UuidGenerator_sdk"
 client = UuidGeneratorSDK.new
 
 
-# Load a specific decode (returns the bare record; raises on error)
+# Load a specific decode (returns the ENTITY; call data_get for the record)
 decode = client.Decode.load({ "id" => "example_id" })
 puts decode
 ```
@@ -355,6 +364,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://www.uuidtools.com/docs](https://www.uuidtools.com/docs)
 

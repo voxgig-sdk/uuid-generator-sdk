@@ -72,6 +72,7 @@ class UuidGeneratorConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/decode/{uuid}',
                   'parts' => [
@@ -113,6 +114,7 @@ class UuidGeneratorConfig
                 [
                   'active' => true,
                   'args' => [],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/generate/timestamp-first',
                   'parts' => [
@@ -149,6 +151,7 @@ class UuidGeneratorConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/generate/timestamp-first/count/{count}',
                   'parts' => [
@@ -191,6 +194,7 @@ class UuidGeneratorConfig
                 [
                   'active' => true,
                   'args' => [],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/generate/v1',
                   'parts' => [
@@ -227,6 +231,7 @@ class UuidGeneratorConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/generate/v1/count/{count}',
                   'parts' => [
@@ -292,6 +297,7 @@ class UuidGeneratorConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/generate/v3/namespace/{namespace}/name/{name}',
                   'parts' => [
@@ -343,6 +349,7 @@ class UuidGeneratorConfig
                 [
                   'active' => true,
                   'args' => [],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/generate/v4',
                   'parts' => [
@@ -379,6 +386,7 @@ class UuidGeneratorConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/generate/v4/count/{count}',
                   'parts' => [
@@ -444,6 +452,7 @@ class UuidGeneratorConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/generate/v5/namespace/{namespace}/name/{name}',
                   'parts' => [

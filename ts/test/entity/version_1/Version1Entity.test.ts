@@ -26,8 +26,8 @@ import {
 describe('Version1Entity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when UUIDGENERATOR_TEST_LIVE=TRUE.
-  afterEach(liveDelay('UUIDGENERATOR_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when UUID_GENERATOR_TEST_LIVE=TRUE.
+  afterEach(liveDelay('UUID_GENERATOR_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = UuidGeneratorSDK.test()
@@ -48,7 +48,7 @@ describe('Version1Entity', async () => {
     // fixture (entity TestData.json). Those don't exist on the live API.
     // Skip live runs unless the user provided a real ENTID env override.
     if (setup.syntheticOnly) {
-      t.skip('live entity test uses synthetic IDs from fixture — set UUID_GENERATOR_TEST_VERSION___ENTID JSON to run live')
+      t.skip('live entity test uses synthetic IDs from fixture — set UUID_GENERATOR_TEST_VERSION_1_ENTID JSON to run live')
       return
     }
     const client = setup.client
@@ -63,7 +63,7 @@ describe('Version1Entity', async () => {
     const version_1_ref01_ent = client.Version1()
     const version_1_ref01_match: any = {}
 
-    const version_1_ref01_list = await version_1_ref01_ent.list(version_1_ref01_match)
+    const version_1_ref01_list = (await version_1_ref01_ent.list(version_1_ref01_match)).map((e: any) => e.data())
 
 
 
@@ -107,16 +107,16 @@ function basicSetup(extra?: any) {
   // basic flow consumes synthetic IDs from the fixture file; without an
   // override those synthetic IDs reach the live API and 4xx. Surface this
   // to the test so it can skip rather than fail.
-  const idmapEnvVal = process.env['UUID_GENERATOR_TEST_VERSION___ENTID']
+  const idmapEnvVal = process.env['UUID_GENERATOR_TEST_VERSION_1_ENTID']
   const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{')
 
   const env = envOverride({
-    'UUID_GENERATOR_TEST_VERSION___ENTID': idmap,
+    'UUID_GENERATOR_TEST_VERSION_1_ENTID': idmap,
     'UUID_GENERATOR_TEST_LIVE': 'FALSE',
     'UUID_GENERATOR_TEST_EXPLAIN': 'FALSE',
   })
 
-  idmap = env['UUID_GENERATOR_TEST_VERSION___ENTID']
+  idmap = env['UUID_GENERATOR_TEST_VERSION_1_ENTID']
 
   const live = 'TRUE' === env.UUID_GENERATOR_TEST_LIVE
 

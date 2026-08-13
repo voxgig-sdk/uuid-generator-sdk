@@ -14,12 +14,12 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from config import make_config
-from features import _make_feature
-from core.control import UuidGeneratorControl
-from core.error import UuidGeneratorError
-from core.result import UuidGeneratorResult
-from core.spec import UuidGeneratorSpec
+from projectname_sdk.config import make_config
+from projectname_sdk.features import _make_feature
+from projectname_sdk.core.control import UuidGeneratorControl
+from projectname_sdk.core.error import UuidGeneratorError
+from projectname_sdk.core.result import UuidGeneratorResult
+from projectname_sdk.core.spec import UuidGeneratorSpec
 
 
 # True when this SDK was generated with the named feature.

@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from uuidgenerator_sdk.utility.voxgig_struct import voxgig_struct as vs
 from uuidgenerator_sdk import UuidGeneratorSDK
-from core import helpers
+from uuidgenerator_sdk.core import helpers
 from test import runner
 
 
@@ -102,11 +102,11 @@ def _timestamp_first_direct_setup(mockres):
     calls = []
 
     env = runner.env_override({
-        "UUIDGENERATOR_TEST_TIMESTAMP_FIRST_ENTID": {},
-        "UUIDGENERATOR_TEST_LIVE": "FALSE",
+        "UUID_GENERATOR_TEST_TIMESTAMP_FIRST_ENTID": {},
+        "UUID_GENERATOR_TEST_LIVE": "FALSE",
     })
 
-    live = env.get("UUIDGENERATOR_TEST_LIVE") == "TRUE"
+    live = env.get("UUID_GENERATOR_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {

@@ -43,8 +43,8 @@ class UuidGeneratorTestRunner
 
     public static function env_override(array $m): array
     {
-        $live = self::getenv('UUIDGENERATOR_TEST_LIVE');
-        $override = self::getenv('UUIDGENERATOR_TEST_OVERRIDE');
+        $live = self::getenv('UUID_GENERATOR_TEST_LIVE');
+        $override = self::getenv('UUID_GENERATOR_TEST_OVERRIDE');
 
         if ($live === 'TRUE' || $override === 'TRUE') {
             foreach (array_keys($m) as $key) {
@@ -63,9 +63,9 @@ class UuidGeneratorTestRunner
             }
         }
 
-        $explain = self::getenv('UUIDGENERATOR_TEST_EXPLAIN');
+        $explain = self::getenv('UUID_GENERATOR_TEST_EXPLAIN');
         if ($explain !== null && $explain !== '') {
-            $m['UUIDGENERATOR_TEST_EXPLAIN'] = $explain;
+            $m['UUID_GENERATOR_TEST_EXPLAIN'] = $explain;
         }
 
         return $m;

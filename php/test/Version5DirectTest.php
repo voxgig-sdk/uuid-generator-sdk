@@ -75,11 +75,11 @@ function version_5_direct_setup($mockres)
     $calls = new \ArrayObject();
 
     $env = Runner::env_override([
-        "UUIDGENERATOR_TEST_VERSION___ENTID" => [],
-        "UUIDGENERATOR_TEST_LIVE" => "FALSE",
+        "UUID_GENERATOR_TEST_VERSION_5_ENTID" => [],
+        "UUID_GENERATOR_TEST_LIVE" => "FALSE",
     ]);
 
-    $live = $env["UUIDGENERATOR_TEST_LIVE"] === "TRUE";
+    $live = $env["UUID_GENERATOR_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [

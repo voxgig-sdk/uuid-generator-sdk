@@ -66,12 +66,12 @@ Every entity operation returns `(value, error)`. Check `err` before
 using the value — there is no exception to catch:
 
 ```go
-decode, err := client.Decode(nil).Load(map[string]any{"id": "example_id"}, nil)
+version1s, err := client.Version1(nil).List(nil, nil)
 if err != nil {
     // handle err
     return
 }
-_ = decode
+_ = version1s
 ```
 
 `Direct` follows the same `(value, error)` convention:
@@ -135,13 +135,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-decode, err := client.Decode(nil).Load(
-    map[string]any{"id": "test01"}, nil,
+version1, err := client.Version1(nil).List(
+    nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(decode) // the returned mock data
+fmt.Println(version1) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -557,15 +557,15 @@ like `core.ToMapAny`.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `Load`, the entity
+Entity instances are stateful. After a successful `List`, the entity
 stores the returned data and match criteria internally.
 
 ```go
-decode := client.Decode(nil)
-decode.Load(map[string]any{"id": "example_id"}, nil)
+version1 := client.Version1(nil)
+version1.List(nil, nil)
 
-// decode.Data() now returns the decode data from the last load
-// decode.Match() returns the last match criteria
+// version1.Data() now returns the version1 data from the last list
+// version1.Match() returns the last match criteria
 ```
 
 Call `Make()` to create a fresh instance with the same configuration

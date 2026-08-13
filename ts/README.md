@@ -56,10 +56,10 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 
 ```ts
 try {
-  const decode = await client.Decode().load({ id: "example_id" })
-  console.log(decode)
+  const version1s = await client.Version1().list()
+  console.log(version1s)
 } catch (err) {
-  console.error('load failed:', err)
+  console.error('list failed:', err)
 }
 ```
 
@@ -123,9 +123,10 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = UuidGeneratorSDK.test()
 
-const decode = await client.Decode().load({ id: 'test01' })
-// decode is a bare entity populated with mock response data
-console.log(decode)
+const version1 = await client.Version1().list()
+// version1 is the entity, populated with mock response data
+// — call version1.data() for the record itself
+console.log(version1)
 ```
 
 You can also use the instance method:
@@ -140,10 +141,10 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Decode()
+const entity = client.Version1()
 
 // First call runs the operation and stores its result
-await entity.load({ id: 'example' })
+await entity.list()
 
 // Subsequent calls reuse the stored state
 const data = entity.data()
@@ -546,16 +547,16 @@ import { UuidGeneratorSDK } from '@voxgig-sdk/uuid-generator'
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const decode = client.Decode()
-await decode.load({ id: "example_id" })
+const version1 = client.Version1()
+await version1.list()
 
-// decode.data() now returns the decode data from the last `load`
-// decode.match() returns { id: "example_id" }
+// version1.data() now returns the version1 data from the last `list`
+// version1.match() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

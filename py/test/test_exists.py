@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# UuidGenerator SDK exists test
 
 import pytest
 from uuidgenerator_sdk import UuidGeneratorSDK

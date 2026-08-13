@@ -36,7 +36,7 @@ TimestampFirst is nested under count, so provide the `count`.
 
 ```ruby
 begin
-  # load returns the bare TimestampFirst record (raises on error).
+  # load returns the ENTITY — call data_get for the TimestampFirst record (raises on error).
   timestampfirst = client.TimestampFirst.load({ "count" => 1 })
   puts timestampfirst
 rescue => err
@@ -51,9 +51,9 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  decode = client.Decode.load({ "id" => "example_id" })
+  version1s = client.Version1.list()
 rescue => err
-  warn "load failed: #{err}"
+  warn "list failed: #{err}"
 end
 ```
 
@@ -114,17 +114,15 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required. Seed fixture
-data via the `entity` option so offline calls resolve without a live server:
+Create a mock client for unit testing — no server required:
 
 ```ruby
-client = UuidGeneratorSDK.test({
-  "entity" => { "decode" => { "test01" => { "id" => "test01" } } },
-})
+client = UuidGeneratorSDK.test
 
-# Entity ops return the bare mock record (raises on error).
-decode = client.Decode.load({ "id" => "test01" })
-puts decode
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
+version1 = client.Version1.list()
+puts version1
 ```
 
 ### Use a custom fetch function
@@ -322,7 +320,7 @@ Create an instance: `decode = client.Decode`
 #### Example: Load
 
 ```ruby
-# load returns the bare Decode record (raises on error).
+# load returns the ENTITY — call data_get for the Decode record (raises on error).
 decode = client.Decode.load({ "id" => "decode_id" })
 ```
 
@@ -341,7 +339,7 @@ Create an instance: `timestamp_first = client.TimestampFirst`
 #### Example: Load
 
 ```ruby
-# load returns the bare TimestampFirst record (raises on error).
+# load returns the ENTITY — call data_get for the TimestampFirst record (raises on error).
 timestamp_first = client.TimestampFirst.load({ "count" => 1 })
 ```
 
@@ -367,7 +365,7 @@ Create an instance: `version_1 = client.Version1`
 #### Example: Load
 
 ```ruby
-# load returns the bare Version1 record (raises on error).
+# load returns the ENTITY — call data_get for the Version1 record (raises on error).
 version_1 = client.Version1.load({ "count" => 1 })
 ```
 
@@ -392,7 +390,7 @@ Create an instance: `version_3 = client.Version3`
 #### Example: Load
 
 ```ruby
-# load returns the bare Version3 record (raises on error).
+# load returns the ENTITY — call data_get for the Version3 record (raises on error).
 version_3 = client.Version3.load({ "name" => "name", "namespace_id" => "namespace_id" })
 ```
 
@@ -411,7 +409,7 @@ Create an instance: `version_4 = client.Version4`
 #### Example: Load
 
 ```ruby
-# load returns the bare Version4 record (raises on error).
+# load returns the ENTITY — call data_get for the Version4 record (raises on error).
 version_4 = client.Version4.load({ "count" => 1 })
 ```
 
@@ -436,7 +434,7 @@ Create an instance: `version_5 = client.Version5`
 #### Example: Load
 
 ```ruby
-# load returns the bare Version5 record (raises on error).
+# load returns the ENTITY — call data_get for the Version5 record (raises on error).
 version_5 = client.Version5.load({ "name" => "name", "namespace_id" => "namespace_id" })
 ```
 
@@ -513,15 +511,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-decode = client.Decode
-decode.load({ "id" => "example_id" })
+version1 = client.Version1
+version1.list()
 
-# decode.data_get now returns the decode data from the last load
-# decode.match_get returns the last match criteria
+# version1.data_get now returns the version1 data from the last list
+# version1.match_get returns the last match criteria
 ```
 
 Call `make` to create a fresh instance with the same configuration

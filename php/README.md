@@ -37,7 +37,7 @@ TimestampFirst is nested under count, so provide the `count`.
 
 ```php
 try {
-    // load() returns the bare TimestampFirst record (throws on error).
+    // load() returns the ENTITY — call data_get() for the TimestampFirst record (throws on error).
     $timestampfirst = $client->TimestampFirst()->load(["count" => 1]);
     print_r($timestampfirst);
 } catch (\Throwable $err) {
@@ -53,7 +53,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $decode = $client->Decode()->load(["id" => "example_id"]);
+    $version1s = $client->Version1()->list();
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -120,17 +120,15 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required. Seed fixture
-data via the `entity` option so offline calls resolve without a live server:
+Create a mock client for unit testing — no server required:
 
 ```php
-$client = UuidGeneratorSDK::test([
-    "entity" => ["decode" => ["test01" => ["id" => "test01"]]],
-]);
+$client = UuidGeneratorSDK::test();
 
-// Entity ops return the bare mock record (throws on error).
-$decode = $client->Decode()->load(["id" => "test01"]);
-print_r($decode);
+// Entity ops return the ENTITY (throws on error);
+// call data_get() for the mock record.
+$version1 = $client->Version1()->list();
+print_r($version1);
 ```
 
 ### Use a custom fetch function
@@ -233,7 +231,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (an `array` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
 ops, a `list` for `list`) and throw on error. Wrap calls in
 `try`/`catch` to handle failures.
 
@@ -332,7 +330,7 @@ Create an instance: `$decode = $client->Decode();`
 #### Example: Load
 
 ```php
-// load() returns the bare Decode record (throws on error).
+// load() returns the ENTITY — call data_get() for the Decode record (throws on error).
 $decode = $client->Decode()->load(["id" => "decode_id"]);
 ```
 
@@ -351,7 +349,7 @@ Create an instance: `$timestamp_first = $client->TimestampFirst();`
 #### Example: Load
 
 ```php
-// load() returns the bare TimestampFirst record (throws on error).
+// load() returns the ENTITY — call data_get() for the TimestampFirst record (throws on error).
 $timestamp_first = $client->TimestampFirst()->load(["count" => 1]);
 ```
 
@@ -377,7 +375,7 @@ Create an instance: `$version_1 = $client->Version1();`
 #### Example: Load
 
 ```php
-// load() returns the bare Version1 record (throws on error).
+// load() returns the ENTITY — call data_get() for the Version1 record (throws on error).
 $version_1 = $client->Version1()->load(["count" => 1]);
 ```
 
@@ -402,7 +400,7 @@ Create an instance: `$version_3 = $client->Version3();`
 #### Example: Load
 
 ```php
-// load() returns the bare Version3 record (throws on error).
+// load() returns the ENTITY — call data_get() for the Version3 record (throws on error).
 $version_3 = $client->Version3()->load(["name" => "name", "namespace_id" => "namespace_id"]);
 ```
 
@@ -421,7 +419,7 @@ Create an instance: `$version_4 = $client->Version4();`
 #### Example: Load
 
 ```php
-// load() returns the bare Version4 record (throws on error).
+// load() returns the ENTITY — call data_get() for the Version4 record (throws on error).
 $version_4 = $client->Version4()->load(["count" => 1]);
 ```
 
@@ -446,7 +444,7 @@ Create an instance: `$version_5 = $client->Version5();`
 #### Example: Load
 
 ```php
-// load() returns the bare Version5 record (throws on error).
+// load() returns the ENTITY — call data_get() for the Version5 record (throws on error).
 $version_5 = $client->Version5()->load(["name" => "name", "namespace_id" => "namespace_id"]);
 ```
 
@@ -523,15 +521,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$decode = $client->Decode();
-$decode->load(["id" => "example_id"]);
+$version1 = $client->Version1();
+$version1->list();
 
-// $decode->data_get() now returns the decode data from the last load
-// $decode->match_get() returns the last match criteria
+// $version1->data_get() now returns the version1 data from the last list
+// $version1->match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

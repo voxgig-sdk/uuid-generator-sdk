@@ -26,8 +26,8 @@ import {
 describe('TimestampFirstEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when UUIDGENERATOR_TEST_LIVE=TRUE.
-  afterEach(liveDelay('UUIDGENERATOR_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when UUID_GENERATOR_TEST_LIVE=TRUE.
+  afterEach(liveDelay('UUID_GENERATOR_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = UuidGeneratorSDK.test()
@@ -63,7 +63,7 @@ describe('TimestampFirstEntity', async () => {
     const timestamp_first_ref01_ent = client.TimestampFirst()
     const timestamp_first_ref01_match: any = {}
 
-    const timestamp_first_ref01_list = await timestamp_first_ref01_ent.list(timestamp_first_ref01_match)
+    const timestamp_first_ref01_list = (await timestamp_first_ref01_ent.list(timestamp_first_ref01_match)).map((e: any) => e.data())
 
 
 

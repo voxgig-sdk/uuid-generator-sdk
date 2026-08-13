@@ -68,11 +68,11 @@ function decode_direct_setup(mockres)
   local calls = {}
 
   local env = runner.env_override({
-    ["UUIDGENERATOR_TEST_DECODE_ENTID"] = {},
-    ["UUIDGENERATOR_TEST_LIVE"] = "FALSE",
+    ["UUID_GENERATOR_TEST_DECODE_ENTID"] = {},
+    ["UUID_GENERATOR_TEST_LIVE"] = "FALSE",
   })
 
-  local live = env["UUIDGENERATOR_TEST_LIVE"] == "TRUE"
+  local live = env["UUID_GENERATOR_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {

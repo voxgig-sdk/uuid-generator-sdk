@@ -39,7 +39,7 @@ client = UuidGeneratorSDK()
 ### 3. Load a timestampfirst
 
 TimestampFirst is nested under count, so provide the `count`.
-`load()` returns the bare record (a `dict`) and raises on error.
+`load()` returns the ENTITY — call data_get() for the record — and raises on error.
 
 ```python
 try:
@@ -56,10 +56,10 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 
 ```python
 try:
-    decode = client.Decode().load({"id": "example_id"})
-    print(decode)
+    version1s = client.Version1().list()
+    print(version1s)
 except Exception as err:
-    print(f"load failed: {err}")
+    print(f"list failed: {err}")
 ```
 
 `direct()` does **not** raise — it returns the result envelope. Branch
@@ -123,9 +123,10 @@ Create a mock client for unit testing — no server required:
 ```python
 client = UuidGeneratorSDK.test()
 
-# Entity ops return the bare record and raise on error.
-decode = client.Decode().load({"id": "test01"})
-# decode contains the mock response record
+# Entity ops return the ENTITY and raises on error;
+# call data_get() for the record.
+version1 = client.Version1().list()
+# version1 contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -225,7 +226,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (a `dict` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
 ops, a `list` for `list`) and raise on error. Wrap calls in
 `try`/`except` to handle failures.
 
@@ -505,15 +506,15 @@ Import entity or utility modules directly only when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-decode = client.Decode()
-decode.load({"id": "example_id"})
+version1 = client.Version1()
+version1.list()
 
-# decode.data_get() now returns the decode data from the last load
-# decode.match_get() returns the last match criteria
+# version1.data_get() now returns the version1 data from the last list
+# version1.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration
