@@ -33,7 +33,7 @@ class Version4EntityTest < Minitest::Test
     assert_equal 3, seen.length
 
     # Inbound: streaming active -> yields each item from the feature.
-    cfg = UuidGeneratorConfig.make_config
+    cfg = UuidGeneratorConfig.shared_config
     if cfg["feature"].is_a?(Hash) && cfg["feature"].key?("streaming")
       sdk = UuidGeneratorSDK.test(seed, { "feature" => { "streaming" => { "active" => true } } })
       got = []

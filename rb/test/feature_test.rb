@@ -15,7 +15,7 @@ require_relative "../UuidGenerator_sdk"
 module UuidGeneratorFeatureHarness
   # True when this SDK was generated with the named feature.
   def self.has_feature?(name)
-    f = UuidGeneratorConfig.make_config["feature"]
+    f = UuidGeneratorConfig.shared_config["feature"]
     f.is_a?(Hash) && !f[name].nil?
   end
 
