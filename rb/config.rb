@@ -19,6 +19,9 @@ module UuidGeneratorConfig
     {
       "main" => {
         "name" => "UuidGenerator",
+        "slug" => "uuid-generator",
+        "version" => "0.0.1",
+        "target" => "rb",
       },
       "feature" => {
         "test" => {
