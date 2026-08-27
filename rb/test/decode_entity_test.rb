@@ -41,9 +41,13 @@ class DecodeEntityTest < Minitest::Test
 
     # LOAD
     decode_ref01_ent = client.Decode(nil)
-    decode_ref01_match_dt0 = {}
+    decode_ref01_match_dt0 = {
+      "id" => decode_ref01_data["id"],
+    }
     decode_ref01_data_dt0_loaded = decode_ref01_ent.load(decode_ref01_match_dt0, nil)
-    assert !decode_ref01_data_dt0_loaded.nil?
+    decode_ref01_data_dt0_load_result = Helpers.to_map(decode_ref01_data_dt0_loaded.respond_to?(:data_get) ? decode_ref01_data_dt0_loaded.data_get : decode_ref01_data_dt0_loaded)
+    assert !decode_ref01_data_dt0_load_result.nil?
+    assert_equal decode_ref01_data_dt0_load_result["id"], decode_ref01_data["id"]
 
   end
 end

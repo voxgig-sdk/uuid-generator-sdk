@@ -298,6 +298,7 @@ The `prepare()` method returns:
 | --- | --- |
 | `decode` |  |
 | `encode` |  |
+| `id` |  |
 
 Operations: load.
 
@@ -369,6 +370,7 @@ Create an instance: `const decode = client.Decode()`
 | --- | --- | --- |
 | `decode` | `Record<string, any>` |  |
 | `encode` | `Record<string, any>` |  |
+| `id` | `string` |  |
 
 #### Example: Load
 

@@ -59,9 +59,12 @@ describe('DecodeEntity', async () => {
 
     let decode_ref01_data = Object.values(setup.data.existing.decode)[0] as any
 
-    // LOAD: skipped — no entity id field and load requires path params.
-    // Entity-var is declared here so later flow steps still compile.
+    // LOAD
     const decode_ref01_ent = client.Decode()
+    const decode_ref01_match_dt0: any = {}
+    decode_ref01_match_dt0.id = decode_ref01_data.id
+    const decode_ref01_data_dt0 = (await decode_ref01_ent.load(decode_ref01_match_dt0)).data()
+    assert(decode_ref01_data_dt0.id === decode_ref01_data.id)
 
 
   })

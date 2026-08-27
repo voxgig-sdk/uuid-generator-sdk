@@ -48,9 +48,13 @@ class TestDecodeEntity:
 
         # LOAD
         decode_ref01_ent = client.Decode(None)
-        decode_ref01_match_dt0 = {}
+        decode_ref01_match_dt0 = {
+            "id": decode_ref01_data["id"],
+        }
         decode_ref01_data_dt0_loaded = decode_ref01_ent.load(decode_ref01_match_dt0, None)
-        assert decode_ref01_data_dt0_loaded is not None
+        decode_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(decode_ref01_data_dt0_loaded))
+        assert decode_ref01_data_dt0_load_result is not None
+        assert decode_ref01_data_dt0_load_result["id"] == decode_ref01_data["id"]
 
 
 

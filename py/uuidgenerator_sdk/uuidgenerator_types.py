@@ -19,6 +19,7 @@ from typing import TypedDict, Any
 class Decode(TypedDict, total=False):
     decode: dict
     encode: dict
+    id: str
 
 
 class DecodeLoadMatch(TypedDict):

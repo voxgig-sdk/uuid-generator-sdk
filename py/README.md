@@ -250,6 +250,7 @@ On error, `ok` is `False` and `err` contains the error value.
 | --- | --- |
 | `decode` |  |
 | `encode` |  |
+| `id` |  |
 
 Operations: Load.
 
@@ -321,6 +322,7 @@ Create an instance: `decode = client.Decode()`
 | --- | --- | --- |
 | `decode` | `dict` |  |
 | `encode` | `dict` |  |
+| `id` | `str` |  |
 
 #### Example: Load
 

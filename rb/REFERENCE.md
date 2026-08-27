@@ -115,6 +115,7 @@ decode = client.Decode
 | --- | --- | --- | --- |
 | `decode` | `Hash` | No |  |
 | `encode` | `Hash` | No |  |
+| `id` | `String` | No |  |
 
 ### Operations
 

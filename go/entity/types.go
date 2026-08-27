@@ -16,6 +16,7 @@ import (
 type Decode struct {
 	Decode *map[string]any `json:"decode,omitempty"`
 	Encode *map[string]any `json:"encode,omitempty"`
+	Id *string `json:"id,omitempty"`
 }
 
 // DecodeLoadMatch is the typed request payload for Decode.LoadTyped.

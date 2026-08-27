@@ -8,6 +8,7 @@
 export interface Decode {
   decode?: Record<string, any>
   encode?: Record<string, any>
+  id?: string
 }
 
 export interface DecodeLoadMatch {

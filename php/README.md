@@ -255,6 +255,7 @@ On error, `ok` is `false` and `$err` contains the error value.
 | --- | --- |
 | `decode` |  |
 | `encode` |  |
+| `id` |  |
 
 Operations: Load.
 
@@ -326,6 +327,7 @@ Create an instance: `$decode = $client->Decode();`
 | --- | --- | --- |
 | `decode` | `array` |  |
 | `encode` | `array` |  |
+| `id` | `string` |  |
 
 #### Example: Load
 

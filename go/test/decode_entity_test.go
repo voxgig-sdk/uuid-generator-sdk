@@ -61,13 +61,19 @@ func TestDecodeEntity(t *testing.T) {
 
 		// LOAD
 		decodeRef01Ent := client.Decode(nil)
-		decodeRef01MatchDt0 := map[string]any{}
+		decodeRef01MatchDt0 := map[string]any{
+			"id": decodeRef01Data["id"],
+		}
 		decodeRef01DataDt0Loaded, err := decodeRef01Ent.Load(decodeRef01MatchDt0, nil)
 		if err != nil {
 			t.Fatalf("load failed: %v", err)
 		}
-		if decodeRef01DataDt0Loaded == nil {
-			t.Fatal("expected load result to be non-nil")
+		decodeRef01DataDt0LoadResult := core.ToMapAny(entityData(decodeRef01DataDt0Loaded))
+		if decodeRef01DataDt0LoadResult == nil {
+			t.Fatal("expected load result to be a map")
+		}
+		if decodeRef01DataDt0LoadResult["id"] != decodeRef01Data["id"] {
+			t.Fatal("expected load result id to match")
 		}
 
 	})

@@ -48,9 +48,13 @@ class DecodeEntityTest extends TestCase
 
         // LOAD
         $decode_ref01_ent = $client->Decode(null);
-        $decode_ref01_match_dt0 = [];
+        $decode_ref01_match_dt0 = [
+            "id" => $decode_ref01_data["id"],
+        ];
         $decode_ref01_data_dt0_loaded = $decode_ref01_ent->load($decode_ref01_match_dt0, null);
-        $this->assertNotNull($decode_ref01_data_dt0_loaded);
+        $decode_ref01_data_dt0_load_result = Helpers::to_map(is_object($decode_ref01_data_dt0_loaded) && method_exists($decode_ref01_data_dt0_loaded, 'data_get') ? $decode_ref01_data_dt0_loaded->data_get() : $decode_ref01_data_dt0_loaded);
+        $this->assertNotNull($decode_ref01_data_dt0_load_result);
+        $this->assertEquals($decode_ref01_data_dt0_load_result["id"], $decode_ref01_data["id"]);
 
     }
 }

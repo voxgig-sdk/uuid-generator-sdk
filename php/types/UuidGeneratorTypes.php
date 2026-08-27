@@ -17,6 +17,7 @@ class Decode
 {
     public ?array $decode = null;
     public ?array $encode = null;
+    public ?string $id = null;
 }
 
 /** Request payload for Decode#load. */

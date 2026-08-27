@@ -114,6 +114,7 @@ $decode = $client->Decode();
 | --- | --- | --- | --- |
 | `decode` | `array` | No |  |
 | `encode` | `array` | No |  |
+| `id` | `string` | No |  |
 
 ### Operations
 

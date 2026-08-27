@@ -44,10 +44,14 @@ describe("DecodeEntity", function()
 
     -- LOAD
     local decode_ref01_ent = client:Decode(nil)
-    local decode_ref01_match_dt0 = {}
+    local decode_ref01_match_dt0 = {
+      id = decode_ref01_data["id"],
+    }
     local decode_ref01_data_dt0_loaded, err = decode_ref01_ent:load(decode_ref01_match_dt0, nil)
     assert.is_nil(err)
-    assert.is_not_nil(decode_ref01_data_dt0_loaded)
+    local decode_ref01_data_dt0_load_result = helpers.to_map(type(decode_ref01_data_dt0_loaded) == 'table' and decode_ref01_data_dt0_loaded.data_get and decode_ref01_data_dt0_loaded:data_get() or decode_ref01_data_dt0_loaded)
+    assert.is_not_nil(decode_ref01_data_dt0_load_result)
+    assert.are.equal(decode_ref01_data_dt0_load_result["id"], decode_ref01_data["id"])
 
   end)
 end)

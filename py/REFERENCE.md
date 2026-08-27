@@ -109,6 +109,7 @@ decode = client.Decode()
 | --- | --- | --- | --- |
 | `decode` | `dict` | No |  |
 | `encode` | `dict` | No |  |
+| `id` | `str` | No |  |
 
 ### Operations
 

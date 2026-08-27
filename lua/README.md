@@ -236,6 +236,7 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 | --- | --- |
 | `decode` |  |
 | `encode` |  |
+| `id` |  |
 
 Operations: Load.
 
@@ -307,6 +308,7 @@ Create an instance: `local decode = client:Decode(nil)`
 | --- | --- | --- |
 | `decode` | `table` |  |
 | `encode` | `table` |  |
+| `id` | `string` |  |
 
 #### Example: Load
 

@@ -245,6 +245,7 @@ returns a result `Hash` with these keys:
 | --- | --- |
 | `decode` |  |
 | `encode` |  |
+| `id` |  |
 
 Operations: Load.
 
@@ -316,6 +317,7 @@ Create an instance: `decode = client.Decode`
 | --- | --- | --- |
 | `decode` | `Hash` |  |
 | `encode` | `Hash` |  |
+| `id` | `String` |  |
 
 #### Example: Load
 

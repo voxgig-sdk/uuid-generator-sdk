@@ -178,6 +178,7 @@ const decode = client.Decode()
 | --- | --- | --- | --- |
 | `decode` | `Record<string, any>` | No |  |
 | `encode` | `Record<string, any>` | No |  |
+| `id` | `string` | No |  |
 
 ### Operations
 

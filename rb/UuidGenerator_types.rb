@@ -15,9 +15,13 @@
 #
 # @!attribute [rw] encode
 #   @return [Hash, nil]
+#
+# @!attribute [rw] id
+#   @return [String, nil]
 Decode = Struct.new(
   :decode,
   :encode,
+  :id,
   keyword_init: true
 )
 

@@ -267,6 +267,7 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 | --- | --- |
 | `"decode"` |  |
 | `"encode"` |  |
+| `"id"` |  |
 
 Operations: Load.
 
@@ -338,6 +339,7 @@ Create an instance: `decode := client.Decode(nil)`
 | --- | --- | --- |
 | `decode` | `map[string]any` |  |
 | `encode` | `map[string]any` |  |
+| `id` | `string` |  |
 
 #### Example: Load
 

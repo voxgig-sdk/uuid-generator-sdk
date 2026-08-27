@@ -120,6 +120,7 @@ fmt.Println(decode.GetName()) // "decode"
 | --- | --- | --- | --- |
 | `decode` | `map[string]any` | No |  |
 | `encode` | `map[string]any` | No |  |
+| `id` | `string` | No |  |
 
 ### Operations
 

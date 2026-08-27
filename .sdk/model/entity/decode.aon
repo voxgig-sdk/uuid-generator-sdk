@@ -15,7 +15,17 @@ main: kit: entity: decode: {
       req: false
       type: "`$OBJECT`"
     }
+    {
+      name: "id"
+      req: false
+      type: "`$STRING`"
+    }
   ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
 
   name: "decode"
   op: {

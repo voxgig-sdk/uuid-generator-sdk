@@ -9,6 +9,7 @@
 ---@class Decode
 ---@field decode? table
 ---@field encode? table
+---@field id? string
 
 ---@class DecodeLoadMatch
 ---@field id string

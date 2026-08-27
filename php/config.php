@@ -42,6 +42,7 @@ class UuidGeneratorConfig
           'options' => [
             'active' => false,
           ],
+          'transport' => 'base',
         ],
             ],
             "options" => [
@@ -68,6 +69,10 @@ class UuidGeneratorConfig
             [
               'name' => 'encode',
               'type' => '`$OBJECT`',
+            ],
+            [
+              'name' => 'id',
+              'type' => '`$STRING`',
             ],
           ],
           'name' => 'decode',

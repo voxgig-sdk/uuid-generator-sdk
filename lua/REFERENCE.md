@@ -112,6 +112,7 @@ local decode = client:Decode(nil)
 | --- | --- | --- | --- |
 | `decode` | `table` | No |  |
 | `encode` | `table` | No |  |
+| `id` | `string` | No |  |
 
 ### Operations
 
