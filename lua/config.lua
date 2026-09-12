@@ -49,6 +49,10 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
         },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
+        },
         ["name"] = "decode",
         ["op"] = {
           ["load"] = {
@@ -71,13 +75,17 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/decode/{uuid}",
-                ["parts"] = {
-                  "decode",
-                  "{id}",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["uuid"] = "id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "decode",
+                  },
+                  {
+                    ["var"] = "id",
                   },
                 },
                 ["select"] = {
@@ -88,6 +96,10 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.decode`",
+                },
+                ["parts"] = {
+                  "decode",
+                  "{id}",
                 },
               },
             },
@@ -110,14 +122,22 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/generate/timestamp-first",
-                ["parts"] = {
-                  "generate",
-                  "timestamp-first",
+                ["segments"] = {
+                  {
+                    ["lit"] = "generate",
+                  },
+                  {
+                    ["lit"] = "timestamp-first",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "generate",
+                  "timestamp-first",
                 },
               },
             },
@@ -142,11 +162,19 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/generate/timestamp-first/count/{count}",
-                ["parts"] = {
-                  "generate",
-                  "timestamp-first",
-                  "count",
-                  "{count}",
+                ["segments"] = {
+                  {
+                    ["lit"] = "generate",
+                  },
+                  {
+                    ["lit"] = "timestamp-first",
+                  },
+                  {
+                    ["lit"] = "count",
+                  },
+                  {
+                    ["var"] = "count",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -156,6 +184,12 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "generate",
+                  "timestamp-first",
+                  "count",
+                  "{count}",
                 },
               },
             },
@@ -182,14 +216,22 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/generate/v1",
-                ["parts"] = {
-                  "generate",
-                  "v1",
+                ["segments"] = {
+                  {
+                    ["lit"] = "generate",
+                  },
+                  {
+                    ["lit"] = "v1",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "generate",
+                  "v1",
                 },
               },
             },
@@ -214,11 +256,19 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/generate/v1/count/{count}",
-                ["parts"] = {
-                  "generate",
-                  "v1",
-                  "count",
-                  "{count}",
+                ["segments"] = {
+                  {
+                    ["lit"] = "generate",
+                  },
+                  {
+                    ["lit"] = "v1",
+                  },
+                  {
+                    ["lit"] = "count",
+                  },
+                  {
+                    ["var"] = "count",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -228,6 +278,12 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "generate",
+                  "v1",
+                  "count",
+                  "{count}",
                 },
               },
             },
@@ -273,17 +329,29 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/generate/v3/namespace/{namespace}/name/{name}",
-                ["parts"] = {
-                  "generate",
-                  "v3",
-                  "namespace",
-                  "{namespace_id}",
-                  "name",
-                  "{name}",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["namespace"] = "namespace_id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "generate",
+                  },
+                  {
+                    ["lit"] = "v3",
+                  },
+                  {
+                    ["lit"] = "namespace",
+                  },
+                  {
+                    ["var"] = "namespace_id",
+                  },
+                  {
+                    ["lit"] = "name",
+                  },
+                  {
+                    ["var"] = "name",
                   },
                 },
                 ["select"] = {
@@ -295,6 +363,14 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "generate",
+                  "v3",
+                  "namespace",
+                  "{namespace_id}",
+                  "name",
+                  "{name}",
                 },
               },
             },
@@ -322,14 +398,22 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/generate/v4",
-                ["parts"] = {
-                  "generate",
-                  "v4",
+                ["segments"] = {
+                  {
+                    ["lit"] = "generate",
+                  },
+                  {
+                    ["lit"] = "v4",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "generate",
+                  "v4",
                 },
               },
             },
@@ -354,11 +438,19 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/generate/v4/count/{count}",
-                ["parts"] = {
-                  "generate",
-                  "v4",
-                  "count",
-                  "{count}",
+                ["segments"] = {
+                  {
+                    ["lit"] = "generate",
+                  },
+                  {
+                    ["lit"] = "v4",
+                  },
+                  {
+                    ["lit"] = "count",
+                  },
+                  {
+                    ["var"] = "count",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -368,6 +460,12 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "generate",
+                  "v4",
+                  "count",
+                  "{count}",
                 },
               },
             },
@@ -413,17 +511,29 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/generate/v5/namespace/{namespace}/name/{name}",
-                ["parts"] = {
-                  "generate",
-                  "v5",
-                  "namespace",
-                  "{namespace_id}",
-                  "name",
-                  "{name}",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["namespace"] = "namespace_id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "generate",
+                  },
+                  {
+                    ["lit"] = "v5",
+                  },
+                  {
+                    ["lit"] = "namespace",
+                  },
+                  {
+                    ["var"] = "namespace_id",
+                  },
+                  {
+                    ["lit"] = "name",
+                  },
+                  {
+                    ["var"] = "name",
                   },
                 },
                 ["select"] = {
@@ -435,6 +545,14 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "generate",
+                  "v5",
+                  "namespace",
+                  "{namespace_id}",
+                  "name",
+                  "{name}",
                 },
               },
             },

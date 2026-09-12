@@ -1,0 +1,41 @@
+export interface Decode {
+    decode?: Record<string, any>;
+    encode?: Record<string, any>;
+    id?: string;
+}
+export interface DecodeLoadMatch {
+    id: string;
+}
+export interface TimestampFirst {
+}
+export interface TimestampFirstLoadMatch {
+    count: number;
+}
+export interface TimestampFirstListMatch {
+}
+export interface Version1 {
+}
+export interface Version1LoadMatch {
+    count: number;
+}
+export interface Version1ListMatch {
+}
+export interface Version3 {
+}
+export interface Version3LoadMatch {
+    name: string;
+    namespace_id: string;
+}
+export interface Version4 {
+}
+export interface Version4LoadMatch {
+    count: number;
+}
+export interface Version4ListMatch {
+}
+export interface Version5 {
+}
+export interface Version5LoadMatch {
+    name: string;
+    namespace_id: string;
+}

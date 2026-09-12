@@ -1,6 +1,14 @@
 # UuidGenerator SDK configuration
 
 
+# The sekreto plugin DEFINITIONS the model selected per feature, imported
+# above by name from the modules the catalogue's active `plugin.def`
+# entries declare. Handed to each feature (secrets builds its Sekreto
+# with them): a provider kind not listed here is unknown to that SDK.
+FEATURE_PLUGINS = {
+}
+
+
 _shared_config = None
 
 
@@ -70,6 +78,10 @@ def make_config():
             "type": "`$STRING`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "decode",
         "op": {
           "load": {
@@ -92,15 +104,19 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/decode/{uuid}",
-                "parts": [
-                  "decode",
-                  "{id}",
-                ],
                 "rename": {
                   "param": {
                     "uuid": "id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "decode",
+                  },
+                  {
+                    "var": "id",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "id",
@@ -110,6 +126,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body.decode`",
                 },
+                "parts": [
+                  "decode",
+                  "{id}",
+                ],
               },
             ],
           },
@@ -131,15 +151,23 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/generate/timestamp-first",
-                "parts": [
-                  "generate",
-                  "timestamp-first",
+                "segments": [
+                  {
+                    "lit": "generate",
+                  },
+                  {
+                    "lit": "timestamp-first",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "generate",
+                  "timestamp-first",
+                ],
               },
             ],
           },
@@ -163,11 +191,19 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/generate/timestamp-first/count/{count}",
-                "parts": [
-                  "generate",
-                  "timestamp-first",
-                  "count",
-                  "{count}",
+                "segments": [
+                  {
+                    "lit": "generate",
+                  },
+                  {
+                    "lit": "timestamp-first",
+                  },
+                  {
+                    "lit": "count",
+                  },
+                  {
+                    "var": "count",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -178,6 +214,12 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "generate",
+                  "timestamp-first",
+                  "count",
+                  "{count}",
+                ],
               },
             ],
           },
@@ -203,15 +245,23 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/generate/v1",
-                "parts": [
-                  "generate",
-                  "v1",
+                "segments": [
+                  {
+                    "lit": "generate",
+                  },
+                  {
+                    "lit": "v1",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "generate",
+                  "v1",
+                ],
               },
             ],
           },
@@ -235,11 +285,19 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/generate/v1/count/{count}",
-                "parts": [
-                  "generate",
-                  "v1",
-                  "count",
-                  "{count}",
+                "segments": [
+                  {
+                    "lit": "generate",
+                  },
+                  {
+                    "lit": "v1",
+                  },
+                  {
+                    "lit": "count",
+                  },
+                  {
+                    "var": "count",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -250,6 +308,12 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "generate",
+                  "v1",
+                  "count",
+                  "{count}",
+                ],
               },
             ],
           },
@@ -294,19 +358,31 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/generate/v3/namespace/{namespace}/name/{name}",
-                "parts": [
-                  "generate",
-                  "v3",
-                  "namespace",
-                  "{namespace_id}",
-                  "name",
-                  "{name}",
-                ],
                 "rename": {
                   "param": {
                     "namespace": "namespace_id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "generate",
+                  },
+                  {
+                    "lit": "v3",
+                  },
+                  {
+                    "lit": "namespace",
+                  },
+                  {
+                    "var": "namespace_id",
+                  },
+                  {
+                    "lit": "name",
+                  },
+                  {
+                    "var": "name",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "name",
@@ -317,6 +393,14 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "generate",
+                  "v3",
+                  "namespace",
+                  "{namespace_id}",
+                  "name",
+                  "{name}",
+                ],
               },
             ],
           },
@@ -343,15 +427,23 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/generate/v4",
-                "parts": [
-                  "generate",
-                  "v4",
+                "segments": [
+                  {
+                    "lit": "generate",
+                  },
+                  {
+                    "lit": "v4",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "generate",
+                  "v4",
+                ],
               },
             ],
           },
@@ -375,11 +467,19 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/generate/v4/count/{count}",
-                "parts": [
-                  "generate",
-                  "v4",
-                  "count",
-                  "{count}",
+                "segments": [
+                  {
+                    "lit": "generate",
+                  },
+                  {
+                    "lit": "v4",
+                  },
+                  {
+                    "lit": "count",
+                  },
+                  {
+                    "var": "count",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -390,6 +490,12 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "generate",
+                  "v4",
+                  "count",
+                  "{count}",
+                ],
               },
             ],
           },
@@ -434,19 +540,31 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/generate/v5/namespace/{namespace}/name/{name}",
-                "parts": [
-                  "generate",
-                  "v5",
-                  "namespace",
-                  "{namespace_id}",
-                  "name",
-                  "{name}",
-                ],
                 "rename": {
                   "param": {
                     "namespace": "namespace_id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "generate",
+                  },
+                  {
+                    "lit": "v5",
+                  },
+                  {
+                    "lit": "namespace",
+                  },
+                  {
+                    "var": "namespace_id",
+                  },
+                  {
+                    "lit": "name",
+                  },
+                  {
+                    "var": "name",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "name",
@@ -457,6 +575,14 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "generate",
+                  "v5",
+                  "namespace",
+                  "{namespace_id}",
+                  "name",
+                  "{name}",
+                ],
               },
             ],
           },

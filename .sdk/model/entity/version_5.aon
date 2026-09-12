@@ -32,19 +32,31 @@ main: kit: entity: version_5: {
           }
           method: "GET"
           orig: "/generate/v5/namespace/{namespace}/name/{name}"
-          parts: [
-            "generate"
-            "v5"
-            "namespace"
-            "{namespace_id}"
-            "name"
-            "{name}"
-          ]
           rename: {
             param: {
               namespace: "namespace_id"
             }
           }
+          segments: [
+            {
+              lit: "generate"
+            }
+            {
+              lit: "v5"
+            }
+            {
+              lit: "namespace"
+            }
+            {
+              var: "namespace_id"
+            }
+            {
+              lit: "name"
+            }
+            {
+              var: "name"
+            }
+          ]
           select: {
             exist: [
               "name"

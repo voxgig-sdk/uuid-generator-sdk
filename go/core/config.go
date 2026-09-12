@@ -53,6 +53,10 @@ func MakeConfig() map[string]any {
 						"type": "`$STRING`",
 					},
 				},
+				"id": map[string]any{
+					"field": "id",
+					"name": "id",
+				},
 				"name": "decode",
 				"op": map[string]any{
 					"load": map[string]any{
@@ -75,13 +79,17 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/decode/{uuid}",
-								"parts": []any{
-									"decode",
-									"{id}",
-								},
 								"rename": map[string]any{
 									"param": map[string]any{
 										"uuid": "id",
+									},
+								},
+								"segments": []any{
+									map[string]any{
+										"lit": "decode",
+									},
+									map[string]any{
+										"var": "id",
 									},
 								},
 								"select": map[string]any{
@@ -92,6 +100,10 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body.decode`",
+								},
+								"parts": []any{
+									"decode",
+									"{id}",
 								},
 							},
 						},
@@ -114,14 +126,22 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/generate/timestamp-first",
-								"parts": []any{
-									"generate",
-									"timestamp-first",
+								"segments": []any{
+									map[string]any{
+										"lit": "generate",
+									},
+									map[string]any{
+										"lit": "timestamp-first",
+									},
 								},
 								"select": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"generate",
+									"timestamp-first",
 								},
 							},
 						},
@@ -146,11 +166,19 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/generate/timestamp-first/count/{count}",
-								"parts": []any{
-									"generate",
-									"timestamp-first",
-									"count",
-									"{count}",
+								"segments": []any{
+									map[string]any{
+										"lit": "generate",
+									},
+									map[string]any{
+										"lit": "timestamp-first",
+									},
+									map[string]any{
+										"lit": "count",
+									},
+									map[string]any{
+										"var": "count",
+									},
 								},
 								"select": map[string]any{
 									"exist": []any{
@@ -160,6 +188,12 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"generate",
+									"timestamp-first",
+									"count",
+									"{count}",
 								},
 							},
 						},
@@ -186,14 +220,22 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/generate/v1",
-								"parts": []any{
-									"generate",
-									"v1",
+								"segments": []any{
+									map[string]any{
+										"lit": "generate",
+									},
+									map[string]any{
+										"lit": "v1",
+									},
 								},
 								"select": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"generate",
+									"v1",
 								},
 							},
 						},
@@ -218,11 +260,19 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/generate/v1/count/{count}",
-								"parts": []any{
-									"generate",
-									"v1",
-									"count",
-									"{count}",
+								"segments": []any{
+									map[string]any{
+										"lit": "generate",
+									},
+									map[string]any{
+										"lit": "v1",
+									},
+									map[string]any{
+										"lit": "count",
+									},
+									map[string]any{
+										"var": "count",
+									},
 								},
 								"select": map[string]any{
 									"exist": []any{
@@ -232,6 +282,12 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"generate",
+									"v1",
+									"count",
+									"{count}",
 								},
 							},
 						},
@@ -277,17 +333,29 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/generate/v3/namespace/{namespace}/name/{name}",
-								"parts": []any{
-									"generate",
-									"v3",
-									"namespace",
-									"{namespace_id}",
-									"name",
-									"{name}",
-								},
 								"rename": map[string]any{
 									"param": map[string]any{
 										"namespace": "namespace_id",
+									},
+								},
+								"segments": []any{
+									map[string]any{
+										"lit": "generate",
+									},
+									map[string]any{
+										"lit": "v3",
+									},
+									map[string]any{
+										"lit": "namespace",
+									},
+									map[string]any{
+										"var": "namespace_id",
+									},
+									map[string]any{
+										"lit": "name",
+									},
+									map[string]any{
+										"var": "name",
 									},
 								},
 								"select": map[string]any{
@@ -299,6 +367,14 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"generate",
+									"v3",
+									"namespace",
+									"{namespace_id}",
+									"name",
+									"{name}",
 								},
 							},
 						},
@@ -326,14 +402,22 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/generate/v4",
-								"parts": []any{
-									"generate",
-									"v4",
+								"segments": []any{
+									map[string]any{
+										"lit": "generate",
+									},
+									map[string]any{
+										"lit": "v4",
+									},
 								},
 								"select": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"generate",
+									"v4",
 								},
 							},
 						},
@@ -358,11 +442,19 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/generate/v4/count/{count}",
-								"parts": []any{
-									"generate",
-									"v4",
-									"count",
-									"{count}",
+								"segments": []any{
+									map[string]any{
+										"lit": "generate",
+									},
+									map[string]any{
+										"lit": "v4",
+									},
+									map[string]any{
+										"lit": "count",
+									},
+									map[string]any{
+										"var": "count",
+									},
 								},
 								"select": map[string]any{
 									"exist": []any{
@@ -372,6 +464,12 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"generate",
+									"v4",
+									"count",
+									"{count}",
 								},
 							},
 						},
@@ -417,17 +515,29 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/generate/v5/namespace/{namespace}/name/{name}",
-								"parts": []any{
-									"generate",
-									"v5",
-									"namespace",
-									"{namespace_id}",
-									"name",
-									"{name}",
-								},
 								"rename": map[string]any{
 									"param": map[string]any{
 										"namespace": "namespace_id",
+									},
+								},
+								"segments": []any{
+									map[string]any{
+										"lit": "generate",
+									},
+									map[string]any{
+										"lit": "v5",
+									},
+									map[string]any{
+										"lit": "namespace",
+									},
+									map[string]any{
+										"var": "namespace_id",
+									},
+									map[string]any{
+										"lit": "name",
+									},
+									map[string]any{
+										"var": "name",
 									},
 								},
 								"select": map[string]any{
@@ -439,6 +549,14 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"generate",
+									"v5",
+									"namespace",
+									"{namespace_id}",
+									"name",
+									"{name}",
 								},
 							},
 						},
@@ -455,6 +573,17 @@ func MakeConfig() map[string]any {
 			},
 		},
 	}
+}
+
+// The plugin definitions the model selected per feature, as []any so a
+// feature package can consume them without core naming its types. Empty
+// when no active feature declares active plugin groups for this target.
+var featurePlugins = map[string][]any{
+}
+
+// FeaturePlugins is the definitions list for one feature's chain.
+func FeaturePlugins(name string) []any {
+	return featurePlugins[name]
 }
 
 var (

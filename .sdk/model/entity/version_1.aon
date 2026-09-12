@@ -12,9 +12,13 @@ main: kit: entity: version_1: {
         {
           method: "GET"
           orig: "/generate/v1"
-          parts: [
-            "generate"
-            "v1"
+          segments: [
+            {
+              lit: "generate"
+            }
+            {
+              lit: "v1"
+            }
           ]
           transform: {
             req: "`reqdata`"
@@ -41,11 +45,19 @@ main: kit: entity: version_1: {
           }
           method: "GET"
           orig: "/generate/v1/count/{count}"
-          parts: [
-            "generate"
-            "v1"
-            "count"
-            "{count}"
+          segments: [
+            {
+              lit: "generate"
+            }
+            {
+              lit: "v1"
+            }
+            {
+              lit: "count"
+            }
+            {
+              var: "count"
+            }
           ]
           select: {
             exist: [

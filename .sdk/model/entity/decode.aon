@@ -47,15 +47,19 @@ main: kit: entity: decode: {
           }
           method: "GET"
           orig: "/decode/{uuid}"
-          parts: [
-            "decode"
-            "{id}"
-          ]
           rename: {
             param: {
               uuid: "id"
             }
           }
+          segments: [
+            {
+              lit: "decode"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"

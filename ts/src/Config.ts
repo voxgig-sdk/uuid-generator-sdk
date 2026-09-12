@@ -10,6 +10,17 @@ const FEATURE_CLASS: Record<string, typeof BaseFeature> = {
 }
 
 
+// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
+// the model's active plugin groups. A feature that takes a `plugins` option
+// (secrets over sekreto) reads its own entry; a feature with no plugins has
+// none. Named imports above make each definition statically reachable, so
+// an SDK carries exactly the plugin modules its model selects — the same
+// leanness the old side-effect registry imports bought, without a registry.
+const FEATURE_PLUGINS: Record<string, any[]> = {
+  
+}
+
+
 class Config {
 
   makeFeature(this: any, fn: string) {
@@ -94,6 +105,10 @@ class Config {
           "type": "`$STRING`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "decode",
       "op": {
         "load": {
@@ -116,15 +131,19 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/decode/{uuid}",
-              "parts": [
-                "decode",
-                "{id}"
-              ],
               "rename": {
                 "param": {
                   "uuid": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "decode"
+                },
+                {
+                  "var": "id"
+                }
+              ],
               "select": {
                 "exist": [
                   "id"
@@ -133,7 +152,11 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.decode`"
-              }
+              },
+              "parts": [
+                "decode",
+                "{id}"
+              ]
             }
           ]
         }
@@ -155,15 +178,23 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/generate/timestamp-first",
-              "parts": [
-                "generate",
-                "timestamp-first"
+              "segments": [
+                {
+                  "lit": "generate"
+                },
+                {
+                  "lit": "timestamp-first"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "generate",
+                "timestamp-first"
+              ]
             }
           ]
         },
@@ -187,11 +218,19 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/generate/timestamp-first/count/{count}",
-              "parts": [
-                "generate",
-                "timestamp-first",
-                "count",
-                "{count}"
+              "segments": [
+                {
+                  "lit": "generate"
+                },
+                {
+                  "lit": "timestamp-first"
+                },
+                {
+                  "lit": "count"
+                },
+                {
+                  "var": "count"
+                }
               ],
               "select": {
                 "exist": [
@@ -201,7 +240,13 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "generate",
+                "timestamp-first",
+                "count",
+                "{count}"
+              ]
             }
           ]
         }
@@ -227,15 +272,23 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/generate/v1",
-              "parts": [
-                "generate",
-                "v1"
+              "segments": [
+                {
+                  "lit": "generate"
+                },
+                {
+                  "lit": "v1"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "generate",
+                "v1"
+              ]
             }
           ]
         },
@@ -259,11 +312,19 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/generate/v1/count/{count}",
-              "parts": [
-                "generate",
-                "v1",
-                "count",
-                "{count}"
+              "segments": [
+                {
+                  "lit": "generate"
+                },
+                {
+                  "lit": "v1"
+                },
+                {
+                  "lit": "count"
+                },
+                {
+                  "var": "count"
+                }
               ],
               "select": {
                 "exist": [
@@ -273,7 +334,13 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "generate",
+                "v1",
+                "count",
+                "{count}"
+              ]
             }
           ]
         }
@@ -318,19 +385,31 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/generate/v3/namespace/{namespace}/name/{name}",
-              "parts": [
-                "generate",
-                "v3",
-                "namespace",
-                "{namespace_id}",
-                "name",
-                "{name}"
-              ],
               "rename": {
                 "param": {
                   "namespace": "namespace_id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "generate"
+                },
+                {
+                  "lit": "v3"
+                },
+                {
+                  "lit": "namespace"
+                },
+                {
+                  "var": "namespace_id"
+                },
+                {
+                  "lit": "name"
+                },
+                {
+                  "var": "name"
+                }
+              ],
               "select": {
                 "exist": [
                   "name",
@@ -340,7 +419,15 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "generate",
+                "v3",
+                "namespace",
+                "{namespace_id}",
+                "name",
+                "{name}"
+              ]
             }
           ]
         }
@@ -367,15 +454,23 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/generate/v4",
-              "parts": [
-                "generate",
-                "v4"
+              "segments": [
+                {
+                  "lit": "generate"
+                },
+                {
+                  "lit": "v4"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "generate",
+                "v4"
+              ]
             }
           ]
         },
@@ -399,11 +494,19 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/generate/v4/count/{count}",
-              "parts": [
-                "generate",
-                "v4",
-                "count",
-                "{count}"
+              "segments": [
+                {
+                  "lit": "generate"
+                },
+                {
+                  "lit": "v4"
+                },
+                {
+                  "lit": "count"
+                },
+                {
+                  "var": "count"
+                }
               ],
               "select": {
                 "exist": [
@@ -413,7 +516,13 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "generate",
+                "v4",
+                "count",
+                "{count}"
+              ]
             }
           ]
         }
@@ -458,19 +567,31 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/generate/v5/namespace/{namespace}/name/{name}",
-              "parts": [
-                "generate",
-                "v5",
-                "namespace",
-                "{namespace_id}",
-                "name",
-                "{name}"
-              ],
               "rename": {
                 "param": {
                   "namespace": "namespace_id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "generate"
+                },
+                {
+                  "lit": "v5"
+                },
+                {
+                  "lit": "namespace"
+                },
+                {
+                  "var": "namespace_id"
+                },
+                {
+                  "lit": "name"
+                },
+                {
+                  "var": "name"
+                }
+              ],
               "select": {
                 "exist": [
                   "name",
@@ -480,7 +601,15 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "generate",
+                "v5",
+                "namespace",
+                "{namespace_id}",
+                "name",
+                "{name}"
+              ]
             }
           ]
         }
@@ -501,6 +630,7 @@ class Config {
 const config = new Config()
 
 export {
-  config
+  config,
+  FEATURE_PLUGINS,
 }
 

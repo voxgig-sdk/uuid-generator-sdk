@@ -12,9 +12,13 @@ main: kit: entity: timestamp_first: {
         {
           method: "GET"
           orig: "/generate/timestamp-first"
-          parts: [
-            "generate"
-            "timestamp-first"
+          segments: [
+            {
+              lit: "generate"
+            }
+            {
+              lit: "timestamp-first"
+            }
           ]
           transform: {
             req: "`reqdata`"
@@ -41,11 +45,19 @@ main: kit: entity: timestamp_first: {
           }
           method: "GET"
           orig: "/generate/timestamp-first/count/{count}"
-          parts: [
-            "generate"
-            "timestamp-first"
-            "count"
-            "{count}"
+          segments: [
+            {
+              lit: "generate"
+            }
+            {
+              lit: "timestamp-first"
+            }
+            {
+              lit: "count"
+            }
+            {
+              var: "count"
+            }
           ]
           select: {
             exist: [

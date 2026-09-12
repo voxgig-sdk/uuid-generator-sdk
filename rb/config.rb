@@ -61,6 +61,10 @@ module UuidGeneratorConfig
               "type" => "`$STRING`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "decode",
           "op" => {
             "load" => {
@@ -83,15 +87,19 @@ module UuidGeneratorConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/decode/{uuid}",
-                  "parts" => [
-                    "decode",
-                    "{id}",
-                  ],
                   "rename" => {
                     "param" => {
                       "uuid" => "id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "decode",
+                    },
+                    {
+                      "var" => "id",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "id",
@@ -101,6 +109,10 @@ module UuidGeneratorConfig
                     "req" => "`reqdata`",
                     "res" => "`body.decode`",
                   },
+                  "parts" => [
+                    "decode",
+                    "{id}",
+                  ],
                 },
               ],
             },
@@ -122,15 +134,23 @@ module UuidGeneratorConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/generate/timestamp-first",
-                  "parts" => [
-                    "generate",
-                    "timestamp-first",
+                  "segments" => [
+                    {
+                      "lit" => "generate",
+                    },
+                    {
+                      "lit" => "timestamp-first",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "generate",
+                    "timestamp-first",
+                  ],
                 },
               ],
             },
@@ -154,11 +174,19 @@ module UuidGeneratorConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/generate/timestamp-first/count/{count}",
-                  "parts" => [
-                    "generate",
-                    "timestamp-first",
-                    "count",
-                    "{count}",
+                  "segments" => [
+                    {
+                      "lit" => "generate",
+                    },
+                    {
+                      "lit" => "timestamp-first",
+                    },
+                    {
+                      "lit" => "count",
+                    },
+                    {
+                      "var" => "count",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -169,6 +197,12 @@ module UuidGeneratorConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "generate",
+                    "timestamp-first",
+                    "count",
+                    "{count}",
+                  ],
                 },
               ],
             },
@@ -194,15 +228,23 @@ module UuidGeneratorConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/generate/v1",
-                  "parts" => [
-                    "generate",
-                    "v1",
+                  "segments" => [
+                    {
+                      "lit" => "generate",
+                    },
+                    {
+                      "lit" => "v1",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "generate",
+                    "v1",
+                  ],
                 },
               ],
             },
@@ -226,11 +268,19 @@ module UuidGeneratorConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/generate/v1/count/{count}",
-                  "parts" => [
-                    "generate",
-                    "v1",
-                    "count",
-                    "{count}",
+                  "segments" => [
+                    {
+                      "lit" => "generate",
+                    },
+                    {
+                      "lit" => "v1",
+                    },
+                    {
+                      "lit" => "count",
+                    },
+                    {
+                      "var" => "count",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -241,6 +291,12 @@ module UuidGeneratorConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "generate",
+                    "v1",
+                    "count",
+                    "{count}",
+                  ],
                 },
               ],
             },
@@ -285,19 +341,31 @@ module UuidGeneratorConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/generate/v3/namespace/{namespace}/name/{name}",
-                  "parts" => [
-                    "generate",
-                    "v3",
-                    "namespace",
-                    "{namespace_id}",
-                    "name",
-                    "{name}",
-                  ],
                   "rename" => {
                     "param" => {
                       "namespace" => "namespace_id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "generate",
+                    },
+                    {
+                      "lit" => "v3",
+                    },
+                    {
+                      "lit" => "namespace",
+                    },
+                    {
+                      "var" => "namespace_id",
+                    },
+                    {
+                      "lit" => "name",
+                    },
+                    {
+                      "var" => "name",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "name",
@@ -308,6 +376,14 @@ module UuidGeneratorConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "generate",
+                    "v3",
+                    "namespace",
+                    "{namespace_id}",
+                    "name",
+                    "{name}",
+                  ],
                 },
               ],
             },
@@ -334,15 +410,23 @@ module UuidGeneratorConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/generate/v4",
-                  "parts" => [
-                    "generate",
-                    "v4",
+                  "segments" => [
+                    {
+                      "lit" => "generate",
+                    },
+                    {
+                      "lit" => "v4",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "generate",
+                    "v4",
+                  ],
                 },
               ],
             },
@@ -366,11 +450,19 @@ module UuidGeneratorConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/generate/v4/count/{count}",
-                  "parts" => [
-                    "generate",
-                    "v4",
-                    "count",
-                    "{count}",
+                  "segments" => [
+                    {
+                      "lit" => "generate",
+                    },
+                    {
+                      "lit" => "v4",
+                    },
+                    {
+                      "lit" => "count",
+                    },
+                    {
+                      "var" => "count",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -381,6 +473,12 @@ module UuidGeneratorConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "generate",
+                    "v4",
+                    "count",
+                    "{count}",
+                  ],
                 },
               ],
             },
@@ -425,19 +523,31 @@ module UuidGeneratorConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/generate/v5/namespace/{namespace}/name/{name}",
-                  "parts" => [
-                    "generate",
-                    "v5",
-                    "namespace",
-                    "{namespace_id}",
-                    "name",
-                    "{name}",
-                  ],
                   "rename" => {
                     "param" => {
                       "namespace" => "namespace_id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "generate",
+                    },
+                    {
+                      "lit" => "v5",
+                    },
+                    {
+                      "lit" => "namespace",
+                    },
+                    {
+                      "var" => "namespace_id",
+                    },
+                    {
+                      "lit" => "name",
+                    },
+                    {
+                      "var" => "name",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "name",
@@ -448,6 +558,14 @@ module UuidGeneratorConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "generate",
+                    "v5",
+                    "namespace",
+                    "{namespace_id}",
+                    "name",
+                    "{name}",
+                  ],
                 },
               ],
             },
