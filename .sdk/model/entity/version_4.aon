@@ -10,6 +10,12 @@ main: kit: entity: version_4: {
       name: "list"
       points: [
         {
+          contract: {
+            id: "GET /generate/v4"
+            json: "{\"operationId\":\"generateV4Single\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"items\":{\"format\":\"uuid\",\"type\":\"string\"},\"maxItems\":1,\"minItems\":1,\"type\":\"array\"}}},\"description\":\"Successfully generated UUID(s)\"},\"429\":{\"description\":\"Rate limit exceeded (60 requests per minute per IP)\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/generate/v4"
           segments: [
@@ -42,6 +48,12 @@ main: kit: entity: version_4: {
                 type: "`$INTEGER`"
               }
             ]
+          }
+          contract: {
+            id: "GET /generate/v4/count/{count}"
+            json: "{\"operationId\":\"generateV4Multiple\",\"parameters\":[{\"description\":\"Number of UUIDs to generate (1-100)\",\"in\":\"path\",\"name\":\"count\",\"required\":true,\"schema\":{\"example\":10,\"maximum\":100,\"minimum\":1,\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"items\":{\"format\":\"uuid\",\"type\":\"string\"},\"type\":\"array\"}}},\"description\":\"Successfully generated UUIDs\"},\"400\":{\"description\":\"Invalid count parameter\"},\"429\":{\"description\":\"Rate limit exceeded (60 requests per minute per IP)\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
           }
           method: "GET"
           orig: "/generate/v4/count/{count}"

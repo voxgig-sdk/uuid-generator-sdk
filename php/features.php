@@ -4,7 +4,10 @@ declare(strict_types=1);
 // UuidGenerator SDK feature factory
 
 require_once __DIR__ . '/feature/BaseFeature.php';
+require_once __DIR__ . '/feature/RatelimitFeature.php';
+require_once __DIR__ . '/feature/RetryFeature.php';
 require_once __DIR__ . '/feature/TestFeature.php';
+require_once __DIR__ . '/feature/TimeoutFeature.php';
 
 
 class UuidGeneratorFeatures
@@ -14,8 +17,14 @@ class UuidGeneratorFeatures
         switch ($name) {
             case "base":
                 return new UuidGeneratorBaseFeature();
+            case "ratelimit":
+                return new UuidGeneratorRatelimitFeature();
+            case "retry":
+                return new UuidGeneratorRetryFeature();
             case "test":
                 return new UuidGeneratorTestFeature();
+            case "timeout":
+                return new UuidGeneratorTimeoutFeature();
             default:
                 return new UuidGeneratorBaseFeature();
         }
@@ -31,7 +40,10 @@ class UuidGeneratorFeatures
     {
         switch ($name) {
             case "base":
+            case "ratelimit":
+            case "retry":
             case "test":
+            case "timeout":
                 return true;
             default:
                 return false;

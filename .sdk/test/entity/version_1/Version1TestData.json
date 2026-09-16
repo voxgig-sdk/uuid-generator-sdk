@@ -19,5 +19,82 @@
     "version_1": {
       "version_1_ref01": {}
     }
+  },
+  "requests": {
+    "GET /generate/v1": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "generateV1Single",
+        "parameters": [],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "example": "b01eb720-171a-11ea-b949-73c91bba743d",
+                    "format": "uuid",
+                    "type": "string"
+                  },
+                  "maxItems": 1,
+                  "minItems": 1,
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successfully generated UUID(s)"
+          },
+          "429": {
+            "description": "Rate limit exceeded (60 requests per minute per IP)"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    },
+    "GET /generate/v1/count/{count}": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "generateV1Multiple",
+        "parameters": [
+          {
+            "description": "Number of UUIDs to generate (1-100)",
+            "in": "path",
+            "name": "count",
+            "required": true,
+            "schema": {
+              "example": 10,
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "format": "uuid",
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successfully generated UUIDs"
+          },
+          "400": {
+            "description": "Invalid count parameter"
+          },
+          "429": {
+            "description": "Rate limit exceeded (60 requests per minute per IP)"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    }
   }
 }

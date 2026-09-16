@@ -30,6 +30,12 @@ main: kit: entity: version_3: {
               }
             ]
           }
+          contract: {
+            id: "GET /generate/v3/namespace/{namespace}/name/{name}"
+            json: "{\"operationId\":\"generateV3\",\"parameters\":[{\"description\":\"Namespace identifier. Must be 'ns:url', 'ns:dns', 'ns:OID', 'ns:X500' or a properly formatted UUID.\",\"in\":\"path\",\"name\":\"namespace\",\"required\":true,\"schema\":{\"example\":\"ns:url\",\"type\":\"string\"}},{\"description\":\"Name string of any length. Can be base64 encoded by prefixing with 'base64:'.\",\"in\":\"path\",\"name\":\"name\",\"required\":true,\"schema\":{\"example\":\"https://www.google.com/\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"items\":{\"format\":\"uuid\",\"type\":\"string\"},\"maxItems\":1,\"minItems\":1,\"type\":\"array\"}}},\"description\":\"Successfully generated UUID\"},\"400\":{\"description\":\"Invalid namespace or name parameter\"},\"429\":{\"description\":\"Rate limit exceeded (60 requests per minute per IP)\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/generate/v3/namespace/{namespace}/name/{name}"
           rename: {

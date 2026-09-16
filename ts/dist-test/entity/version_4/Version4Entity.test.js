@@ -40,6 +40,8 @@ const node_path_1 = __importDefault(require("node:path"));
 const Fs = __importStar(require("node:fs"));
 const node_test_1 = require("node:test");
 const node_assert_1 = __importDefault(require("node:assert"));
+const live_runner_1 = require("../../live-runner");
+const live_entity_1 = require("../../live-entity");
 const __1 = require("../../..");
 const utility_1 = require("../../utility");
 // AFTER the imports on purpose: TypeScript hoists `import` above any
@@ -59,16 +61,12 @@ const utility_1 = require("../../utility");
     (0, node_test_1.test)('basic', async (t) => {
         const live = 'TRUE' === process.env.UUID_GENERATOR_TEST_LIVE;
         for (const op of ['list', 'load']) {
-            if ((0, utility_1.maybeSkipControl)(t, 'entityOp', 'version_4.' + op, live))
+            if (!live && (0, utility_1.maybeSkipControl)(t, 'entityOp', 'version_4.' + op, live))
                 return;
         }
         const setup = basicSetup();
-        // The basic flow consumes synthetic IDs and field values from the
-        // fixture (entity TestData.json). Those don't exist on the live API.
-        // Skip live runs unless the user provided a real ENTID env override.
-        if (setup.syntheticOnly) {
-            t.skip('live entity test uses synthetic IDs from fixture — set UUID_GENERATOR_TEST_VERSION_4_ENTID JSON to run live');
-            return;
+        if (setup.live) {
+            return (0, live_entity_1.runLiveEntity)(setup, { "active": true, "alias": { "field": {} }, "fields": [], "name": "version_4", "op": { "list": { "input": "data", "name": "list", "points": [{ "active": true, "args": {}, "contract": { "id": "GET /generate/v4", "json": "{\"operationId\":\"generateV4Single\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"items\":{\"format\":\"uuid\",\"type\":\"string\"},\"maxItems\":1,\"minItems\":1,\"type\":\"array\"}}},\"description\":\"Successfully generated UUID(s)\"},\"429\":{\"description\":\"Rate limit exceeded (60 requests per minute per IP)\"}},\"securitySource\":\"unspecified\"}", "source": "openapi3", "version": 1 }, "kind": "http", "method": "GET", "orig": "/generate/v4", "segments": [{ "lit": "generate" }, { "lit": "v4" }], "select": {}, "transform": { "req": "`reqdata`", "res": "`body`" }, "index$": 0 }], "key$": "list" }, "load": { "input": "data", "name": "load", "points": [{ "active": true, "args": { "params": [{ "active": true, "example": 10, "kind": "param", "name": "count", "orig": "count", "reqd": true, "type": "`$INTEGER`", "index$": 0 }] }, "contract": { "id": "GET /generate/v4/count/{count}", "json": "{\"operationId\":\"generateV4Multiple\",\"parameters\":[{\"description\":\"Number of UUIDs to generate (1-100)\",\"in\":\"path\",\"name\":\"count\",\"required\":true,\"schema\":{\"example\":10,\"maximum\":100,\"minimum\":1,\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"items\":{\"format\":\"uuid\",\"type\":\"string\"},\"type\":\"array\"}}},\"description\":\"Successfully generated UUIDs\"},\"400\":{\"description\":\"Invalid count parameter\"},\"429\":{\"description\":\"Rate limit exceeded (60 requests per minute per IP)\"}},\"securitySource\":\"unspecified\"}", "source": "openapi3", "version": 1 }, "kind": "http", "method": "GET", "orig": "/generate/v4/count/{count}", "segments": [{ "lit": "generate" }, { "lit": "v4" }, { "lit": "count" }, { "var": "count" }], "select": { "exist": ["count"] }, "transform": { "req": "`reqdata`", "res": "`body`" }, "index$": 0 }], "key$": "load" } }, "relations": { "ancestors": [["count"]] }, "key$": "version_4", "name__orig": "version_4", "Name": "Version4", "name_": "version_4", "name-": "version-4", "NAME": "VERSION_4", "index$": 4 }, { "active": true, "entity": "version_4", "key$": "BasicVersion4Flow", "kind": "basic", "name": "BasicVersion4Flow", "param": {}, "step": [{ "active": true, "data": {}, "input": {}, "match": {}, "op": "list", "spec": [], "valid": [{ "apply": "ItemExists", "def": { "ref": "version_4_ref01" } }], "index$": 0 }, { "active": true, "data": {}, "input": { "ref": "version_4_ref01", "srcdatavar": "version_4_ref01_data", "suffix": "_dt0" }, "match": { "id": "version_401" }, "op": "load", "spec": [], "valid": [{ "apply": "TextFieldMark", "def": { "mark": "Mark01-version_4_ref01" } }], "index$": 1 }] }, 'Version4');
         }
         const client = setup.client;
         const struct = setup.struct;
@@ -101,12 +99,6 @@ function basicSetup(extra) {
                 '`$VAL`': ['`$FORMAT`', 'upper', '`$COPY`']
             }]
     });
-    // Detect whether the user provided a real ENTID JSON via env var. The
-    // basic flow consumes synthetic IDs from the fixture file; without an
-    // override those synthetic IDs reach the live API and 4xx. Surface this
-    // to the test so it can skip rather than fail.
-    const idmapEnvVal = process.env['UUID_GENERATOR_TEST_VERSION_4_ENTID'];
-    const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{');
     const env = (0, utility_1.envOverride)({
         'UUID_GENERATOR_TEST_VERSION_4_ENTID': idmap,
         'UUID_GENERATOR_TEST_LIVE': 'FALSE',
@@ -114,7 +106,13 @@ function basicSetup(extra) {
     });
     idmap = env['UUID_GENERATOR_TEST_VERSION_4_ENTID'];
     const live = 'TRUE' === env.UUID_GENERATOR_TEST_LIVE;
+    const transport = (0, live_runner_1.createLiveTransport)();
     if (live) {
+        const rawIds = process.env['UUID_GENERATOR_TEST_VERSION_4_ENTID'];
+        idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {};
+        if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+            throw new Error('Live ENTID must be a JSON object');
+        }
         client = new __1.UuidGeneratorSDK(merge([
             // FIRST, so the generated fields below win: sdk-test-control.json's
             // test.client.options adds to the live client, it does not redirect it.
@@ -125,7 +123,8 @@ function basicSetup(extra) {
             // argument at all - so a bare 'extra' silently discarded the apikey
             // and server values above and handed the SDK undefined. Harmless
             // while there was nothing in that object; not harmless now.
-            extra || {}
+            extra || {},
+            { system: { fetch: transport.fetch } }
         ]));
     }
     const setup = {
@@ -137,7 +136,7 @@ function basicSetup(extra) {
         data: entityData,
         explain: 'TRUE' === env.UUID_GENERATOR_TEST_EXPLAIN,
         live,
-        syntheticOnly: live && !idmapOverridden,
+        transport,
         now: Date.now(),
     };
     return setup;

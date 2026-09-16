@@ -5,6 +5,8 @@ import * as Fs from 'node:fs'
 
 import { test, describe, afterEach } from 'node:test'
 import assert from 'node:assert'
+import { createLiveTransport } from '../../live-runner'
+import { runLiveEntity } from '../../live-entity'
 
 
 import { UuidGeneratorSDK, BaseFeature, stdutil } from '../../..'
@@ -47,16 +49,13 @@ describe('DecodeEntity', async () => {
 
     const live = 'TRUE' === process.env.UUID_GENERATOR_TEST_LIVE
     for (const op of ['load']) {
-      if (maybeSkipControl(t, 'entityOp', 'decode.' + op, live)) return
+      if (!live && maybeSkipControl(t, 'entityOp', 'decode.' + op, live)) return
     }
 
+    
     const setup = basicSetup()
-    // The basic flow consumes synthetic IDs and field values from the
-    // fixture (entity TestData.json). Those don't exist on the live API.
-    // Skip live runs unless the user provided a real ENTID env override.
-    if (setup.syntheticOnly) {
-      t.skip('live entity test uses synthetic IDs from fixture — set UUID_GENERATOR_TEST_DECODE_ENTID JSON to run live')
-      return
+    if (setup.live) {
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":[{"active":true,"name":"decode","req":false,"type":"`$OBJECT`","index$":0},{"active":true,"name":"encode","req":false,"type":"`$OBJECT`","index$":1},{"active":true,"name":"id","req":false,"type":"`$STRING`","index$":2}],"id":{"field":"id","name":"id"},"name":"decode","op":{"load":{"input":"data","name":"load","points":[{"active":true,"args":{"params":[{"active":true,"example":"b01eb720-171a-11ea-b949-73c91bba743d","kind":"param","name":"id","orig":"uuid","reqd":true,"type":"`$STRING`","index$":0}]},"contract":{"id":"GET /decode/{uuid}","json":"{\"operationId\":\"decodeUuid\",\"parameters\":[{\"description\":\"The UUID to decode\",\"in\":\"path\",\"name\":\"uuid\",\"required\":true,\"schema\":{\"example\":\"b01eb720-171a-11ea-b949-73c91bba743d\",\"format\":\"uuid\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"example\":{\"decode\":{\"content\":{\"clock\":\"14665 (usually random)\",\"node\":\"73:c9:1b:ba:74:3d (local multicast)\",\"time\":\"2019-12-05 04:49:57.961296.0 UTC\"},\"variant\":\"DCE 1.1, ISO/IEC 11578:1996\",\"version\":\"1 (time and node based)\"},\"encode\":{\"SIV\":\"234103610387309579079392911688732406845\",\"STR\":\"b01eb720-171a-11ea-b949-73c91bba743d\"}},\"properties\":{\"decode\":{\"properties\":{\"content\":{\"description\":\"Version-specific content (varies by UUID version)\",\"properties\":{\"clock\":{\"description\":\"Clock sequence (for version-1 UUIDs)\",\"type\":\"string\"},\"node\":{\"description\":\"Node identifier (for version-1 UUIDs)\",\"type\":\"string\"},\"time\":{\"description\":\"Timestamp (for version-1 UUIDs)\",\"type\":\"string\"}},\"type\":\"object\"},\"variant\":{\"description\":\"UUID variant\",\"type\":\"string\"},\"version\":{\"description\":\"UUID version and type\",\"type\":\"string\"}},\"type\":\"object\"},\"encode\":{\"properties\":{\"SIV\":{\"description\":\"UUID as a single integer value\",\"type\":\"string\"},\"STR\":{\"description\":\"UUID in string format\",\"format\":\"uuid\",\"type\":\"string\"}},\"type\":\"object\"}},\"type\":\"object\"}}},\"description\":\"Successfully decoded UUID\"},\"400\":{\"description\":\"Invalid UUID format\"},\"429\":{\"description\":\"Rate limit exceeded (60 requests per minute per IP)\"}},\"securitySource\":\"unspecified\"}","source":"openapi3","version":1},"kind":"http","method":"GET","orig":"/decode/{uuid}","rename":{"param":{"uuid":"id"}},"segments":[{"lit":"decode"},{"var":"id"}],"select":{"exist":["id"]},"transform":{"req":"`reqdata`","res":"`body.decode`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"decode","name__orig":"decode","Name":"Decode","name_":"decode","name-":"decode","NAME":"DECODE","index$":0}, {"active":true,"entity":"decode","key$":"BasicDecodeFlow","kind":"basic","name":"BasicDecodeFlow","param":{},"step":[{"active":true,"data":{},"input":{"ref":"decode_ref01","srcdatavar":"decode_ref01_data","suffix":"_dt0"},"match":{"id":"decode01"},"op":"load","spec":[],"valid":[{"apply":"TextFieldMark","def":{"mark":"Mark01-decode_ref01"}}],"index$":0}]}, 'Decode')
     }
     const client = setup.client
     const struct = setup.struct
@@ -110,13 +109,6 @@ function basicSetup(extra?: any) {
       }]
     })
 
-  // Detect whether the user provided a real ENTID JSON via env var. The
-  // basic flow consumes synthetic IDs from the fixture file; without an
-  // override those synthetic IDs reach the live API and 4xx. Surface this
-  // to the test so it can skip rather than fail.
-  const idmapEnvVal = process.env['UUID_GENERATOR_TEST_DECODE_ENTID']
-  const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{')
-
   const env = envOverride({
     'UUID_GENERATOR_TEST_DECODE_ENTID': idmap,
     'UUID_GENERATOR_TEST_LIVE': 'FALSE',
@@ -127,7 +119,13 @@ function basicSetup(extra?: any) {
 
   const live = 'TRUE' === env.UUID_GENERATOR_TEST_LIVE
 
+  const transport = createLiveTransport()
   if (live) {
+    const rawIds = process.env['UUID_GENERATOR_TEST_DECODE_ENTID']
+    idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {}
+    if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+      throw new Error('Live ENTID must be a JSON object')
+    }
     client = new UuidGeneratorSDK(merge([
       // FIRST, so the generated fields below win: sdk-test-control.json's
       // test.client.options adds to the live client, it does not redirect it.
@@ -139,7 +137,8 @@ function basicSetup(extra?: any) {
       // argument at all - so a bare 'extra' silently discarded the apikey
       // and server values above and handed the SDK undefined. Harmless
       // while there was nothing in that object; not harmless now.
-      extra || {}
+      extra || {},
+      { system: { fetch: transport.fetch } }
     ]))
   }
 
@@ -152,7 +151,7 @@ function basicSetup(extra?: any) {
     data: entityData,
     explain: 'TRUE' === env.UUID_GENERATOR_TEST_EXPLAIN,
     live,
-    syntheticOnly: live && !idmapOverridden,
+    transport,
     now: Date.now(),
   }
 
