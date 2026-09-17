@@ -127,24 +127,24 @@ class Config {
 
     entity: {
       
-      decode: {
-      },
-
-      timestamp_first: {
-      },
-
-      version_1: {
-      },
-
-      version_3: {
-      },
-
-      version_4: {
-      },
-
-      version_5: {
-      },
-
+        decode: {
+        },
+  
+        timestamp_first: {
+        },
+  
+        version_1: {
+        },
+  
+        version_3: {
+        },
+  
+        version_4: {
+        },
+  
+        version_5: {
+        },
+  
     }
   }
 

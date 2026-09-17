@@ -105,12 +105,12 @@ local results, err = client:Version1():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/uuid-generator-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/uuid-generator-sdk/releases) |
-| Python | `voxgig-sdk-uuid-generator` | publish pending — [install from git tag](https://github.com/voxgig-sdk/uuid-generator-sdk/releases) |
-| PHP | `voxgig-sdk/uuid-generator` | publish pending — [install from git tag](https://github.com/voxgig-sdk/uuid-generator-sdk/releases) |
+| TypeScript | `@voxgig-sdk/uuid-generator-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/uuid-generator-sdk/tags) |
+| Python | `voxgig-sdk-uuid-generator` | publish pending — [install from git tag](https://github.com/voxgig-sdk/uuid-generator-sdk/tags) |
+| PHP | `voxgig-sdk/uuid-generator` | publish pending — [install from git tag](https://github.com/voxgig-sdk/uuid-generator-sdk/tags) |
 | Golang | `github.com/voxgig-sdk/uuid-generator-sdk/go` | `go get github.com/voxgig-sdk/uuid-generator-sdk/go@latest` |
-| Ruby | `voxgig-sdk-uuid-generator` | publish pending — [install from git tag](https://github.com/voxgig-sdk/uuid-generator-sdk/releases) |
-| Lua | `voxgig-sdk-uuid-generator` | publish pending — [install from git tag](https://github.com/voxgig-sdk/uuid-generator-sdk/releases) |
+| Ruby | `voxgig-sdk-uuid-generator` | publish pending — [install from git tag](https://github.com/voxgig-sdk/uuid-generator-sdk/tags) |
+| Lua | `voxgig-sdk-uuid-generator` | publish pending — [install from git tag](https://github.com/voxgig-sdk/uuid-generator-sdk/tags) |
 | Go CLI | `github.com/voxgig-sdk/uuid-generator-sdk/go-cli` | `go install github.com/voxgig-sdk/uuid-generator-sdk/go-cli/cmd/uuid-generator@latest` |
 | Go MCP server | `github.com/voxgig-sdk/uuid-generator-sdk/go-mcp` | `go get github.com/voxgig-sdk/uuid-generator-sdk/go-mcp@latest` |
 
