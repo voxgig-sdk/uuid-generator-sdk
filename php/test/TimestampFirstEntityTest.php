@@ -115,7 +115,7 @@ function timestamp_first_basic_setup($extra)
 
     // Generate idmap.
     $idmap = [];
-    foreach (["timestamp_first01", "timestamp_first02", "timestamp_first03", "count01", "count02", "count03"] as $k) {
+    foreach (["timestamp_first01", "timestamp_first02", "timestamp_first03"] as $k) {
         $idmap[$k] = strtoupper($k);
     }
 

@@ -121,14 +121,17 @@ def make_config():
         "fields": [
           {
             "name": "decode",
+            "title": "Decode",
             "type": "`$OBJECT`",
           },
           {
             "name": "encode",
+            "title": "Encode",
             "type": "`$OBJECT`",
           },
           {
             "name": "id",
+            "title": "Id",
             "type": "`$STRING`",
           },
         ],
@@ -143,26 +146,9 @@ def make_config():
             "name": "load",
             "points": [
               {
-                "args": {
-                  "params": [
-                    {
-                      "example": "b01eb720-171a-11ea-b949-73c91bba743d",
-                      "kind": "param",
-                      "name": "id",
-                      "orig": "uuid",
-                      "reqd": True,
-                      "type": "`$STRING`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "GET",
                 "orig": "/decode/{uuid}",
-                "rename": {
-                  "param": {
-                    "uuid": "id",
-                  },
-                },
                 "segments": [
                   {
                     "lit": "decode",
@@ -171,19 +157,36 @@ def make_config():
                     "var": "id",
                   },
                 ],
-                "select": {
-                  "exist": [
-                    "id",
-                  ],
+                "parts": [
+                  "decode",
+                  "{id}",
+                ],
+                "rename": {
+                  "param": {
+                    "uuid": "id",
+                  },
                 },
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body.decode`",
                 },
-                "parts": [
-                  "decode",
-                  "{id}",
-                ],
+                "args": {
+                  "params": [
+                    {
+                      "name": "id",
+                      "orig": "uuid",
+                      "type": "`$STRING`",
+                      "kind": "param",
+                      "reqd": True,
+                      "example": "b01eb720-171a-11ea-b949-73c91bba743d",
+                    },
+                  ],
+                },
+                "select": {
+                  "exist": [
+                    "id",
+                  ],
+                },
               },
             ],
           },
@@ -201,7 +204,6 @@ def make_config():
             "name": "list",
             "points": [
               {
-                "args": {},
                 "kind": "http",
                 "method": "GET",
                 "orig": "/generate/timestamp-first",
@@ -213,15 +215,17 @@ def make_config():
                     "lit": "timestamp-first",
                   },
                 ],
-                "select": {},
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
                 "parts": [
                   "generate",
                   "timestamp-first",
                 ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {},
+                "select": {},
               },
             ],
           },
@@ -230,18 +234,6 @@ def make_config():
             "name": "load",
             "points": [
               {
-                "args": {
-                  "params": [
-                    {
-                      "example": 10,
-                      "kind": "param",
-                      "name": "count",
-                      "orig": "count",
-                      "reqd": True,
-                      "type": "`$INTEGER`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "GET",
                 "orig": "/generate/timestamp-first/count/{count}",
@@ -259,31 +251,40 @@ def make_config():
                     "var": "count",
                   },
                 ],
-                "select": {
-                  "exist": [
-                    "count",
-                  ],
-                },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
                 "parts": [
                   "generate",
                   "timestamp-first",
                   "count",
                   "{count}",
                 ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "params": [
+                    {
+                      "name": "count",
+                      "orig": "count",
+                      "type": "`$INTEGER`",
+                      "kind": "param",
+                      "reqd": True,
+                      "example": 10,
+                    },
+                  ],
+                },
+                "select": {
+                  "exist": [
+                    "count",
+                  ],
+                },
               },
             ],
           },
         },
         "relations": {
-          "ancestors": [
-            [
-              "count",
-            ],
-          ],
+          "ancestors": [],
         },
       },
       "version_1": {
@@ -295,7 +296,6 @@ def make_config():
             "name": "list",
             "points": [
               {
-                "args": {},
                 "kind": "http",
                 "method": "GET",
                 "orig": "/generate/v1",
@@ -307,15 +307,17 @@ def make_config():
                     "lit": "v1",
                   },
                 ],
-                "select": {},
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
                 "parts": [
                   "generate",
                   "v1",
                 ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {},
+                "select": {},
               },
             ],
           },
@@ -324,18 +326,6 @@ def make_config():
             "name": "load",
             "points": [
               {
-                "args": {
-                  "params": [
-                    {
-                      "example": 10,
-                      "kind": "param",
-                      "name": "count",
-                      "orig": "count",
-                      "reqd": True,
-                      "type": "`$INTEGER`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "GET",
                 "orig": "/generate/v1/count/{count}",
@@ -353,31 +343,40 @@ def make_config():
                     "var": "count",
                   },
                 ],
-                "select": {
-                  "exist": [
-                    "count",
-                  ],
-                },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
                 "parts": [
                   "generate",
                   "v1",
                   "count",
                   "{count}",
                 ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "params": [
+                    {
+                      "name": "count",
+                      "orig": "count",
+                      "type": "`$INTEGER`",
+                      "kind": "param",
+                      "reqd": True,
+                      "example": 10,
+                    },
+                  ],
+                },
+                "select": {
+                  "exist": [
+                    "count",
+                  ],
+                },
               },
             ],
           },
         },
         "relations": {
-          "ancestors": [
-            [
-              "count",
-            ],
-          ],
+          "ancestors": [],
         },
       },
       "version_3": {
@@ -389,34 +388,9 @@ def make_config():
             "name": "load",
             "points": [
               {
-                "args": {
-                  "params": [
-                    {
-                      "example": "https://www.google.com/",
-                      "kind": "param",
-                      "name": "name",
-                      "orig": "name",
-                      "reqd": True,
-                      "type": "`$STRING`",
-                    },
-                    {
-                      "example": "ns:url",
-                      "kind": "param",
-                      "name": "namespace_id",
-                      "orig": "namespace",
-                      "reqd": True,
-                      "type": "`$STRING`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "GET",
                 "orig": "/generate/v3/namespace/{namespace}/name/{name}",
-                "rename": {
-                  "param": {
-                    "namespace": "namespace_id",
-                  },
-                },
                 "segments": [
                   {
                     "lit": "generate",
@@ -437,16 +411,6 @@ def make_config():
                     "var": "name",
                   },
                 ],
-                "select": {
-                  "exist": [
-                    "name",
-                    "namespace_id",
-                  ],
-                },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
                 "parts": [
                   "generate",
                   "v3",
@@ -455,17 +419,47 @@ def make_config():
                   "name",
                   "{name}",
                 ],
+                "rename": {
+                  "param": {
+                    "namespace": "namespace_id",
+                  },
+                },
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "params": [
+                    {
+                      "name": "name",
+                      "orig": "name",
+                      "type": "`$STRING`",
+                      "kind": "param",
+                      "reqd": True,
+                      "example": "https://www.google.com/",
+                    },
+                    {
+                      "name": "namespace_id",
+                      "orig": "namespace",
+                      "type": "`$STRING`",
+                      "kind": "param",
+                      "reqd": True,
+                      "example": "ns:url",
+                    },
+                  ],
+                },
+                "select": {
+                  "exist": [
+                    "name",
+                    "namespace_id",
+                  ],
+                },
               },
             ],
           },
         },
         "relations": {
-          "ancestors": [
-            [
-              "namespace",
-              "name",
-            ],
-          ],
+          "ancestors": [],
         },
       },
       "version_4": {
@@ -477,7 +471,6 @@ def make_config():
             "name": "list",
             "points": [
               {
-                "args": {},
                 "kind": "http",
                 "method": "GET",
                 "orig": "/generate/v4",
@@ -489,15 +482,17 @@ def make_config():
                     "lit": "v4",
                   },
                 ],
-                "select": {},
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
                 "parts": [
                   "generate",
                   "v4",
                 ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {},
+                "select": {},
               },
             ],
           },
@@ -506,18 +501,6 @@ def make_config():
             "name": "load",
             "points": [
               {
-                "args": {
-                  "params": [
-                    {
-                      "example": 10,
-                      "kind": "param",
-                      "name": "count",
-                      "orig": "count",
-                      "reqd": True,
-                      "type": "`$INTEGER`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "GET",
                 "orig": "/generate/v4/count/{count}",
@@ -535,31 +518,40 @@ def make_config():
                     "var": "count",
                   },
                 ],
-                "select": {
-                  "exist": [
-                    "count",
-                  ],
-                },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
                 "parts": [
                   "generate",
                   "v4",
                   "count",
                   "{count}",
                 ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "params": [
+                    {
+                      "name": "count",
+                      "orig": "count",
+                      "type": "`$INTEGER`",
+                      "kind": "param",
+                      "reqd": True,
+                      "example": 10,
+                    },
+                  ],
+                },
+                "select": {
+                  "exist": [
+                    "count",
+                  ],
+                },
               },
             ],
           },
         },
         "relations": {
-          "ancestors": [
-            [
-              "count",
-            ],
-          ],
+          "ancestors": [],
         },
       },
       "version_5": {
@@ -571,34 +563,9 @@ def make_config():
             "name": "load",
             "points": [
               {
-                "args": {
-                  "params": [
-                    {
-                      "example": "https://www.uuidtools.com/generate",
-                      "kind": "param",
-                      "name": "name",
-                      "orig": "name",
-                      "reqd": True,
-                      "type": "`$STRING`",
-                    },
-                    {
-                      "example": "ns:url",
-                      "kind": "param",
-                      "name": "namespace_id",
-                      "orig": "namespace",
-                      "reqd": True,
-                      "type": "`$STRING`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "GET",
                 "orig": "/generate/v5/namespace/{namespace}/name/{name}",
-                "rename": {
-                  "param": {
-                    "namespace": "namespace_id",
-                  },
-                },
                 "segments": [
                   {
                     "lit": "generate",
@@ -619,16 +586,6 @@ def make_config():
                     "var": "name",
                   },
                 ],
-                "select": {
-                  "exist": [
-                    "name",
-                    "namespace_id",
-                  ],
-                },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
                 "parts": [
                   "generate",
                   "v5",
@@ -637,17 +594,47 @@ def make_config():
                   "name",
                   "{name}",
                 ],
+                "rename": {
+                  "param": {
+                    "namespace": "namespace_id",
+                  },
+                },
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "params": [
+                    {
+                      "name": "name",
+                      "orig": "name",
+                      "type": "`$STRING`",
+                      "kind": "param",
+                      "reqd": True,
+                      "example": "https://www.uuidtools.com/generate",
+                    },
+                    {
+                      "name": "namespace_id",
+                      "orig": "namespace",
+                      "type": "`$STRING`",
+                      "kind": "param",
+                      "reqd": True,
+                      "example": "ns:url",
+                    },
+                  ],
+                },
+                "select": {
+                  "exist": [
+                    "name",
+                    "namespace_id",
+                  ],
+                },
               },
             ],
           },
         },
         "relations": {
-          "ancestors": [
-            [
-              "namespace",
-              "name",
-            ],
-          ],
+          "ancestors": [],
         },
       },
     },

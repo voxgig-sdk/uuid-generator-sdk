@@ -1,0 +1,32 @@
+# BasicDecodeFlow
+
+main: kit: flow: BasicDecodeFlow:
+{
+  entity: "decode",
+  kind: "basic",
+  name: "BasicDecodeFlow",
+  step: [
+    {
+      i: {
+        ref: "decode_ref01",
+        srcdatavar: "decode_ref01_data",
+        suffix: "_dt0"
+      }
+
+      m: {
+        id: "decode01"
+      }
+
+      o: "load",
+      v: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-decode_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicDecodeFlow"
+}

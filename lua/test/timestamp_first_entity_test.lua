@@ -120,7 +120,7 @@ function timestamp_first_basic_setup(extra)
 
   -- Generate idmap via transform.
   local idmap = vs.transform(
-    { "timestamp_first01", "timestamp_first02", "timestamp_first03", "count01", "count02", "count03" },
+    { "timestamp_first01", "timestamp_first02", "timestamp_first03" },
     {
       ["`$PACK`"] = { "", {
         ["`$KEY`"] = "`$COPY`",

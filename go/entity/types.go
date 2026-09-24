@@ -1,7 +1,7 @@
 // Typed models for the UuidGenerator SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -14,9 +14,6 @@ import (
 
 // Decode is the typed data model for the decode entity.
 type Decode struct {
-	Decode *map[string]any `json:"decode,omitempty"`
-	Encode *map[string]any `json:"encode,omitempty"`
-	Id *string `json:"id,omitempty"`
 }
 
 // DecodeLoadMatch is the typed request payload for Decode.LoadTyped.

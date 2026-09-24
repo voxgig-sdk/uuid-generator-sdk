@@ -33,14 +33,12 @@ local sdk = require("uuid-generator_sdk")
 local client = sdk.new()
 ```
 
-### 3. Load a timestampfirst
-
-TimestampFirst is nested under count, so provide the `count`.
+### 3. Load a decode
 
 ```lua
-local timestampfirst, err = client:TimestampFirst():load({ count = 1 })
+local decode, err = client:Decode():load({ id = "example_id" })
 if err then error(err) end
-print(timestampfirst)
+print(decode)
 ```
 
 

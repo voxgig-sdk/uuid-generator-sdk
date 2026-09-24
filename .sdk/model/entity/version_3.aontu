@@ -1,0 +1,85 @@
+# Entity: version_3
+
+main: kit: entity: version_3: {
+
+  alias: field: {}
+
+  name: "version_3"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /generate/v3/namespace/{namespace}/name/{name}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: "https://www.google.com/"
+                k: "param"
+                n: "name"
+                or: "name"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                ex: "ns:url"
+                k: "param"
+                n: "namespace_id"
+                or: "namespace"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/generate/v3/namespace/{namespace}/name/{name}"
+          q: {
+            exist: [
+              "name"
+              "namespace_id"
+            ]
+          }
+          r: {
+            param: {
+              namespace: "namespace_id"
+            }
+          }
+          s: [
+            {
+              lit: "generate"
+            }
+            {
+              lit: "v3"
+            }
+            {
+              lit: "namespace"
+            }
+            {
+              var: "namespace_id"
+            }
+            {
+              lit: "name"
+            }
+            {
+              var: "name"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  fields: {
+  }
+
+
+
+}

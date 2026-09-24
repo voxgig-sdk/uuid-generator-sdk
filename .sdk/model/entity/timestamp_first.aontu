@@ -1,0 +1,91 @@
+# Entity: timestamp_first
+
+main: kit: entity: timestamp_first: {
+
+  alias: field: {}
+
+  name: "timestamp_first"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /generate/timestamp-first"
+            source: "openapi3"
+            version: 2
+          }
+          m: "GET"
+          o: "/generate/timestamp-first"
+          s: [
+            {
+              lit: "generate"
+            }
+            {
+              lit: "timestamp-first"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /generate/timestamp-first/count/{count}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: 10
+                k: "param"
+                n: "count"
+                or: "count"
+                r: true
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/generate/timestamp-first/count/{count}"
+          q: {
+            exist: [
+              "count"
+            ]
+          }
+          s: [
+            {
+              lit: "generate"
+            }
+            {
+              lit: "timestamp-first"
+            }
+            {
+              lit: "count"
+            }
+            {
+              var: "count"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  fields: {
+  }
+
+
+
+}

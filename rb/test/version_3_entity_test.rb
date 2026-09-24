@@ -62,7 +62,7 @@ def version_3_basic_setup(extra)
 
   # Generate idmap via transform.
   idmap = Vs.transform(
-    ["version_301", "version_302", "version_303", "namespace01", "namespace02", "namespace03", "name01", "name02", "name03"],
+    ["version_301", "version_302", "version_303", "namespace01"],
     {
       "`$PACK`" => ["", {
         "`$KEY`" => "`$COPY`",

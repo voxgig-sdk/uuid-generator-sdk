@@ -1,0 +1,91 @@
+# Entity: version_1
+
+main: kit: entity: version_1: {
+
+  alias: field: {}
+
+  name: "version_1"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /generate/v1"
+            source: "openapi3"
+            version: 2
+          }
+          m: "GET"
+          o: "/generate/v1"
+          s: [
+            {
+              lit: "generate"
+            }
+            {
+              lit: "v1"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /generate/v1/count/{count}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: 10
+                k: "param"
+                n: "count"
+                or: "count"
+                r: true
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/generate/v1/count/{count}"
+          q: {
+            exist: [
+              "count"
+            ]
+          }
+          s: [
+            {
+              lit: "generate"
+            }
+            {
+              lit: "v1"
+            }
+            {
+              lit: "count"
+            }
+            {
+              var: "count"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  fields: {
+  }
+
+
+
+}

@@ -1,0 +1,85 @@
+# Entity: version_5
+
+main: kit: entity: version_5: {
+
+  alias: field: {}
+
+  name: "version_5"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /generate/v5/namespace/{namespace}/name/{name}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: "https://www.uuidtools.com/generate"
+                k: "param"
+                n: "name"
+                or: "name"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                ex: "ns:url"
+                k: "param"
+                n: "namespace_id"
+                or: "namespace"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/generate/v5/namespace/{namespace}/name/{name}"
+          q: {
+            exist: [
+              "name"
+              "namespace_id"
+            ]
+          }
+          r: {
+            param: {
+              namespace: "namespace_id"
+            }
+          }
+          s: [
+            {
+              lit: "generate"
+            }
+            {
+              lit: "v5"
+            }
+            {
+              lit: "namespace"
+            }
+            {
+              var: "namespace_id"
+            }
+            {
+              lit: "name"
+            }
+            {
+              var: "name"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  fields: {
+  }
+
+
+
+}

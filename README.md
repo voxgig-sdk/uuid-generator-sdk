@@ -14,7 +14,7 @@ Metadata kindly supplied by [www.freepublicapis.com](https://www.freepublicapis.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI with an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
 
-> **Features:** `ratelimit`, `retry`, `test`, `timeout` — opt-in,
+> **Features:** `undefined`, `undefined`, `undefined`, `undefined` — opt-in,
 > inactive until switched on, and configured per client. See the Features
 > section of any SDK README below for what each one does.
 
@@ -123,12 +123,9 @@ import { UuidGeneratorSDK } from '@voxgig-sdk/uuid-generator-sdk'
 
 const client = new UuidGeneratorSDK()
 
-
-// Load a specific timestampfirst (returns a TimestampFirst)
-const timestampfirst = await client.TimestampFirst().load({
-  count: 1,
-})
-console.log(timestampfirst)
+// Load decode data (returns a Decode)
+const decode = await client.Decode().load()
+console.log(decode)
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -215,15 +212,12 @@ import sdk "github.com/voxgig-sdk/uuid-generator-sdk/go"
 
 client := sdk.New()
 
-
-// Load a specific timestampfirst
-timestampFirst, err := client.TimestampFirst(nil).Load(
-    map[string]any{"count": 1}, nil,
-)
+// Load decode data
+decode, err := client.Decode(nil).Load(map[string]any{"id": "example_id"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(timestampFirst)
+fmt.Println(decode)
 ```
 
 ### Ruby

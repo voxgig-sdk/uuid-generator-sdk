@@ -16,12 +16,6 @@ const FEATURE_CLASS: Record<string, typeof BaseFeature> = {
 }
 
 
-// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
-// the model's active plugin groups. A feature that takes a `plugins` option
-// (secrets over sekreto) reads its own entry; a feature with no plugins has
-// none. Named imports above make each definition statically reachable, so
-// an SDK carries exactly the plugin modules its model selects — the same
-// leanness the old side-effect registry imports bought, without a registry.
 const FEATURE_PLUGINS: Record<string, any[]> = {
   
 }
@@ -32,7 +26,6 @@ class Config {
   makeFeature(this: any, fn: string) {
     const fc = FEATURE_CLASS[fn]
     const fi = new fc()
-    // TODO: errors etc
     return fi
   }
 
@@ -154,14 +147,17 @@ class Config {
       "fields": [
         {
           "name": "decode",
+          "title": "Decode",
           "type": "`$OBJECT`"
         },
         {
           "name": "encode",
+          "title": "Encode",
           "type": "`$OBJECT`"
         },
         {
           "name": "id",
+          "title": "Id",
           "type": "`$STRING`"
         }
       ],
@@ -176,26 +172,9 @@ class Config {
           "name": "load",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "example": "b01eb720-171a-11ea-b949-73c91bba743d",
-                    "kind": "param",
-                    "name": "id",
-                    "orig": "uuid",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/decode/{uuid}",
-              "rename": {
-                "param": {
-                  "uuid": "id"
-                }
-              },
               "segments": [
                 {
                   "lit": "decode"
@@ -204,19 +183,36 @@ class Config {
                   "var": "id"
                 }
               ],
-              "select": {
-                "exist": [
-                  "id"
-                ]
+              "parts": [
+                "decode",
+                "{id}"
+              ],
+              "rename": {
+                "param": {
+                  "uuid": "id"
+                }
               },
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.decode`"
               },
-              "parts": [
-                "decode",
-                "{id}"
-              ]
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "uuid",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": "b01eb720-171a-11ea-b949-73c91bba743d"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id"
+                ]
+              }
             }
           ]
         }
@@ -234,7 +230,6 @@ class Config {
           "name": "list",
           "points": [
             {
-              "args": {},
               "kind": "http",
               "method": "GET",
               "orig": "/generate/timestamp-first",
@@ -246,15 +241,17 @@ class Config {
                   "lit": "timestamp-first"
                 }
               ],
-              "select": {},
+              "parts": [
+                "generate",
+                "timestamp-first"
+              ],
+              "rename": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
               },
-              "parts": [
-                "generate",
-                "timestamp-first"
-              ]
+              "args": {},
+              "select": {}
             }
           ]
         },
@@ -263,18 +260,6 @@ class Config {
           "name": "load",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "example": 10,
-                    "kind": "param",
-                    "name": "count",
-                    "orig": "count",
-                    "reqd": true,
-                    "type": "`$INTEGER`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/generate/timestamp-first/count/{count}",
@@ -292,31 +277,40 @@ class Config {
                   "var": "count"
                 }
               ],
-              "select": {
-                "exist": [
-                  "count"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
               "parts": [
                 "generate",
                 "timestamp-first",
                 "count",
                 "{count}"
-              ]
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "count",
+                    "orig": "count",
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": 10
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "count"
+                ]
+              }
             }
           ]
         }
       },
       "relations": {
-        "ancestors": [
-          [
-            "count"
-          ]
-        ]
+        "ancestors": []
       }
     },
     "version_1": {
@@ -328,7 +322,6 @@ class Config {
           "name": "list",
           "points": [
             {
-              "args": {},
               "kind": "http",
               "method": "GET",
               "orig": "/generate/v1",
@@ -340,15 +333,17 @@ class Config {
                   "lit": "v1"
                 }
               ],
-              "select": {},
+              "parts": [
+                "generate",
+                "v1"
+              ],
+              "rename": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
               },
-              "parts": [
-                "generate",
-                "v1"
-              ]
+              "args": {},
+              "select": {}
             }
           ]
         },
@@ -357,18 +352,6 @@ class Config {
           "name": "load",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "example": 10,
-                    "kind": "param",
-                    "name": "count",
-                    "orig": "count",
-                    "reqd": true,
-                    "type": "`$INTEGER`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/generate/v1/count/{count}",
@@ -386,31 +369,40 @@ class Config {
                   "var": "count"
                 }
               ],
-              "select": {
-                "exist": [
-                  "count"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
               "parts": [
                 "generate",
                 "v1",
                 "count",
                 "{count}"
-              ]
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "count",
+                    "orig": "count",
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": 10
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "count"
+                ]
+              }
             }
           ]
         }
       },
       "relations": {
-        "ancestors": [
-          [
-            "count"
-          ]
-        ]
+        "ancestors": []
       }
     },
     "version_3": {
@@ -422,34 +414,9 @@ class Config {
           "name": "load",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "example": "https://www.google.com/",
-                    "kind": "param",
-                    "name": "name",
-                    "orig": "name",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "example": "ns:url",
-                    "kind": "param",
-                    "name": "namespace_id",
-                    "orig": "namespace",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/generate/v3/namespace/{namespace}/name/{name}",
-              "rename": {
-                "param": {
-                  "namespace": "namespace_id"
-                }
-              },
               "segments": [
                 {
                   "lit": "generate"
@@ -470,16 +437,6 @@ class Config {
                   "var": "name"
                 }
               ],
-              "select": {
-                "exist": [
-                  "name",
-                  "namespace_id"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
               "parts": [
                 "generate",
                 "v3",
@@ -487,18 +444,48 @@ class Config {
                 "{namespace_id}",
                 "name",
                 "{name}"
-              ]
+              ],
+              "rename": {
+                "param": {
+                  "namespace": "namespace_id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "name",
+                    "orig": "name",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": "https://www.google.com/"
+                  },
+                  {
+                    "name": "namespace_id",
+                    "orig": "namespace",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": "ns:url"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "name",
+                  "namespace_id"
+                ]
+              }
             }
           ]
         }
       },
       "relations": {
-        "ancestors": [
-          [
-            "namespace",
-            "name"
-          ]
-        ]
+        "ancestors": []
       }
     },
     "version_4": {
@@ -510,7 +497,6 @@ class Config {
           "name": "list",
           "points": [
             {
-              "args": {},
               "kind": "http",
               "method": "GET",
               "orig": "/generate/v4",
@@ -522,15 +508,17 @@ class Config {
                   "lit": "v4"
                 }
               ],
-              "select": {},
+              "parts": [
+                "generate",
+                "v4"
+              ],
+              "rename": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
               },
-              "parts": [
-                "generate",
-                "v4"
-              ]
+              "args": {},
+              "select": {}
             }
           ]
         },
@@ -539,18 +527,6 @@ class Config {
           "name": "load",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "example": 10,
-                    "kind": "param",
-                    "name": "count",
-                    "orig": "count",
-                    "reqd": true,
-                    "type": "`$INTEGER`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/generate/v4/count/{count}",
@@ -568,31 +544,40 @@ class Config {
                   "var": "count"
                 }
               ],
-              "select": {
-                "exist": [
-                  "count"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
               "parts": [
                 "generate",
                 "v4",
                 "count",
                 "{count}"
-              ]
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "count",
+                    "orig": "count",
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": 10
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "count"
+                ]
+              }
             }
           ]
         }
       },
       "relations": {
-        "ancestors": [
-          [
-            "count"
-          ]
-        ]
+        "ancestors": []
       }
     },
     "version_5": {
@@ -604,34 +589,9 @@ class Config {
           "name": "load",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "example": "https://www.uuidtools.com/generate",
-                    "kind": "param",
-                    "name": "name",
-                    "orig": "name",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "example": "ns:url",
-                    "kind": "param",
-                    "name": "namespace_id",
-                    "orig": "namespace",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/generate/v5/namespace/{namespace}/name/{name}",
-              "rename": {
-                "param": {
-                  "namespace": "namespace_id"
-                }
-              },
               "segments": [
                 {
                   "lit": "generate"
@@ -652,16 +612,6 @@ class Config {
                   "var": "name"
                 }
               ],
-              "select": {
-                "exist": [
-                  "name",
-                  "namespace_id"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
               "parts": [
                 "generate",
                 "v5",
@@ -669,18 +619,48 @@ class Config {
                 "{namespace_id}",
                 "name",
                 "{name}"
-              ]
+              ],
+              "rename": {
+                "param": {
+                  "namespace": "namespace_id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "name",
+                    "orig": "name",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": "https://www.uuidtools.com/generate"
+                  },
+                  {
+                    "name": "namespace_id",
+                    "orig": "namespace",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": "ns:url"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "name",
+                  "namespace_id"
+                ]
+              }
             }
           ]
         }
       },
       "relations": {
-        "ancestors": [
-          [
-            "namespace",
-            "name"
-          ]
-        ]
+        "ancestors": []
       }
     }
   }

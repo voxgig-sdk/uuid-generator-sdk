@@ -30,15 +30,13 @@ require_relative "UuidGenerator_sdk"
 client = UuidGeneratorSDK.new
 ```
 
-### 3. Load a timestampfirst
-
-TimestampFirst is nested under count, so provide the `count`.
+### 3. Load a decode
 
 ```ruby
 begin
-  # load returns the ENTITY — call data_get for the TimestampFirst record (raises on error).
-  timestampfirst = client.TimestampFirst.load({ "count" => 1 })
-  puts timestampfirst
+  # load returns the ENTITY — call data_get for the Decode record (raises on error).
+  decode = client.Decode.load({ "id" => "example_id" })
+  puts decode
 rescue => err
   warn "load failed: #{err}"
 end

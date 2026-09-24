@@ -1,0 +1,87 @@
+# Entity: decode
+
+main: kit: entity: decode: {
+
+  alias: field: {}
+
+  fields: {
+    decode: {
+      h: "Decode"
+      n: "decode"
+      r: false
+      t: "`$OBJECT`"
+    }
+    encode: {
+      h: "Encode"
+      n: "encode"
+      r: false
+      t: "`$OBJECT`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: false
+      t: "`$STRING`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "decode"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /decode/{uuid}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: "b01eb720-171a-11ea-b949-73c91bba743d"
+                k: "param"
+                n: "id"
+                or: "uuid"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/decode/{uuid}"
+          q: {
+            exist: [
+              "id"
+            ]
+          }
+          r: {
+            param: {
+              uuid: "id"
+            }
+          }
+          s: [
+            {
+              lit: "decode"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.decode`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

@@ -24,32 +24,101 @@
         "repr": "auto"
       },
       "contributor": {},
+      "doc": {
+        "active": true,
+        "assets": {
+          "path": ".sdk/doc/assets"
+        },
+        "brand": {
+          "label": "",
+          "notice": "",
+          "shortNotice": "",
+          "url": ""
+        },
+        "ci": {
+          "active": true,
+          "branch": "main"
+        },
+        "content": {
+          "path": ".sdk/doc/content"
+        },
+        "edition": {
+          "summary": {
+            "active": true,
+            "base": "node_modules/@voxgig/docgen/project/.sdk",
+            "brand": {},
+            "filter": {
+              "entities": [],
+              "features": [],
+              "targets": []
+            },
+            "kind": "summary",
+            "name": "summary",
+            "origname": "",
+            "output": {
+              "path": "SUMMARY.md"
+            },
+            "package": "@voxgig/docgen",
+            "published": false,
+            "site": {
+              "active": true
+            },
+            "style": {},
+            "title": ""
+          }
+        },
+        "qa": {
+          "vocabulary": []
+        },
+        "style": {
+          "color": {
+            "accent": "#00c6d8",
+            "background": "#f5f5f9",
+            "darkBackground": "#0f1117",
+            "darkText": "#e6edf3",
+            "primary": "#e70042",
+            "text": "#0a0a0a"
+          },
+          "font": "Nunito, system-ui, sans-serif",
+          "fontFile": "",
+          "headingFont": "Nunito, system-ui, sans-serif",
+          "headingFontFile": "",
+          "logo": "",
+          "mode": "light",
+          "mono": "ui-monospace, monospace",
+          "monoFile": ""
+        },
+        "target": {}
+      },
       "entity": {
         "decode": {
           "active": true,
           "alias": {
             "field": {}
           },
-          "fields": [
-            {
-              "active": true,
-              "name": "decode",
-              "req": false,
-              "type": "`$OBJECT`"
+          "fields": {
+            "decode": {
+              "a": true,
+              "h": "Decode",
+              "n": "decode",
+              "r": false,
+              "t": "`$OBJECT`"
             },
-            {
-              "active": true,
-              "name": "encode",
-              "req": false,
-              "type": "`$OBJECT`"
+            "encode": {
+              "a": true,
+              "h": "Encode",
+              "n": "encode",
+              "r": false,
+              "t": "`$OBJECT`"
             },
-            {
-              "active": true,
-              "name": "id",
-              "req": false,
-              "type": "`$STRING`"
+            "id": {
+              "a": true,
+              "h": "Id",
+              "n": "id",
+              "r": false,
+              "t": "`$STRING`"
             }
-          ],
+          },
           "id": {
             "field": "id",
             "name": "id"
@@ -61,35 +130,39 @@
               "name": "load",
               "points": [
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /decode/{uuid}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "example": "b01eb720-171a-11ea-b949-73c91bba743d",
-                        "kind": "param",
-                        "name": "id",
-                        "orig": "uuid",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "ex": "b01eb720-171a-11ea-b949-73c91bba743d",
+                        "k": "param",
+                        "n": "id",
+                        "or": "uuid",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /decode/{uuid}",
-                    "json": "{\"operationId\":\"decodeUuid\",\"parameters\":[{\"description\":\"The UUID to decode\",\"in\":\"path\",\"name\":\"uuid\",\"required\":true,\"schema\":{\"example\":\"b01eb720-171a-11ea-b949-73c91bba743d\",\"format\":\"uuid\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"example\":{\"decode\":{\"content\":{\"clock\":\"14665 (usually random)\",\"node\":\"73:c9:1b:ba:74:3d (local multicast)\",\"time\":\"2019-12-05 04:49:57.961296.0 UTC\"},\"variant\":\"DCE 1.1, ISO/IEC 11578:1996\",\"version\":\"1 (time and node based)\"},\"encode\":{\"SIV\":\"234103610387309579079392911688732406845\",\"STR\":\"b01eb720-171a-11ea-b949-73c91bba743d\"}},\"properties\":{\"decode\":{\"properties\":{\"content\":{\"description\":\"Version-specific content (varies by UUID version)\",\"properties\":{\"clock\":{\"description\":\"Clock sequence (for version-1 UUIDs)\",\"type\":\"string\"},\"node\":{\"description\":\"Node identifier (for version-1 UUIDs)\",\"type\":\"string\"},\"time\":{\"description\":\"Timestamp (for version-1 UUIDs)\",\"type\":\"string\"}},\"type\":\"object\"},\"variant\":{\"description\":\"UUID variant\",\"type\":\"string\"},\"version\":{\"description\":\"UUID version and type\",\"type\":\"string\"}},\"type\":\"object\"},\"encode\":{\"properties\":{\"SIV\":{\"description\":\"UUID as a single integer value\",\"type\":\"string\"},\"STR\":{\"description\":\"UUID in string format\",\"format\":\"uuid\",\"type\":\"string\"}},\"type\":\"object\"}},\"type\":\"object\"}}},\"description\":\"Successfully decoded UUID\"},\"400\":{\"description\":\"Invalid UUID format\"},\"429\":{\"description\":\"Rate limit exceeded (60 requests per minute per IP)\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/decode/{uuid}",
+                  "q": {
+                    "exist": [
+                      "id"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/decode/{uuid}",
-                  "rename": {
+                  "r": {
                     "param": {
                       "uuid": "id"
                     }
                   },
-                  "segments": [
+                  "s": [
                     {
                       "lit": "decode"
                     },
@@ -97,12 +170,7 @@
                       "var": "id"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "id"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body.decode`"
                   }
@@ -119,7 +187,7 @@
           "alias": {
             "field": {}
           },
-          "fields": [],
+          "fields": {},
           "name": "timestamp_first",
           "op": {
             "list": {
@@ -127,18 +195,19 @@
               "name": "list",
               "points": [
                 {
-                  "active": true,
-                  "args": {},
-                  "contract": {
+                  "a": true,
+                  "co": {
                     "id": "GET /generate/timestamp-first",
-                    "json": "{\"operationId\":\"generateTimestampFirstSingle\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"items\":{\"format\":\"uuid\",\"type\":\"string\"},\"maxItems\":1,\"minItems\":1,\"type\":\"array\"}}},\"description\":\"Successfully generated UUID(s)\"},\"429\":{\"description\":\"Rate limit exceeded (60 requests per minute per IP)\"}},\"securitySource\":\"unspecified\"}",
                     "source": "openapi3",
-                    "version": 1
+                    "version": 2
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/generate/timestamp-first",
-                  "segments": [
+                  "g": {},
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/generate/timestamp-first",
+                  "q": {},
+                  "r": {},
+                  "s": [
                     {
                       "lit": "generate"
                     },
@@ -146,8 +215,7 @@
                       "lit": "timestamp-first"
                     }
                   ],
-                  "select": {},
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
@@ -159,30 +227,35 @@
               "name": "load",
               "points": [
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /generate/timestamp-first/count/{count}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "example": 10,
-                        "kind": "param",
-                        "name": "count",
-                        "orig": "count",
-                        "reqd": true,
-                        "type": "`$INTEGER`"
+                        "a": true,
+                        "ex": 10,
+                        "k": "param",
+                        "n": "count",
+                        "or": "count",
+                        "r": true,
+                        "t": "`$INTEGER`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /generate/timestamp-first/count/{count}",
-                    "json": "{\"operationId\":\"generateTimestampFirstMultiple\",\"parameters\":[{\"description\":\"Number of UUIDs to generate (1-100)\",\"in\":\"path\",\"name\":\"count\",\"required\":true,\"schema\":{\"example\":10,\"maximum\":100,\"minimum\":1,\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"items\":{\"format\":\"uuid\",\"type\":\"string\"},\"type\":\"array\"}}},\"description\":\"Successfully generated UUIDs\"},\"400\":{\"description\":\"Invalid count parameter\"},\"429\":{\"description\":\"Rate limit exceeded (60 requests per minute per IP)\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/generate/timestamp-first/count/{count}",
+                  "q": {
+                    "exist": [
+                      "count"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/generate/timestamp-first/count/{count}",
-                  "segments": [
+                  "r": {},
+                  "s": [
                     {
                       "lit": "generate"
                     },
@@ -196,12 +269,7 @@
                       "var": "count"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "count"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
@@ -210,11 +278,7 @@
             }
           },
           "relations": {
-            "ancestors": [
-              [
-                "count"
-              ]
-            ]
+            "ancestors": []
           }
         },
         "version_1": {
@@ -222,7 +286,7 @@
           "alias": {
             "field": {}
           },
-          "fields": [],
+          "fields": {},
           "name": "version_1",
           "op": {
             "list": {
@@ -230,18 +294,19 @@
               "name": "list",
               "points": [
                 {
-                  "active": true,
-                  "args": {},
-                  "contract": {
+                  "a": true,
+                  "co": {
                     "id": "GET /generate/v1",
-                    "json": "{\"operationId\":\"generateV1Single\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"items\":{\"example\":\"b01eb720-171a-11ea-b949-73c91bba743d\",\"format\":\"uuid\",\"type\":\"string\"},\"maxItems\":1,\"minItems\":1,\"type\":\"array\"}}},\"description\":\"Successfully generated UUID(s)\"},\"429\":{\"description\":\"Rate limit exceeded (60 requests per minute per IP)\"}},\"securitySource\":\"unspecified\"}",
                     "source": "openapi3",
-                    "version": 1
+                    "version": 2
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/generate/v1",
-                  "segments": [
+                  "g": {},
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/generate/v1",
+                  "q": {},
+                  "r": {},
+                  "s": [
                     {
                       "lit": "generate"
                     },
@@ -249,8 +314,7 @@
                       "lit": "v1"
                     }
                   ],
-                  "select": {},
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
@@ -262,30 +326,35 @@
               "name": "load",
               "points": [
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /generate/v1/count/{count}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "example": 10,
-                        "kind": "param",
-                        "name": "count",
-                        "orig": "count",
-                        "reqd": true,
-                        "type": "`$INTEGER`"
+                        "a": true,
+                        "ex": 10,
+                        "k": "param",
+                        "n": "count",
+                        "or": "count",
+                        "r": true,
+                        "t": "`$INTEGER`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /generate/v1/count/{count}",
-                    "json": "{\"operationId\":\"generateV1Multiple\",\"parameters\":[{\"description\":\"Number of UUIDs to generate (1-100)\",\"in\":\"path\",\"name\":\"count\",\"required\":true,\"schema\":{\"example\":10,\"maximum\":100,\"minimum\":1,\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"items\":{\"format\":\"uuid\",\"type\":\"string\"},\"type\":\"array\"}}},\"description\":\"Successfully generated UUIDs\"},\"400\":{\"description\":\"Invalid count parameter\"},\"429\":{\"description\":\"Rate limit exceeded (60 requests per minute per IP)\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/generate/v1/count/{count}",
+                  "q": {
+                    "exist": [
+                      "count"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/generate/v1/count/{count}",
-                  "segments": [
+                  "r": {},
+                  "s": [
                     {
                       "lit": "generate"
                     },
@@ -299,12 +368,7 @@
                       "var": "count"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "count"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
@@ -313,11 +377,7 @@
             }
           },
           "relations": {
-            "ancestors": [
-              [
-                "count"
-              ]
-            ]
+            "ancestors": []
           }
         },
         "version_3": {
@@ -325,7 +385,7 @@
           "alias": {
             "field": {}
           },
-          "fields": [],
+          "fields": {},
           "name": "version_3",
           "op": {
             "load": {
@@ -333,44 +393,49 @@
               "name": "load",
               "points": [
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /generate/v3/namespace/{namespace}/name/{name}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "example": "https://www.google.com/",
-                        "kind": "param",
-                        "name": "name",
-                        "orig": "name",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "ex": "https://www.google.com/",
+                        "k": "param",
+                        "n": "name",
+                        "or": "name",
+                        "r": true,
+                        "t": "`$STRING`"
                       },
                       {
-                        "active": true,
-                        "example": "ns:url",
-                        "kind": "param",
-                        "name": "namespace_id",
-                        "orig": "namespace",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "ex": "ns:url",
+                        "k": "param",
+                        "n": "namespace_id",
+                        "or": "namespace",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /generate/v3/namespace/{namespace}/name/{name}",
-                    "json": "{\"operationId\":\"generateV3\",\"parameters\":[{\"description\":\"Namespace identifier. Must be 'ns:url', 'ns:dns', 'ns:OID', 'ns:X500' or a properly formatted UUID.\",\"in\":\"path\",\"name\":\"namespace\",\"required\":true,\"schema\":{\"example\":\"ns:url\",\"type\":\"string\"}},{\"description\":\"Name string of any length. Can be base64 encoded by prefixing with 'base64:'.\",\"in\":\"path\",\"name\":\"name\",\"required\":true,\"schema\":{\"example\":\"https://www.google.com/\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"items\":{\"format\":\"uuid\",\"type\":\"string\"},\"maxItems\":1,\"minItems\":1,\"type\":\"array\"}}},\"description\":\"Successfully generated UUID\"},\"400\":{\"description\":\"Invalid namespace or name parameter\"},\"429\":{\"description\":\"Rate limit exceeded (60 requests per minute per IP)\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/generate/v3/namespace/{namespace}/name/{name}",
+                  "q": {
+                    "exist": [
+                      "name",
+                      "namespace_id"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/generate/v3/namespace/{namespace}/name/{name}",
-                  "rename": {
+                  "r": {
                     "param": {
                       "namespace": "namespace_id"
                     }
                   },
-                  "segments": [
+                  "s": [
                     {
                       "lit": "generate"
                     },
@@ -390,13 +455,7 @@
                       "var": "name"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "name",
-                      "namespace_id"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
@@ -405,12 +464,7 @@
             }
           },
           "relations": {
-            "ancestors": [
-              [
-                "namespace",
-                "name"
-              ]
-            ]
+            "ancestors": []
           }
         },
         "version_4": {
@@ -418,7 +472,7 @@
           "alias": {
             "field": {}
           },
-          "fields": [],
+          "fields": {},
           "name": "version_4",
           "op": {
             "list": {
@@ -426,18 +480,19 @@
               "name": "list",
               "points": [
                 {
-                  "active": true,
-                  "args": {},
-                  "contract": {
+                  "a": true,
+                  "co": {
                     "id": "GET /generate/v4",
-                    "json": "{\"operationId\":\"generateV4Single\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"items\":{\"format\":\"uuid\",\"type\":\"string\"},\"maxItems\":1,\"minItems\":1,\"type\":\"array\"}}},\"description\":\"Successfully generated UUID(s)\"},\"429\":{\"description\":\"Rate limit exceeded (60 requests per minute per IP)\"}},\"securitySource\":\"unspecified\"}",
                     "source": "openapi3",
-                    "version": 1
+                    "version": 2
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/generate/v4",
-                  "segments": [
+                  "g": {},
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/generate/v4",
+                  "q": {},
+                  "r": {},
+                  "s": [
                     {
                       "lit": "generate"
                     },
@@ -445,8 +500,7 @@
                       "lit": "v4"
                     }
                   ],
-                  "select": {},
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
@@ -458,30 +512,35 @@
               "name": "load",
               "points": [
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /generate/v4/count/{count}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "example": 10,
-                        "kind": "param",
-                        "name": "count",
-                        "orig": "count",
-                        "reqd": true,
-                        "type": "`$INTEGER`"
+                        "a": true,
+                        "ex": 10,
+                        "k": "param",
+                        "n": "count",
+                        "or": "count",
+                        "r": true,
+                        "t": "`$INTEGER`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /generate/v4/count/{count}",
-                    "json": "{\"operationId\":\"generateV4Multiple\",\"parameters\":[{\"description\":\"Number of UUIDs to generate (1-100)\",\"in\":\"path\",\"name\":\"count\",\"required\":true,\"schema\":{\"example\":10,\"maximum\":100,\"minimum\":1,\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"items\":{\"format\":\"uuid\",\"type\":\"string\"},\"type\":\"array\"}}},\"description\":\"Successfully generated UUIDs\"},\"400\":{\"description\":\"Invalid count parameter\"},\"429\":{\"description\":\"Rate limit exceeded (60 requests per minute per IP)\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/generate/v4/count/{count}",
+                  "q": {
+                    "exist": [
+                      "count"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/generate/v4/count/{count}",
-                  "segments": [
+                  "r": {},
+                  "s": [
                     {
                       "lit": "generate"
                     },
@@ -495,12 +554,7 @@
                       "var": "count"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "count"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
@@ -509,11 +563,7 @@
             }
           },
           "relations": {
-            "ancestors": [
-              [
-                "count"
-              ]
-            ]
+            "ancestors": []
           }
         },
         "version_5": {
@@ -521,7 +571,7 @@
           "alias": {
             "field": {}
           },
-          "fields": [],
+          "fields": {},
           "name": "version_5",
           "op": {
             "load": {
@@ -529,44 +579,49 @@
               "name": "load",
               "points": [
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /generate/v5/namespace/{namespace}/name/{name}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "example": "https://www.uuidtools.com/generate",
-                        "kind": "param",
-                        "name": "name",
-                        "orig": "name",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "ex": "https://www.uuidtools.com/generate",
+                        "k": "param",
+                        "n": "name",
+                        "or": "name",
+                        "r": true,
+                        "t": "`$STRING`"
                       },
                       {
-                        "active": true,
-                        "example": "ns:url",
-                        "kind": "param",
-                        "name": "namespace_id",
-                        "orig": "namespace",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "ex": "ns:url",
+                        "k": "param",
+                        "n": "namespace_id",
+                        "or": "namespace",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /generate/v5/namespace/{namespace}/name/{name}",
-                    "json": "{\"operationId\":\"generateV5\",\"parameters\":[{\"description\":\"Namespace identifier. Must be 'ns:url', 'ns:dns', 'ns:OID', 'ns:X500' or a properly formatted UUID.\",\"in\":\"path\",\"name\":\"namespace\",\"required\":true,\"schema\":{\"example\":\"ns:url\",\"type\":\"string\"}},{\"description\":\"Name string of any length. Can be base64 encoded by prefixing with 'base64:'.\",\"in\":\"path\",\"name\":\"name\",\"required\":true,\"schema\":{\"example\":\"https://www.uuidtools.com/generate\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"items\":{\"format\":\"uuid\",\"type\":\"string\"},\"maxItems\":1,\"minItems\":1,\"type\":\"array\"}}},\"description\":\"Successfully generated UUID\"},\"400\":{\"description\":\"Invalid namespace or name parameter\"},\"429\":{\"description\":\"Rate limit exceeded (60 requests per minute per IP)\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/generate/v5/namespace/{namespace}/name/{name}",
+                  "q": {
+                    "exist": [
+                      "name",
+                      "namespace_id"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/generate/v5/namespace/{namespace}/name/{name}",
-                  "rename": {
+                  "r": {
                     "param": {
                       "namespace": "namespace_id"
                     }
                   },
-                  "segments": [
+                  "s": [
                     {
                       "lit": "generate"
                     },
@@ -586,13 +641,7 @@
                       "var": "name"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "name",
-                      "namespace_id"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
@@ -601,12 +650,7 @@
             }
           },
           "relations": {
-            "ancestors": [
-              [
-                "namespace",
-                "name"
-              ]
-            ]
+            "ancestors": []
           }
         }
       },
@@ -1026,19 +1070,19 @@
           "param": {},
           "step": [
             {
-              "active": true,
-              "data": {},
-              "input": {
+              "a": true,
+              "d": {},
+              "i": {
                 "ref": "decode_ref01",
                 "srcdatavar": "decode_ref01_data",
                 "suffix": "_dt0"
               },
-              "match": {
+              "m": {
                 "id": "decode01"
               },
-              "op": "load",
-              "spec": [],
-              "valid": [
+              "o": "load",
+              "s": [],
+              "v": [
                 {
                   "apply": "TextFieldMark",
                   "def": {
@@ -1058,13 +1102,13 @@
           "param": {},
           "step": [
             {
-              "active": true,
-              "data": {},
-              "input": {},
-              "match": {},
-              "op": "list",
-              "spec": [],
-              "valid": [
+              "a": true,
+              "d": {},
+              "i": {},
+              "m": {},
+              "o": "list",
+              "s": [],
+              "v": [
                 {
                   "apply": "ItemExists",
                   "def": {
@@ -1074,19 +1118,19 @@
               ]
             },
             {
-              "active": true,
-              "data": {},
-              "input": {
+              "a": true,
+              "d": {},
+              "i": {
                 "ref": "timestamp_first_ref01",
                 "srcdatavar": "timestamp_first_ref01_data",
                 "suffix": "_dt0"
               },
-              "match": {
+              "m": {
                 "id": "timestamp_first01"
               },
-              "op": "load",
-              "spec": [],
-              "valid": [
+              "o": "load",
+              "s": [],
+              "v": [
                 {
                   "apply": "TextFieldMark",
                   "def": {
@@ -1106,13 +1150,13 @@
           "param": {},
           "step": [
             {
-              "active": true,
-              "data": {},
-              "input": {},
-              "match": {},
-              "op": "list",
-              "spec": [],
-              "valid": [
+              "a": true,
+              "d": {},
+              "i": {},
+              "m": {},
+              "o": "list",
+              "s": [],
+              "v": [
                 {
                   "apply": "ItemExists",
                   "def": {
@@ -1122,19 +1166,19 @@
               ]
             },
             {
-              "active": true,
-              "data": {},
-              "input": {
+              "a": true,
+              "d": {},
+              "i": {
                 "ref": "version_1_ref01",
                 "srcdatavar": "version_1_ref01_data",
                 "suffix": "_dt0"
               },
-              "match": {
+              "m": {
                 "id": "version_101"
               },
-              "op": "load",
-              "spec": [],
-              "valid": [
+              "o": "load",
+              "s": [],
+              "v": [
                 {
                   "apply": "TextFieldMark",
                   "def": {
@@ -1154,20 +1198,20 @@
           "param": {},
           "step": [
             {
-              "active": true,
-              "data": {},
-              "input": {
+              "a": true,
+              "d": {},
+              "i": {
                 "ref": "version_3_ref01",
                 "srcdatavar": "version_3_ref01_data",
                 "suffix": "_dt0"
               },
-              "match": {
+              "m": {
                 "id": "version_301",
                 "namespace_id": "namespace01"
               },
-              "op": "load",
-              "spec": [],
-              "valid": [
+              "o": "load",
+              "s": [],
+              "v": [
                 {
                   "apply": "TextFieldMark",
                   "def": {
@@ -1187,13 +1231,13 @@
           "param": {},
           "step": [
             {
-              "active": true,
-              "data": {},
-              "input": {},
-              "match": {},
-              "op": "list",
-              "spec": [],
-              "valid": [
+              "a": true,
+              "d": {},
+              "i": {},
+              "m": {},
+              "o": "list",
+              "s": [],
+              "v": [
                 {
                   "apply": "ItemExists",
                   "def": {
@@ -1203,19 +1247,19 @@
               ]
             },
             {
-              "active": true,
-              "data": {},
-              "input": {
+              "a": true,
+              "d": {},
+              "i": {
                 "ref": "version_4_ref01",
                 "srcdatavar": "version_4_ref01_data",
                 "suffix": "_dt0"
               },
-              "match": {
+              "m": {
                 "id": "version_401"
               },
-              "op": "load",
-              "spec": [],
-              "valid": [
+              "o": "load",
+              "s": [],
+              "v": [
                 {
                   "apply": "TextFieldMark",
                   "def": {
@@ -1235,20 +1279,20 @@
           "param": {},
           "step": [
             {
-              "active": true,
-              "data": {},
-              "input": {
+              "a": true,
+              "d": {},
+              "i": {
                 "ref": "version_5_ref01",
                 "srcdatavar": "version_5_ref01_data",
                 "suffix": "_dt0"
               },
-              "match": {
+              "m": {
                 "id": "version_501",
                 "namespace_id": "namespace01"
               },
-              "op": "load",
-              "spec": [],
-              "valid": [
+              "o": "load",
+              "s": [],
+              "v": [
                 {
                   "apply": "TextFieldMark",
                   "def": {

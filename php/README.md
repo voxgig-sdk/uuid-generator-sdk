@@ -31,15 +31,13 @@ require_once 'uuidgenerator_sdk.php';
 $client = new UuidGeneratorSDK();
 ```
 
-### 3. Load a timestampfirst
-
-TimestampFirst is nested under count, so provide the `count`.
+### 3. Load a decode
 
 ```php
 try {
-    // load() returns the ENTITY — call data_get() for the TimestampFirst record (throws on error).
-    $timestampfirst = $client->TimestampFirst()->load(["count" => 1]);
-    print_r($timestampfirst->data_get());
+    // load() returns the ENTITY — call data_get() for the Decode record (throws on error).
+    $decode = $client->Decode()->load(["id" => "example_id"]);
+    print_r($decode->data_get());
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }

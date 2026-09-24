@@ -33,17 +33,14 @@ import { UuidGeneratorSDK } from '@voxgig-sdk/uuid-generator-sdk'
 const client = new UuidGeneratorSDK()
 ```
 
-### 3. Load a timestampfirst
+### 3. Load a decode
 
-TimestampFirst is nested under count, so provide the `count`.
 `load()` returns the entity directly and throws on failure:
 
 ```ts
 try {
-  const timestampfirst = await client.TimestampFirst().load({
-    count: 1,
-  })
-  console.log(timestampfirst)
+  const decode = await client.Decode().load({ id: 'example_id' })
+  console.log(decode)
 } catch (err) {
   console.error('load failed:', err)
 }

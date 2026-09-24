@@ -115,7 +115,7 @@ function version_1_basic_setup($extra)
 
     // Generate idmap.
     $idmap = [];
-    foreach (["version_101", "version_102", "version_103", "count01", "count02", "count03"] as $k) {
+    foreach (["version_101", "version_102", "version_103"] as $k) {
         $idmap[$k] = strtoupper($k);
     }
 

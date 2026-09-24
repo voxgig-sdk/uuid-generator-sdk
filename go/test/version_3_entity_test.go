@@ -98,7 +98,7 @@ func version_3BasicSetup(extra map[string]any) *entityTestSetup {
 
 	// Generate idmap via transform, matching TS pattern.
 	idmap, _ := vs.Transform(
-		[]any{"version_301", "version_302", "version_303", "namespace01", "namespace02", "namespace03", "name01", "name02", "name03"},
+		[]any{"version_301", "version_302", "version_303", "namespace01"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
 				"`$KEY`": "`$COPY`",

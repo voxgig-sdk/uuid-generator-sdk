@@ -36,15 +36,14 @@ from uuidgenerator_sdk import UuidGeneratorSDK
 client = UuidGeneratorSDK()
 ```
 
-### 3. Load a timestampfirst
+### 3. Load a decode
 
-TimestampFirst is nested under count, so provide the `count`.
 `load()` returns the ENTITY — call data_get() for the record — and raises on error.
 
 ```python
 try:
-    timestampfirst = client.TimestampFirst().load({"count": 1})
-    print(timestampfirst)
+    decode = client.Decode().load({"id": "example_id"})
+    print(decode)
 except Exception as err:
     print(f"load failed: {err}")
 ```

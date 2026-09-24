@@ -158,7 +158,7 @@ func timestamp_firstBasicSetup(extra map[string]any) *entityTestSetup {
 
 	// Generate idmap via transform, matching TS pattern.
 	idmap, _ := vs.Transform(
-		[]any{"timestamp_first01", "timestamp_first02", "timestamp_first03", "count01", "count02", "count03"},
+		[]any{"timestamp_first01", "timestamp_first02", "timestamp_first03"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
 				"`$KEY`": "`$COPY`",

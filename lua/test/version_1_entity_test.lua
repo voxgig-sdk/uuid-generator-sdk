@@ -120,7 +120,7 @@ function version_1_basic_setup(extra)
 
   -- Generate idmap via transform.
   local idmap = vs.transform(
-    { "version_101", "version_102", "version_103", "count01", "count02", "count03" },
+    { "version_101", "version_102", "version_103" },
     {
       ["`$PACK`"] = { "", {
         ["`$KEY`"] = "`$COPY`",

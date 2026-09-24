@@ -96,14 +96,17 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "decode",
+						"title": "Decode",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "encode",
+						"title": "Encode",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "id",
+						"title": "Id",
 						"type": "`$STRING`",
 					},
 				},
@@ -118,26 +121,9 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": "b01eb720-171a-11ea-b949-73c91bba743d",
-											"kind": "param",
-											"name": "id",
-											"orig": "uuid",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/decode/{uuid}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"uuid": "id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "decode",
@@ -146,18 +132,35 @@ func MakeConfig() map[string]any {
 										"var": "id",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"id",
+								"parts": []any{
+									"decode",
+									"{id}",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"uuid": "id",
 									},
 								},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body.decode`",
 								},
-								"parts": []any{
-									"decode",
-									"{id}",
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "id",
+											"orig": "uuid",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": "b01eb720-171a-11ea-b949-73c91bba743d",
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"id",
+									},
 								},
 							},
 						},
@@ -176,7 +179,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/generate/timestamp-first",
@@ -188,15 +190,17 @@ func MakeConfig() map[string]any {
 										"lit": "timestamp-first",
 									},
 								},
-								"select": map[string]any{},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"generate",
 									"timestamp-first",
 								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -205,18 +209,6 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": 10,
-											"kind": "param",
-											"name": "count",
-											"orig": "count",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/generate/timestamp-first/count/{count}",
@@ -234,31 +226,40 @@ func MakeConfig() map[string]any {
 										"var": "count",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"count",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"generate",
 									"timestamp-first",
 									"count",
 									"{count}",
 								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "count",
+											"orig": "count",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+											"example": 10,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"count",
+									},
+								},
 							},
 						},
 					},
 				},
 				"relations": map[string]any{
-					"ancestors": []any{
-						[]any{
-							"count",
-						},
-					},
+					"ancestors": []any{},
 				},
 			},
 			"version_1": map[string]any{
@@ -270,7 +271,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/generate/v1",
@@ -282,15 +282,17 @@ func MakeConfig() map[string]any {
 										"lit": "v1",
 									},
 								},
-								"select": map[string]any{},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"generate",
 									"v1",
 								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -299,18 +301,6 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": 10,
-											"kind": "param",
-											"name": "count",
-											"orig": "count",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/generate/v1/count/{count}",
@@ -328,31 +318,40 @@ func MakeConfig() map[string]any {
 										"var": "count",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"count",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"generate",
 									"v1",
 									"count",
 									"{count}",
 								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "count",
+											"orig": "count",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+											"example": 10,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"count",
+									},
+								},
 							},
 						},
 					},
 				},
 				"relations": map[string]any{
-					"ancestors": []any{
-						[]any{
-							"count",
-						},
-					},
+					"ancestors": []any{},
 				},
 			},
 			"version_3": map[string]any{
@@ -364,34 +363,9 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": "https://www.google.com/",
-											"kind": "param",
-											"name": "name",
-											"orig": "name",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": "ns:url",
-											"kind": "param",
-											"name": "namespace_id",
-											"orig": "namespace",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/generate/v3/namespace/{namespace}/name/{name}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"namespace": "namespace_id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "generate",
@@ -412,16 +386,6 @@ func MakeConfig() map[string]any {
 										"var": "name",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"name",
-										"namespace_id",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"generate",
 									"v3",
@@ -430,17 +394,47 @@ func MakeConfig() map[string]any {
 									"name",
 									"{name}",
 								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"namespace": "namespace_id",
+									},
+								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "name",
+											"orig": "name",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": "https://www.google.com/",
+										},
+										map[string]any{
+											"name": "namespace_id",
+											"orig": "namespace",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": "ns:url",
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"name",
+										"namespace_id",
+									},
+								},
 							},
 						},
 					},
 				},
 				"relations": map[string]any{
-					"ancestors": []any{
-						[]any{
-							"namespace",
-							"name",
-						},
-					},
+					"ancestors": []any{},
 				},
 			},
 			"version_4": map[string]any{
@@ -452,7 +446,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/generate/v4",
@@ -464,15 +457,17 @@ func MakeConfig() map[string]any {
 										"lit": "v4",
 									},
 								},
-								"select": map[string]any{},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"generate",
 									"v4",
 								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -481,18 +476,6 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": 10,
-											"kind": "param",
-											"name": "count",
-											"orig": "count",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/generate/v4/count/{count}",
@@ -510,31 +493,40 @@ func MakeConfig() map[string]any {
 										"var": "count",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"count",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"generate",
 									"v4",
 									"count",
 									"{count}",
 								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "count",
+											"orig": "count",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+											"example": 10,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"count",
+									},
+								},
 							},
 						},
 					},
 				},
 				"relations": map[string]any{
-					"ancestors": []any{
-						[]any{
-							"count",
-						},
-					},
+					"ancestors": []any{},
 				},
 			},
 			"version_5": map[string]any{
@@ -546,34 +538,9 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": "https://www.uuidtools.com/generate",
-											"kind": "param",
-											"name": "name",
-											"orig": "name",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": "ns:url",
-											"kind": "param",
-											"name": "namespace_id",
-											"orig": "namespace",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/generate/v5/namespace/{namespace}/name/{name}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"namespace": "namespace_id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "generate",
@@ -594,16 +561,6 @@ func MakeConfig() map[string]any {
 										"var": "name",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"name",
-										"namespace_id",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"generate",
 									"v5",
@@ -612,17 +569,47 @@ func MakeConfig() map[string]any {
 									"name",
 									"{name}",
 								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"namespace": "namespace_id",
+									},
+								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "name",
+											"orig": "name",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": "https://www.uuidtools.com/generate",
+										},
+										map[string]any{
+											"name": "namespace_id",
+											"orig": "namespace",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": "ns:url",
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"name",
+										"namespace_id",
+									},
+								},
 							},
 						},
 					},
 				},
 				"relations": map[string]any{
-					"ancestors": []any{
-						[]any{
-							"namespace",
-							"name",
-						},
-					},
+					"ancestors": []any{},
 				},
 			},
 		},

@@ -118,14 +118,17 @@ class UuidGeneratorConfig
           'fields' => [
             [
               'name' => 'decode',
+              'title' => 'Decode',
               'type' => '`$OBJECT`',
             ],
             [
               'name' => 'encode',
+              'title' => 'Encode',
               'type' => '`$OBJECT`',
             ],
             [
               'name' => 'id',
+              'title' => 'Id',
               'type' => '`$STRING`',
             ],
           ],
@@ -140,26 +143,9 @@ class UuidGeneratorConfig
               'name' => 'load',
               'points' => [
                 [
-                  'args' => [
-                    'params' => [
-                      [
-                        'example' => 'b01eb720-171a-11ea-b949-73c91bba743d',
-                        'kind' => 'param',
-                        'name' => 'id',
-                        'orig' => 'uuid',
-                        'reqd' => true,
-                        'type' => '`$STRING`',
-                      ],
-                    ],
-                  ],
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/decode/{uuid}',
-                  'rename' => [
-                    'param' => [
-                      'uuid' => 'id',
-                    ],
-                  ],
                   'segments' => [
                     [
                       'lit' => 'decode',
@@ -168,18 +154,35 @@ class UuidGeneratorConfig
                       'var' => 'id',
                     ],
                   ],
-                  'select' => [
-                    'exist' => [
-                      'id',
+                  'parts' => [
+                    'decode',
+                    '{id}',
+                  ],
+                  'rename' => [
+                    'param' => [
+                      'uuid' => 'id',
                     ],
                   ],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.decode`',
                   ],
-                  'parts' => [
-                    'decode',
-                    '{id}',
+                  'args' => [
+                    'params' => [
+                      [
+                        'name' => 'id',
+                        'orig' => 'uuid',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                        'example' => 'b01eb720-171a-11ea-b949-73c91bba743d',
+                      ],
+                    ],
+                  ],
+                  'select' => [
+                    'exist' => [
+                      'id',
+                    ],
                   ],
                 ],
               ],
@@ -198,7 +201,6 @@ class UuidGeneratorConfig
               'name' => 'list',
               'points' => [
                 [
-                  'args' => [],
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/generate/timestamp-first',
@@ -210,15 +212,17 @@ class UuidGeneratorConfig
                       'lit' => 'timestamp-first',
                     ],
                   ],
-                  'select' => [],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
-                  ],
                   'parts' => [
                     'generate',
                     'timestamp-first',
                   ],
+                  'rename' => [],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body`',
+                  ],
+                  'args' => [],
+                  'select' => [],
                 ],
               ],
             ],
@@ -227,18 +231,6 @@ class UuidGeneratorConfig
               'name' => 'load',
               'points' => [
                 [
-                  'args' => [
-                    'params' => [
-                      [
-                        'example' => 10,
-                        'kind' => 'param',
-                        'name' => 'count',
-                        'orig' => 'count',
-                        'reqd' => true,
-                        'type' => '`$INTEGER`',
-                      ],
-                    ],
-                  ],
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/generate/timestamp-first/count/{count}',
@@ -256,31 +248,40 @@ class UuidGeneratorConfig
                       'var' => 'count',
                     ],
                   ],
-                  'select' => [
-                    'exist' => [
-                      'count',
-                    ],
-                  ],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
-                  ],
                   'parts' => [
                     'generate',
                     'timestamp-first',
                     'count',
                     '{count}',
                   ],
+                  'rename' => [],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body`',
+                  ],
+                  'args' => [
+                    'params' => [
+                      [
+                        'name' => 'count',
+                        'orig' => 'count',
+                        'type' => '`$INTEGER`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                        'example' => 10,
+                      ],
+                    ],
+                  ],
+                  'select' => [
+                    'exist' => [
+                      'count',
+                    ],
+                  ],
                 ],
               ],
             ],
           ],
           'relations' => [
-            'ancestors' => [
-              [
-                'count',
-              ],
-            ],
+            'ancestors' => [],
           ],
         ],
         'version_1' => [
@@ -292,7 +293,6 @@ class UuidGeneratorConfig
               'name' => 'list',
               'points' => [
                 [
-                  'args' => [],
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/generate/v1',
@@ -304,15 +304,17 @@ class UuidGeneratorConfig
                       'lit' => 'v1',
                     ],
                   ],
-                  'select' => [],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
-                  ],
                   'parts' => [
                     'generate',
                     'v1',
                   ],
+                  'rename' => [],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body`',
+                  ],
+                  'args' => [],
+                  'select' => [],
                 ],
               ],
             ],
@@ -321,18 +323,6 @@ class UuidGeneratorConfig
               'name' => 'load',
               'points' => [
                 [
-                  'args' => [
-                    'params' => [
-                      [
-                        'example' => 10,
-                        'kind' => 'param',
-                        'name' => 'count',
-                        'orig' => 'count',
-                        'reqd' => true,
-                        'type' => '`$INTEGER`',
-                      ],
-                    ],
-                  ],
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/generate/v1/count/{count}',
@@ -350,31 +340,40 @@ class UuidGeneratorConfig
                       'var' => 'count',
                     ],
                   ],
-                  'select' => [
-                    'exist' => [
-                      'count',
-                    ],
-                  ],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
-                  ],
                   'parts' => [
                     'generate',
                     'v1',
                     'count',
                     '{count}',
                   ],
+                  'rename' => [],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body`',
+                  ],
+                  'args' => [
+                    'params' => [
+                      [
+                        'name' => 'count',
+                        'orig' => 'count',
+                        'type' => '`$INTEGER`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                        'example' => 10,
+                      ],
+                    ],
+                  ],
+                  'select' => [
+                    'exist' => [
+                      'count',
+                    ],
+                  ],
                 ],
               ],
             ],
           ],
           'relations' => [
-            'ancestors' => [
-              [
-                'count',
-              ],
-            ],
+            'ancestors' => [],
           ],
         ],
         'version_3' => [
@@ -386,34 +385,9 @@ class UuidGeneratorConfig
               'name' => 'load',
               'points' => [
                 [
-                  'args' => [
-                    'params' => [
-                      [
-                        'example' => 'https://www.google.com/',
-                        'kind' => 'param',
-                        'name' => 'name',
-                        'orig' => 'name',
-                        'reqd' => true,
-                        'type' => '`$STRING`',
-                      ],
-                      [
-                        'example' => 'ns:url',
-                        'kind' => 'param',
-                        'name' => 'namespace_id',
-                        'orig' => 'namespace',
-                        'reqd' => true,
-                        'type' => '`$STRING`',
-                      ],
-                    ],
-                  ],
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/generate/v3/namespace/{namespace}/name/{name}',
-                  'rename' => [
-                    'param' => [
-                      'namespace' => 'namespace_id',
-                    ],
-                  ],
                   'segments' => [
                     [
                       'lit' => 'generate',
@@ -434,16 +408,6 @@ class UuidGeneratorConfig
                       'var' => 'name',
                     ],
                   ],
-                  'select' => [
-                    'exist' => [
-                      'name',
-                      'namespace_id',
-                    ],
-                  ],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
-                  ],
                   'parts' => [
                     'generate',
                     'v3',
@@ -452,17 +416,47 @@ class UuidGeneratorConfig
                     'name',
                     '{name}',
                   ],
+                  'rename' => [
+                    'param' => [
+                      'namespace' => 'namespace_id',
+                    ],
+                  ],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body`',
+                  ],
+                  'args' => [
+                    'params' => [
+                      [
+                        'name' => 'name',
+                        'orig' => 'name',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                        'example' => 'https://www.google.com/',
+                      ],
+                      [
+                        'name' => 'namespace_id',
+                        'orig' => 'namespace',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                        'example' => 'ns:url',
+                      ],
+                    ],
+                  ],
+                  'select' => [
+                    'exist' => [
+                      'name',
+                      'namespace_id',
+                    ],
+                  ],
                 ],
               ],
             ],
           ],
           'relations' => [
-            'ancestors' => [
-              [
-                'namespace',
-                'name',
-              ],
-            ],
+            'ancestors' => [],
           ],
         ],
         'version_4' => [
@@ -474,7 +468,6 @@ class UuidGeneratorConfig
               'name' => 'list',
               'points' => [
                 [
-                  'args' => [],
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/generate/v4',
@@ -486,15 +479,17 @@ class UuidGeneratorConfig
                       'lit' => 'v4',
                     ],
                   ],
-                  'select' => [],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
-                  ],
                   'parts' => [
                     'generate',
                     'v4',
                   ],
+                  'rename' => [],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body`',
+                  ],
+                  'args' => [],
+                  'select' => [],
                 ],
               ],
             ],
@@ -503,18 +498,6 @@ class UuidGeneratorConfig
               'name' => 'load',
               'points' => [
                 [
-                  'args' => [
-                    'params' => [
-                      [
-                        'example' => 10,
-                        'kind' => 'param',
-                        'name' => 'count',
-                        'orig' => 'count',
-                        'reqd' => true,
-                        'type' => '`$INTEGER`',
-                      ],
-                    ],
-                  ],
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/generate/v4/count/{count}',
@@ -532,31 +515,40 @@ class UuidGeneratorConfig
                       'var' => 'count',
                     ],
                   ],
-                  'select' => [
-                    'exist' => [
-                      'count',
-                    ],
-                  ],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
-                  ],
                   'parts' => [
                     'generate',
                     'v4',
                     'count',
                     '{count}',
                   ],
+                  'rename' => [],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body`',
+                  ],
+                  'args' => [
+                    'params' => [
+                      [
+                        'name' => 'count',
+                        'orig' => 'count',
+                        'type' => '`$INTEGER`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                        'example' => 10,
+                      ],
+                    ],
+                  ],
+                  'select' => [
+                    'exist' => [
+                      'count',
+                    ],
+                  ],
                 ],
               ],
             ],
           ],
           'relations' => [
-            'ancestors' => [
-              [
-                'count',
-              ],
-            ],
+            'ancestors' => [],
           ],
         ],
         'version_5' => [
@@ -568,34 +560,9 @@ class UuidGeneratorConfig
               'name' => 'load',
               'points' => [
                 [
-                  'args' => [
-                    'params' => [
-                      [
-                        'example' => 'https://www.uuidtools.com/generate',
-                        'kind' => 'param',
-                        'name' => 'name',
-                        'orig' => 'name',
-                        'reqd' => true,
-                        'type' => '`$STRING`',
-                      ],
-                      [
-                        'example' => 'ns:url',
-                        'kind' => 'param',
-                        'name' => 'namespace_id',
-                        'orig' => 'namespace',
-                        'reqd' => true,
-                        'type' => '`$STRING`',
-                      ],
-                    ],
-                  ],
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/generate/v5/namespace/{namespace}/name/{name}',
-                  'rename' => [
-                    'param' => [
-                      'namespace' => 'namespace_id',
-                    ],
-                  ],
                   'segments' => [
                     [
                       'lit' => 'generate',
@@ -616,16 +583,6 @@ class UuidGeneratorConfig
                       'var' => 'name',
                     ],
                   ],
-                  'select' => [
-                    'exist' => [
-                      'name',
-                      'namespace_id',
-                    ],
-                  ],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
-                  ],
                   'parts' => [
                     'generate',
                     'v5',
@@ -634,17 +591,47 @@ class UuidGeneratorConfig
                     'name',
                     '{name}',
                   ],
+                  'rename' => [
+                    'param' => [
+                      'namespace' => 'namespace_id',
+                    ],
+                  ],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body`',
+                  ],
+                  'args' => [
+                    'params' => [
+                      [
+                        'name' => 'name',
+                        'orig' => 'name',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                        'example' => 'https://www.uuidtools.com/generate',
+                      ],
+                      [
+                        'name' => 'namespace_id',
+                        'orig' => 'namespace',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                        'example' => 'ns:url',
+                      ],
+                    ],
+                  ],
+                  'select' => [
+                    'exist' => [
+                      'name',
+                      'namespace_id',
+                    ],
+                  ],
                 ],
               ],
             ],
           ],
           'relations' => [
-            'ancestors' => [
-              [
-                'namespace',
-                'name',
-              ],
-            ],
+            'ancestors' => [],
           ],
         ],
       ],
