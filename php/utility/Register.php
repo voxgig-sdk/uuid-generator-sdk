@@ -37,6 +37,8 @@ require_once __DIR__ . '/TransformResponse.php';
 
 UuidGeneratorUtility::setRegistrar(function (UuidGeneratorUtility $u): void {
     $u->clean = [UuidGeneratorClean::class, 'call'];
+    $u->clean_add = [UuidGeneratorClean::class, 'add'];
+    $u->clean_explain = [UuidGeneratorDone::class, 'clean_explain'];
     $u->done = [UuidGeneratorDone::class, 'call'];
     $u->make_error = [UuidGeneratorMakeError::class, 'call'];
     $u->feature_add = [UuidGeneratorFeatureAdd::class, 'call'];

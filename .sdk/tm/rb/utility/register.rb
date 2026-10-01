@@ -33,6 +33,8 @@ require_relative 'transform_response'
 
 UuidGeneratorUtility.registrar = ->(u) {
   u.clean = UuidGeneratorUtilities::Clean
+  u.clean_add = UuidGeneratorUtilities::CleanAdd
+  u.clean_explain = UuidGeneratorUtilities::CleanExplain
   u.done = UuidGeneratorUtilities::Done
   u.make_error = UuidGeneratorUtilities::MakeError
   u.feature_add = UuidGeneratorUtilities::FeatureAdd
