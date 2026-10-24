@@ -65,6 +65,10 @@ main: kit: entity: decode: {
               uuid: "id"
             }
           }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "decode"

@@ -9,7 +9,7 @@ import { createLiveTransport } from '../../live-runner'
 import { runLiveEntity } from '../../live-entity'
 
 
-import { UuidGeneratorSDK, BaseFeature, stdutil } from '../../..'
+import { UuidGeneratorSDK, BaseFeature, config, stdutil } from '../../..'
 
 import {
   envOverride,
@@ -41,17 +41,29 @@ describe('Version3Entity', async () => {
   })
 
 
+  test('validate', async (t) => {
+    if (null == (config as any).feature?.validate) {
+      t.skip('feature not present in this SDK: validate')
+      return
+    }
+    const client = UuidGeneratorSDK.test(undefined, { feature: { validate: { active: true } } })
+    await assert.rejects(client.Version3().load({"name":1,"namespace_id":"x"} as any),
+      (err: any) => 'validate_failed' === err.code)
+  })
+
+
+
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.UUID_GENERATOR_TEST_LIVE
-    for (const op of ['load']) {
+    for (const op of []) {
       if (!live && maybeSkipControl(t, 'entityOp', 'version_3.' + op, live)) return
     }
 
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{},"name":"version_3","op":{"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /generate/v3/namespace/{namespace}/name/{name}","source":"openapi3","version":2},"g":{"params":[{"a":true,"ex":"https://www.google.com/","k":"param","n":"name","or":"name","r":true,"t":"`$STRING`","index$":0},{"a":true,"ex":"ns:url","k":"param","n":"namespace_id","or":"namespace","r":true,"t":"`$STRING`","index$":1}]},"k":"http","m":"GET","o":"/generate/v3/namespace/{namespace}/name/{name}","q":{"exist":["name","namespace_id"]},"r":{"param":{"namespace":"namespace_id"}},"s":[{"lit":"generate"},{"lit":"v3"},{"lit":"namespace"},{"var":"namespace_id"},{"lit":"name"},{"var":"name"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"version_3","name__orig":"version_3","Name":"Version3","name_":"version_3","name-":"version-3","NAME":"VERSION_3","index$":3}, {"active":true,"entity":"version_3","key$":"BasicVersion3Flow","kind":"basic","name":"BasicVersion3Flow","param":{},"step":[{"a":true,"d":{},"i":{"ref":"version_3_ref01","srcdatavar":"version_3_ref01_data","suffix":"_dt0"},"m":{"id":"version_301","namespace_id":"namespace01"},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-version_3_ref01"}}],"index$":0}]}, 'Version3', {"GET /generate/v3/namespace/{namespace}/name/{name}":{"protocol":"http","parameters":[{"name":"namespace","in":"path","required":true,"description":"Namespace identifier. Must be 'ns:url', 'ns:dns', 'ns:OID', 'ns:X500' or a properly formatted UUID.","schema":{"type":"string","example":"ns:url"},"index$":0},{"name":"name","in":"path","required":true,"description":"Name string of any length. Can be base64 encoded by prefixing with 'base64:'.","schema":{"type":"string","example":"https://www.google.com/"},"index$":1}]}})
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{},"name":"version_3","op":{"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /generate/v3/namespace/{namespace}/name/{name}","source":"openapi3","version":2},"g":{"params":[{"a":true,"ex":"https://www.google.com/","k":"param","n":"name","or":"name","r":true,"t":"`$STRING`","index$":0},{"a":true,"ex":"ns:url","k":"param","n":"namespace_id","or":"namespace","r":true,"t":"`$STRING`","index$":1}]},"k":"http","m":"GET","o":"/generate/v3/namespace/{namespace}/name/{name}","q":{"exist":["name","namespace_id"]},"r":{"param":{"namespace":"namespace_id"}},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"generate"},{"lit":"v3"},{"lit":"namespace"},{"var":"namespace_id"},{"lit":"name"},{"var":"name"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"version_3","name__orig":"version_3","Name":"Version3","name_":"version_3","name-":"version-3","NAME":"VERSION_3","index$":3}, {"active":true,"entity":"version_3","key$":"BasicVersion3Flow","kind":"basic","name":"BasicVersion3Flow","param":{},"step":[{"a":false,"d":{},"i":{"ref":"version_3_ref01","srcdatavar":"version_3_ref01_data","suffix":"_dt0"},"m":{"id":"version_301","namespace_id":"namespace01"},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-version_3_ref01"}}],"unreachable":true}]}, 'Version3', {"GET /generate/v3/namespace/{namespace}/name/{name}":{"protocol":"http","parameters":[{"name":"namespace","in":"path","required":true,"description":"Namespace identifier. Must be 'ns:url', 'ns:dns', 'ns:OID', 'ns:X500' or a properly formatted UUID.","schema":{"type":"string","example":"ns:url"},"index$":0},{"name":"name","in":"path","required":true,"description":"Name string of any length. Can be base64 encoded by prefixing with 'base64:'.","schema":{"type":"string","example":"https://www.google.com/"},"index$":1}]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -61,15 +73,16 @@ describe('Version3Entity', async () => {
 
     let version_3_ref01_data = Object.values(setup.data.existing.version_3)[0] as any
 
-    // LOAD: skipped — no entity id field and load requires path params.
-    // Entity-var is declared here so later flow steps still compile.
-    const version_3_ref01_ent = client.Version3()
-
-
   })
 })
 
 
+
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true
 
 function basicSetup(extra?: any) {
   // TODO: fix test def options
@@ -94,7 +107,7 @@ function basicSetup(extra?: any) {
   const transform = struct.transform
 
   let idmap = transform(
-    ['version_301','version_302','version_303','namespace01'],
+    ['version_301','version_302','version_303'],
     {
       '`$PACK`': ['', {
         '`$KEY`': '`$COPY`',

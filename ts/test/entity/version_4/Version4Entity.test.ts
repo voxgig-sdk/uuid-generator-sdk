@@ -9,7 +9,7 @@ import { createLiveTransport } from '../../live-runner'
 import { runLiveEntity } from '../../live-entity'
 
 
-import { UuidGeneratorSDK, BaseFeature, stdutil } from '../../..'
+import { UuidGeneratorSDK, BaseFeature, config, stdutil } from '../../..'
 
 import {
   envOverride,
@@ -41,17 +41,75 @@ describe('Version4Entity', async () => {
   })
 
 
+  class FailHook extends BaseFeature {
+    name = 'failhook'
+    version = '0.0.1'
+    active = true
+    unexpected = 0
+    init() { }
+    PreSpec() { throw new Error('version_4 hook failed') }
+    PreUnexpected() { this.unexpected++ }
+  }
+
+  test('stream-error', async () => {
+    const offline = { net: { offline: true } }
+    await assert.rejects(async () => {
+      for await (const _item of UuidGeneratorSDK.test(offline).Version4().stream('list')) { }
+    }, /offline/)
+
+    for await (const _item of UuidGeneratorSDK.test(offline).Version4()
+      .stream('list', undefined, { ctrl: { throw: false } })) { }
+
+    if (null != (config as any).feature?.rbac) {
+      const denied = UuidGeneratorSDK.test(undefined, { feature: { rbac: { active: true, deny: true } } })
+      await assert.rejects(async () => {
+        for await (const _item of denied.Version4().stream('list')) { }
+      }, (err: any) => 'rbac_denied' === err.code)
+    }
+  })
+
+  test('stream-ctrl', async () => {
+    const explain: any = {}
+    const ctrl: any = { explain }
+    for await (const _item of UuidGeneratorSDK.test().Version4().stream('list', undefined, { ctrl })) { }
+    assert.deepStrictEqual(Object.keys(ctrl), ['explain'])
+    assert(explain === ctrl.explain && 0 < Object.keys(explain).length)
+  })
+
+  test('unexpected', async () => {
+    const hook = new FailHook()
+    const client = new UuidGeneratorSDK({ feature: { test: { active: true } }, extend: [hook] })
+    await assert.rejects(client.Version4().list(), /hook failed/)
+    assert(0 < hook.unexpected)
+
+    const fired = hook.unexpected
+    assert.strictEqual(await client.Version4().list(undefined, { throw: false }), undefined)
+    assert(fired < hook.unexpected)
+  })
+
+  test('validate', async (t) => {
+    if (null == (config as any).feature?.validate) {
+      t.skip('feature not present in this SDK: validate')
+      return
+    }
+    const client = UuidGeneratorSDK.test(undefined, { feature: { validate: { active: true } } })
+    await assert.rejects(client.Version4().load({"count":"x"} as any),
+      (err: any) => 'validate_failed' === err.code)
+  })
+
+
+
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.UUID_GENERATOR_TEST_LIVE
-    for (const op of ['list', 'load']) {
+    for (const op of ['list']) {
       if (!live && maybeSkipControl(t, 'entityOp', 'version_4.' + op, live)) return
     }
 
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{},"name":"version_4","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /generate/v4","source":"openapi3","version":2},"g":{},"k":"http","m":"GET","o":"/generate/v4","q":{},"r":{},"s":[{"lit":"generate"},{"lit":"v4"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"list"},"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /generate/v4/count/{count}","source":"openapi3","version":2},"g":{"params":[{"a":true,"ex":10,"k":"param","n":"count","or":"count","r":true,"t":"`$INTEGER`","index$":0}]},"k":"http","m":"GET","o":"/generate/v4/count/{count}","q":{"exist":["count"]},"r":{},"s":[{"lit":"generate"},{"lit":"v4"},{"lit":"count"},{"var":"count"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"version_4","name__orig":"version_4","Name":"Version4","name_":"version_4","name-":"version-4","NAME":"VERSION_4","index$":4}, {"active":true,"entity":"version_4","key$":"BasicVersion4Flow","kind":"basic","name":"BasicVersion4Flow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"version_4_ref01"}}],"index$":0},{"a":true,"d":{},"i":{"ref":"version_4_ref01","srcdatavar":"version_4_ref01_data","suffix":"_dt0"},"m":{"id":"version_401"},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-version_4_ref01"}}],"index$":1}]}, 'Version4', {"GET /generate/v4":{"protocol":"http","parameters":[]},"GET /generate/v4/count/{count}":{"protocol":"http","parameters":[{"name":"count","in":"path","required":true,"description":"Number of UUIDs to generate (1-100)","schema":{"type":"integer","minimum":1,"maximum":100,"example":10},"index$":0}]}})
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{},"name":"version_4","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /generate/v4","source":"openapi3","version":2},"g":{},"k":"http","m":"GET","o":"/generate/v4","q":{},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"generate"},{"lit":"v4"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"list"},"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /generate/v4/count/{count}","source":"openapi3","version":2},"g":{"params":[{"a":true,"ex":10,"k":"param","n":"count","or":"count","r":true,"t":"`$INTEGER`","index$":0}]},"k":"http","m":"GET","o":"/generate/v4/count/{count}","q":{"exist":["count"]},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"generate"},{"lit":"v4"},{"lit":"count"},{"var":"count"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"version_4","name__orig":"version_4","Name":"Version4","name_":"version_4","name-":"version-4","NAME":"VERSION_4","index$":4}, {"active":true,"entity":"version_4","key$":"BasicVersion4Flow","kind":"basic","name":"BasicVersion4Flow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"version_4_ref01"}}],"index$":0},{"a":false,"d":{},"i":{"ref":"version_4_ref01","srcdatavar":"version_4_ref01_data","suffix":"_dt0"},"m":{"id":"version_401"},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-version_4_ref01"}}],"unreachable":true}]}, 'Version4', {"GET /generate/v4":{"protocol":"http","parameters":[]},"GET /generate/v4/count/{count}":{"protocol":"http","parameters":[{"name":"count","in":"path","required":true,"description":"Number of UUIDs to generate (1-100)","schema":{"type":"integer","minimum":1,"maximum":100,"example":10},"index$":0}]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -68,11 +126,16 @@ describe('Version4Entity', async () => {
     const version_4_ref01_list = (await version_4_ref01_ent.list(version_4_ref01_match)).map((e: any) => e.data())
 
 
-
   })
 })
 
 
+
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true
 
 function basicSetup(extra?: any) {
   // TODO: fix test def options

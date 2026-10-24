@@ -54,6 +54,14 @@ const utility_1 = require("../../utility");
         const ent = testsdk.Decode();
         (0, node_assert_1.default)(null != ent);
     });
+    (0, node_test_1.test)('validate', async (t) => {
+        if (null == __1.config.feature?.validate) {
+            t.skip('feature not present in this SDK: validate');
+            return;
+        }
+        const client = __1.UuidGeneratorSDK.test(undefined, { feature: { validate: { active: true } } });
+        await node_assert_1.default.rejects(client.Decode().load({ "id": 1 }), (err) => 'validate_failed' === err.code);
+    });
     (0, node_test_1.test)('basic', async (t) => {
         const live = 'TRUE' === process.env.UUID_GENERATOR_TEST_LIVE;
         for (const op of ['load']) {
@@ -62,7 +70,7 @@ const utility_1 = require("../../utility");
         }
         const setup = basicSetup();
         if (setup.live) {
-            return (0, live_entity_1.runLiveEntity)(setup, { "active": true, "alias": { "field": {} }, "fields": { "decode": { "a": true, "h": "Decode", "n": "decode", "r": false, "t": "`$OBJECT`", "key$": "decode", "index$": 0 }, "encode": { "a": true, "h": "Encode", "n": "encode", "r": false, "t": "`$OBJECT`", "key$": "encode", "index$": 1 }, "id": { "a": true, "h": "Id", "n": "id", "r": false, "t": "`$STRING`", "key$": "id", "index$": 2 } }, "id": { "field": "id", "name": "id" }, "name": "decode", "op": { "load": { "input": "data", "name": "load", "points": [{ "a": true, "co": { "id": "GET /decode/{uuid}", "source": "openapi3", "version": 2 }, "g": { "params": [{ "a": true, "ex": "b01eb720-171a-11ea-b949-73c91bba743d", "k": "param", "n": "id", "or": "uuid", "r": true, "t": "`$STRING`", "index$": 0 }] }, "k": "http", "m": "GET", "o": "/decode/{uuid}", "q": { "exist": ["id"] }, "r": { "param": { "uuid": "id" } }, "s": [{ "lit": "decode" }, { "var": "id" }], "t": { "req": "`reqdata`", "res": "`body.decode`" }, "index$": 0 }], "key$": "load" } }, "relations": { "ancestors": [] }, "key$": "decode", "name__orig": "decode", "Name": "Decode", "name_": "decode", "name-": "decode", "NAME": "DECODE", "index$": 0 }, { "active": true, "entity": "decode", "key$": "BasicDecodeFlow", "kind": "basic", "name": "BasicDecodeFlow", "param": {}, "step": [{ "a": true, "d": {}, "i": { "ref": "decode_ref01", "srcdatavar": "decode_ref01_data", "suffix": "_dt0" }, "m": { "id": "decode01" }, "o": "load", "s": [], "v": [{ "apply": "TextFieldMark", "def": { "mark": "Mark01-decode_ref01" } }], "index$": 0 }] }, 'Decode', { "GET /decode/{uuid}": { "protocol": "http", "parameters": [{ "name": "uuid", "in": "path", "required": true, "description": "The UUID to decode", "schema": { "type": "string", "format": "uuid", "example": "b01eb720-171a-11ea-b949-73c91bba743d" }, "index$": 0 }] } });
+            return (0, live_entity_1.runLiveEntity)(setup, { "active": true, "alias": { "field": {} }, "fields": { "decode": { "a": true, "h": "Decode", "n": "decode", "r": false, "t": "`$OBJECT`", "key$": "decode", "index$": 0 }, "encode": { "a": true, "h": "Encode", "n": "encode", "r": false, "t": "`$OBJECT`", "key$": "encode", "index$": 1 }, "id": { "a": true, "h": "Id", "n": "id", "r": false, "t": "`$STRING`", "key$": "id", "index$": 2 } }, "id": { "field": "id", "name": "id" }, "name": "decode", "op": { "load": { "input": "data", "name": "load", "points": [{ "a": true, "co": { "id": "GET /decode/{uuid}", "source": "openapi3", "version": 2 }, "g": { "params": [{ "a": true, "ex": "b01eb720-171a-11ea-b949-73c91bba743d", "k": "param", "n": "id", "or": "uuid", "r": true, "t": "`$STRING`", "index$": 0 }] }, "k": "http", "m": "GET", "o": "/decode/{uuid}", "q": { "exist": ["id"] }, "r": { "param": { "uuid": "id" } }, "rs": { "kind": "json", "media": "application/json" }, "s": [{ "lit": "decode" }, { "var": "id" }], "t": { "req": "`reqdata`", "res": "`body.decode`" }, "index$": 0 }], "key$": "load" } }, "relations": { "ancestors": [] }, "key$": "decode", "name__orig": "decode", "Name": "Decode", "name_": "decode", "name-": "decode", "NAME": "DECODE", "index$": 0 }, { "active": true, "entity": "decode", "key$": "BasicDecodeFlow", "kind": "basic", "name": "BasicDecodeFlow", "param": {}, "step": [{ "a": true, "d": {}, "i": { "ref": "decode_ref01", "srcdatavar": "decode_ref01_data", "suffix": "_dt0" }, "m": { "id": "decode01" }, "o": "load", "s": [], "v": [{ "apply": "TextFieldMark", "def": { "mark": "Mark01-decode_ref01" } }], "index$": 0 }] }, 'Decode', { "GET /decode/{uuid}": { "protocol": "http", "parameters": [{ "name": "uuid", "in": "path", "required": true, "description": "The UUID to decode", "schema": { "type": "string", "format": "uuid", "example": "b01eb720-171a-11ea-b949-73c91bba743d" }, "index$": 0 }] } }, { strict: LIVE_STRICT, t });
         }
         const client = setup.client;
         const struct = setup.struct;
@@ -77,6 +85,11 @@ const utility_1 = require("../../utility");
         (0, node_assert_1.default)(decode_ref01_data_dt0.id === decode_ref01_data.id);
     });
 });
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true;
 function basicSetup(extra) {
     // TODO: fix test def options
     const options = {}; // null

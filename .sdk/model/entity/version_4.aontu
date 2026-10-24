@@ -17,6 +17,10 @@ main: kit: entity: version_4: {
           }
           m: "GET"
           o: "/generate/v4"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "generate"
@@ -59,6 +63,10 @@ main: kit: entity: version_4: {
             exist: [
               "count"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

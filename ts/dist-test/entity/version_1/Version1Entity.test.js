@@ -54,15 +54,62 @@ const utility_1 = require("../../utility");
         const ent = testsdk.Version1();
         (0, node_assert_1.default)(null != ent);
     });
+    class FailHook extends __1.BaseFeature {
+        name = 'failhook';
+        version = '0.0.1';
+        active = true;
+        unexpected = 0;
+        init() { }
+        PreSpec() { throw new Error('version_1 hook failed'); }
+        PreUnexpected() { this.unexpected++; }
+    }
+    (0, node_test_1.test)('stream-error', async () => {
+        const offline = { net: { offline: true } };
+        await node_assert_1.default.rejects(async () => {
+            for await (const _item of __1.UuidGeneratorSDK.test(offline).Version1().stream('list')) { }
+        }, /offline/);
+        for await (const _item of __1.UuidGeneratorSDK.test(offline).Version1()
+            .stream('list', undefined, { ctrl: { throw: false } })) { }
+        if (null != __1.config.feature?.rbac) {
+            const denied = __1.UuidGeneratorSDK.test(undefined, { feature: { rbac: { active: true, deny: true } } });
+            await node_assert_1.default.rejects(async () => {
+                for await (const _item of denied.Version1().stream('list')) { }
+            }, (err) => 'rbac_denied' === err.code);
+        }
+    });
+    (0, node_test_1.test)('stream-ctrl', async () => {
+        const explain = {};
+        const ctrl = { explain };
+        for await (const _item of __1.UuidGeneratorSDK.test().Version1().stream('list', undefined, { ctrl })) { }
+        node_assert_1.default.deepStrictEqual(Object.keys(ctrl), ['explain']);
+        (0, node_assert_1.default)(explain === ctrl.explain && 0 < Object.keys(explain).length);
+    });
+    (0, node_test_1.test)('unexpected', async () => {
+        const hook = new FailHook();
+        const client = new __1.UuidGeneratorSDK({ feature: { test: { active: true } }, extend: [hook] });
+        await node_assert_1.default.rejects(client.Version1().list(), /hook failed/);
+        (0, node_assert_1.default)(0 < hook.unexpected);
+        const fired = hook.unexpected;
+        node_assert_1.default.strictEqual(await client.Version1().list(undefined, { throw: false }), undefined);
+        (0, node_assert_1.default)(fired < hook.unexpected);
+    });
+    (0, node_test_1.test)('validate', async (t) => {
+        if (null == __1.config.feature?.validate) {
+            t.skip('feature not present in this SDK: validate');
+            return;
+        }
+        const client = __1.UuidGeneratorSDK.test(undefined, { feature: { validate: { active: true } } });
+        await node_assert_1.default.rejects(client.Version1().load({ "count": "x" }), (err) => 'validate_failed' === err.code);
+    });
     (0, node_test_1.test)('basic', async (t) => {
         const live = 'TRUE' === process.env.UUID_GENERATOR_TEST_LIVE;
-        for (const op of ['list', 'load']) {
+        for (const op of ['list']) {
             if (!live && (0, utility_1.maybeSkipControl)(t, 'entityOp', 'version_1.' + op, live))
                 return;
         }
         const setup = basicSetup();
         if (setup.live) {
-            return (0, live_entity_1.runLiveEntity)(setup, { "active": true, "alias": { "field": {} }, "fields": {}, "name": "version_1", "op": { "list": { "input": "data", "name": "list", "points": [{ "a": true, "co": { "id": "GET /generate/v1", "source": "openapi3", "version": 2 }, "g": {}, "k": "http", "m": "GET", "o": "/generate/v1", "q": {}, "r": {}, "s": [{ "lit": "generate" }, { "lit": "v1" }], "t": { "req": "`reqdata`", "res": "`body`" }, "index$": 0 }], "key$": "list" }, "load": { "input": "data", "name": "load", "points": [{ "a": true, "co": { "id": "GET /generate/v1/count/{count}", "source": "openapi3", "version": 2 }, "g": { "params": [{ "a": true, "ex": 10, "k": "param", "n": "count", "or": "count", "r": true, "t": "`$INTEGER`", "index$": 0 }] }, "k": "http", "m": "GET", "o": "/generate/v1/count/{count}", "q": { "exist": ["count"] }, "r": {}, "s": [{ "lit": "generate" }, { "lit": "v1" }, { "lit": "count" }, { "var": "count" }], "t": { "req": "`reqdata`", "res": "`body`" }, "index$": 0 }], "key$": "load" } }, "relations": { "ancestors": [] }, "key$": "version_1", "name__orig": "version_1", "Name": "Version1", "name_": "version_1", "name-": "version-1", "NAME": "VERSION_1", "index$": 2 }, { "active": true, "entity": "version_1", "key$": "BasicVersion1Flow", "kind": "basic", "name": "BasicVersion1Flow", "param": {}, "step": [{ "a": true, "d": {}, "i": {}, "m": {}, "o": "list", "s": [], "v": [{ "apply": "ItemExists", "def": { "ref": "version_1_ref01" } }], "index$": 0 }, { "a": true, "d": {}, "i": { "ref": "version_1_ref01", "srcdatavar": "version_1_ref01_data", "suffix": "_dt0" }, "m": { "id": "version_101" }, "o": "load", "s": [], "v": [{ "apply": "TextFieldMark", "def": { "mark": "Mark01-version_1_ref01" } }], "index$": 1 }] }, 'Version1', { "GET /generate/v1": { "protocol": "http", "parameters": [] }, "GET /generate/v1/count/{count}": { "protocol": "http", "parameters": [{ "name": "count", "in": "path", "required": true, "description": "Number of UUIDs to generate (1-100)", "schema": { "type": "integer", "minimum": 1, "maximum": 100, "example": 10 }, "index$": 0 }] } });
+            return (0, live_entity_1.runLiveEntity)(setup, { "active": true, "alias": { "field": {} }, "fields": {}, "name": "version_1", "op": { "list": { "input": "data", "name": "list", "points": [{ "a": true, "co": { "id": "GET /generate/v1", "source": "openapi3", "version": 2 }, "g": {}, "k": "http", "m": "GET", "o": "/generate/v1", "q": {}, "r": {}, "rs": { "kind": "json", "media": "application/json" }, "s": [{ "lit": "generate" }, { "lit": "v1" }], "t": { "req": "`reqdata`", "res": "`body`" }, "index$": 0 }], "key$": "list" }, "load": { "input": "data", "name": "load", "points": [{ "a": true, "co": { "id": "GET /generate/v1/count/{count}", "source": "openapi3", "version": 2 }, "g": { "params": [{ "a": true, "ex": 10, "k": "param", "n": "count", "or": "count", "r": true, "t": "`$INTEGER`", "index$": 0 }] }, "k": "http", "m": "GET", "o": "/generate/v1/count/{count}", "q": { "exist": ["count"] }, "r": {}, "rs": { "kind": "json", "media": "application/json" }, "s": [{ "lit": "generate" }, { "lit": "v1" }, { "lit": "count" }, { "var": "count" }], "t": { "req": "`reqdata`", "res": "`body`" }, "index$": 0 }], "key$": "load" } }, "relations": { "ancestors": [] }, "key$": "version_1", "name__orig": "version_1", "Name": "Version1", "name_": "version_1", "name-": "version-1", "NAME": "VERSION_1", "index$": 2 }, { "active": true, "entity": "version_1", "key$": "BasicVersion1Flow", "kind": "basic", "name": "BasicVersion1Flow", "param": {}, "step": [{ "a": true, "d": {}, "i": {}, "m": {}, "o": "list", "s": [], "v": [{ "apply": "ItemExists", "def": { "ref": "version_1_ref01" } }], "index$": 0 }, { "a": false, "d": {}, "i": { "ref": "version_1_ref01", "srcdatavar": "version_1_ref01_data", "suffix": "_dt0" }, "m": { "id": "version_101" }, "o": "load", "s": [], "v": [{ "apply": "TextFieldMark", "def": { "mark": "Mark01-version_1_ref01" } }], "unreachable": true }] }, 'Version1', { "GET /generate/v1": { "protocol": "http", "parameters": [] }, "GET /generate/v1/count/{count}": { "protocol": "http", "parameters": [{ "name": "count", "in": "path", "required": true, "description": "Number of UUIDs to generate (1-100)", "schema": { "type": "integer", "minimum": 1, "maximum": 100, "example": 10 }, "index$": 0 }] } }, { strict: LIVE_STRICT, t });
         }
         const client = setup.client;
         const struct = setup.struct;
@@ -75,6 +122,11 @@ const utility_1 = require("../../utility");
         const version_1_ref01_list = (await version_1_ref01_ent.list(version_1_ref01_match)).map((e) => e.data());
     });
 });
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true;
 function basicSetup(extra) {
     // TODO: fix test def options
     const options = {}; // null

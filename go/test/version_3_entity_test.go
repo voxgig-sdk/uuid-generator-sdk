@@ -15,6 +15,13 @@ import (
 	vs "github.com/voxgig-sdk/uuid-generator-sdk/go/utility/struct"
 )
 
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const version_3EntityLiveStrict = true
+
+
 func TestVersion3Entity(t *testing.T) {
 	t.Run("instance", func(t *testing.T) {
 		testsdk := sdk.TestSDK(nil, nil)
@@ -24,7 +31,21 @@ func TestVersion3Entity(t *testing.T) {
 		}
 	})
 
-	t.Run("basic", func(t *testing.T) {
+	t.Run("validate", func(t *testing.T) {
+		if !fhHasFeature("validate") {
+			t.Skip("feature not present in this SDK: validate")
+		}
+		client := sdk.TestSDK(nil, map[string]any{
+			"feature": map[string]any{"validate": map[string]any{"active": true}},
+		})
+		_, err := client.Version3(nil).Load(map[string]any{"name": 1, "namespace_id": "x"}, nil)
+		if sdkerr, ok := err.(*core.UuidGeneratorError); !ok || "validate_failed" != sdkerr.Code {
+			t.Fatalf("expected validate_failed, got %v", err)
+		}
+	})
+
+	t.Run("basic", func(tt *testing.T) {
+		var t testing.TB = tt
 		setup := version_3BasicSetup(nil)
 		// Per-op sdk-test-control.json skip — basic test exercises a flow
 		// with multiple ops; skipping any op skips the whole flow.
@@ -32,7 +53,7 @@ func TestVersion3Entity(t *testing.T) {
 		if setup.live {
 			_mode = "live"
 		}
-		for _, _op := range []string{"load"} {
+		for _, _op := range []string{} {
 			if _shouldSkip, _reason := isControlSkipped("entityOp", "version_3." + _op, _mode); _shouldSkip {
 				if _reason == "" {
 					_reason = "skipped via sdk-test-control.json"
@@ -41,14 +62,6 @@ func TestVersion3Entity(t *testing.T) {
 				return
 			}
 		}
-		// The basic flow consumes synthetic IDs from the fixture. In live mode
-		// without an *_ENTID env override, those IDs hit the live API and 4xx.
-		if setup.syntheticOnly {
-			t.Skip("live entity test uses synthetic IDs from fixture — set UUID_GENERATOR_TEST_VERSION_3_ENTID JSON to run live")
-			return
-		}
-		client := setup.client
-
 		// Bootstrap entity data from existing test data (no create step in flow).
 		version3Ref01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.version_3")))
 		var version3Ref01Data map[string]any
@@ -58,17 +71,6 @@ func TestVersion3Entity(t *testing.T) {
 		// Discard guards against Go's unused-var check when the flow's steps
 		// happen not to consume the bootstrap data (e.g. list-only flows).
 		_ = version3Ref01Data
-
-		// LOAD
-		version3Ref01Ent := client.Version3(nil)
-		version3Ref01MatchDt0 := map[string]any{}
-		version3Ref01DataDt0Loaded, err := version3Ref01Ent.Load(version3Ref01MatchDt0, nil)
-		if err != nil {
-			t.Fatalf("load failed: %v", err)
-		}
-		if version3Ref01DataDt0Loaded == nil {
-			t.Fatal("expected load result to be non-nil")
-		}
 
 	})
 }
@@ -98,7 +100,7 @@ func version_3BasicSetup(extra map[string]any) *entityTestSetup {
 
 	// Generate idmap via transform, matching TS pattern.
 	idmap, _ := vs.Transform(
-		[]any{"version_301", "version_302", "version_303", "namespace01"},
+		[]any{"version_301", "version_302", "version_303"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
 				"`$KEY`": "`$COPY`",
@@ -107,9 +109,8 @@ func version_3BasicSetup(extra map[string]any) *entityTestSetup {
 		},
 	)
 
-	// Detect ENTID env override before envOverride consumes it. When live
-	// mode is on without a real override, the basic test runs against synthetic
-	// IDs from the fixture and 4xx's. Surface this so the test can skip.
+	// Whether *_ENTID supplied the idmap, read before envOverride consumes it:
+	// without it, the ids a live flow binds are the fixture's synthetic ones.
 	entidEnvRaw := os.Getenv("UUID_GENERATOR_TEST_VERSION_3_ENTID")
 	idmapOverridden := entidEnvRaw != "" && strings.HasPrefix(strings.TrimSpace(entidEnvRaw), "{")
 

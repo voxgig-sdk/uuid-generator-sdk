@@ -311,6 +311,7 @@ initialiser
 [Cc][Oo][Uu][Nn][Tt]
 [Nn][Aa][Mm][Ee]
 [Nn][Aa][Mm][Ee][Ss][Pp][Aa][Cc][Ee]
+[Nn][Aa][Mm][Ee][Ss][Pp][Aa][Cc][Ee]_[Ii][Dd]
 [Tt][Hh][Ee]
 [Uu][Uu][Ii][Dd]
 [Gg][Ee][Nn][Ee][Rr][Aa][Tt][Oo][Rr]

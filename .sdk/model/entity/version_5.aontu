@@ -48,6 +48,10 @@ main: kit: entity: version_5: {
               namespace: "namespace_id"
             }
           }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "generate"

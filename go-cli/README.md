@@ -21,6 +21,7 @@ export UUID_GENERATOR_APIKEY=sk_live_xxx
 # 4. Each command line is ONE boru expression, run against the API:
 ./uuid-generator-cli load 1 decode            # {id:1} shorthand
 ./uuid-generator-cli load '{id:1}' decode       # explicit match map
+./uuid-generator-cli list timestamp_first
 
 # 5. Override the API base URL for a single call
 UUID_GENERATOR_BASE=https://api.example.com ./uuid-generator-cli load 1 decode
